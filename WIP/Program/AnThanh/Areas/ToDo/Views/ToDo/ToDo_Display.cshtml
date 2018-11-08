@@ -1,0 +1,219 @@
+﻿@using BusinessFacadeLayer.MemmoryBL;
+@using ObjInfo.Catalogue
+@{
+                /**/
+
+                Layout = "~/Views/Shared/_Layout.cshtml";
+                var lstStatus = new List<AllCodeInfo>();
+                //var lstStatus = Memory_BL.GetAllCodeByCdType("");
+}
+
+@try
+{
+    <div id="ContentTableTodo">
+        <div class="border mt-10">
+            <div class="title_register">
+                <span class="content_title content_title_register">DASH BOARD</span>
+            </div>
+            <div class="col-container-register">
+                <div class="content_register col">
+                    <div class="divCover">
+                        <div class="w-100">
+                            <div class="border-10">
+                                <div class="div-search-ad">
+                                    <div class="div-search-content">
+                                        <div>
+                                            <select class="w-20" id="status_todo">
+                                                @foreach (var item in lstStatus)
+                                                {
+                                                    <option value="@item.CdVal">@item.Description</option>
+                                                }
+                                            </select>
+
+                                            <input data-controlcondition="TRUE" type="text" id="txtKeySearch" class="inputLeftCombobox" style="border-left: none !important; border-right: none !important" maxlength="500" />
+                                            <button class="w-10 inputsearchcombobox" id="" data-controlcondition="TRUE" type="button" value="Tìm kiếm" onclick="SearchTodo(1,1)">Tìm kiếm</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="w-100">
+                            <div class="border-10" id="divTableEvent1">
+                                @Html.Partial("~/Areas/ToDo/Views/ToDo/_Partial_ToDo_Panner_Search.cshtml")
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <style>
+
+        .content_register {
+            background: #eaeaea;
+        }
+
+        .arrow_box {
+            position: relative;
+            background: #88b7d5;
+        }
+
+            .arrow_box:after, .arrow_box:before {
+                top: 100%;
+                left: 50%;
+                border: solid transparent;
+                content: " ";
+                height: 0;
+                width: 0;
+                position: absolute;
+                pointer-events: none;
+            }
+
+            .arrow_box:after {
+                border-color: rgba(136, 183, 213, 0);
+                border-top-color: #ffffff;
+                border-width: 10px;
+                margin-left: -10px;
+            }
+
+            .arrow_box:before {
+                border-color: rgba(194, 225, 245, 0);
+                border-top-color: #ffffff;
+                border-width: 10px;
+                margin-left: -10px;
+            }
+
+        .panel_search {
+            border-radius: 0px;
+            background: #ffffff;
+            color: #000;
+            padding-left: 10px;
+            line-height: 50px;
+            font-weight: bold
+        }
+
+        .panel_search_1 {
+            border-left: 8px solid #02961e;
+        }
+
+        .panel_search_2 {
+            border-left: 8px solid #021496;
+        }
+
+        .panel_search_3 {
+            border-left: 8px solid #f70000;
+        }
+
+        .status_todo option {
+            height: 30px;
+        }
+
+        .inputsearchcombobox {
+            height: 35px !important;
+            border-radius: 0px;
+            background: #02961e;
+            border: 1px solid #02961e;
+            color: #fff;
+        }
+
+        .inputLeftCombobox {
+            border-left: none !important;
+        }
+
+        input[type="text"], input[type="password"] {
+            font-size: 14px;
+            padding-left: 15px;
+            padding-right: 30px;
+            margin-bottom: 5px;
+        }
+
+        #cphMain_ctl00_password {
+            border: 1px solid #aaa;
+            border-left: none;
+            font-size: 14px;
+            height: 37px;
+        }
+
+        .img_info {
+            width: 50%;
+            float: left;
+            position: relative;
+        }
+
+
+        .form_chitiet {
+            position: absolute;
+            z-index: 1;
+            width: 98%;
+            height: 100px;
+            margin-top: 15%;
+            display: none;
+        }
+
+        .button_chitiet {
+            width: 100px;
+            text-align: center;
+            padding: 10px 15px;
+            background: #048613;
+            margin: 0 auto;
+            font-weight: bold;
+        }
+
+            .button_chitiet a {
+                color: #ffffff;
+            }
+
+        .label_chitiet {
+            color: #ffffff;
+            text-align: center;
+            width: 98%;
+            margin-top: 15px;
+        }
+    </style>
+
+    <script>
+        function jsPaging(page) {
+            SearchTodo(page, 0);
+        }
+        function SearchTodo(p_NumPage, p_type) {
+            try {
+                var p_keysearch;
+                var status_todo = $("#status_todo").val();
+                var txtKeySearch = $("#txtKeySearch").val();
+                //1. tìm theo tên event, theo sân , ngày tổ chức, trạng thái sự kiện, nhân viên tổ chức
+                p_keysearch = txtKeySearch + '|' + status_todo + '|';
+                $.ajax({
+                    type: 'POST',
+                    url: '/todo/todo/todo_search',
+                    dataType: "html",
+                    data: {
+                        keySearch: p_keysearch,
+                        currentPage: p_NumPage
+                    },
+                    async: true, cache: false, traditional: true,
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
+                    success: function (data) {
+                        $("#divTableEvent1").html(data);
+                    },
+                    complete: function () {
+                        CreateRollingWaitingIcon(false);
+                    }
+                });
+            } catch (ex) {
+                console.log(ex);
+            }
+        }
+    </script>
+}
+catch(Exception)
+{
+    //Ignored
+}
+

@@ -1,0 +1,184 @@
+﻿@using ObjInfo.Nation;
+@using ObjInfo.UserAndRole;
+@using AnThanh.Commons;
+@using ObjInfo.Catalogue
+@using BusinessFacadeLayer.MemmoryBL
+
+@{
+
+    List<AllCodeInfo> list = DataMemory.Get_AllCodeByCDTYPE("USER_TYPE");
+    ViewBag.Title = "Sửa";
+}
+@{
+    Au_GroupInfo au_group = new Au_GroupInfo();
+    if (ViewBag.AuGroup != null)
+    {
+        au_group = ViewBag.AuGroup;
+    }
+}
+
+<link href="~/Scripts/ComboCheckList/multiple-select.css" rel="stylesheet" />
+<script src="~/Scripts/ComboCheckList/jquery.multiple.select_new.js"></script>
+
+<style>
+    .ms-drop {
+        position: fixed;
+        width: 52.8% !important;
+        top: 332.766px !important;
+        left: 326px !important;
+    }
+
+    .ms-parent {
+        display: inline-block;
+        position: relative !important;
+        vertical-align: middle;
+    }
+
+    .ms-choice {
+        border-radius: 0px;
+    }
+</style>
+
+@try
+{
+    <div class="d-main">
+        <div class="" style="padding:5px 38px 27px 38px">
+            <form id="_FormRegistercarriers">
+                <div class="divCover">
+                    <div class="div-search-col">
+                        <div class="div-search-title-N">
+                            <span>Tên nhóm*</span>
+                        </div>
+
+                        <div class="div-search-ad">
+                            <div class="div-search-content">
+                                <div>
+                                    <input data-controlcondition="TRUE" type="text" id="txt_group_edit" class="input_search" maxlength="50" value="@au_group.Group_Name"/>
+                                    <input data-controlcondition="TRUE" type="text" id="txt_group_id_edit" class="input_search" maxlength="50" value="@au_group.Group_Id"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="div-search-col">
+                        <div class="div-search-title-N">
+                            <span>Loại nhóm*</span>
+                        </div>
+                        <div class="div-search-ad">
+                            <div class="div-search-content">
+                                <div>
+                                    <select id="type_group_edit">
+                                        @foreach (var item in list)
+                                        {
+                                            <option value="@item.CdVal">@item.Description</option>
+                                        }
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-search-col">
+                        <div class="div-search-title-N">
+                            <span>Ghi chú</span>
+                        </div>
+
+                        <div class="div-search-ad">
+                            <div class="div-search-content">
+                                <div>
+                                    <input data-controlcondition="TRUE" type="text" id="txt_note_edit" class="input_search" maxlength="100" value="@au_group.Description"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group-bottom">
+                    <input type="button" class="btn-default clsRegisterStocks" value="Chấp nhận" onclick="return Update();" style="margin-right:10px;" />
+                    <input type="button" class="btn-default" value="Thoát" onclick="Close()" style="width: auto;" />
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+
+        function Update() {
+            try {
+                // validate
+
+
+
+                //1. Mã
+                var txt_group_add = $("#txt_group_add").val().trim();
+                if (txt_group_add == "" || txt_group_add == null) {
+                    jError("Tên nhóm không được để trống!", "lỗi", function () {
+                        $("#txt_group_add").val('');
+                        $("#txt_group_add").focus();
+                    });
+                    return false;
+                }
+                //2. tên
+
+                // 3 type
+                var type_group_add = $("#type_group_add").val();
+                if (type_group_add == "" || type_group_add == null || type_group_add == 0) {
+                    jError("Loại nhóm không được để trống!", "lỗi", function () {
+                        $("#type_group_add").val('');
+                        $("#type_group_add").focus();
+                    });
+                    return false;
+                }
+
+                var txt_note_add = $("#txt_note_add").val().trim();
+
+                var Group_Id = $("#txt_group_id_edit").val().trim();                
+
+
+                var formData = new FormData();
+                formData.append('Au_GroupInfo.Group_Id', txt_group_id_edit);
+                formData.append('Au_GroupInfo.Group_Name', txt_group_add);
+                formData.append('Au_GroupInfo.User_Type', type_group_add);
+                formData.append('Au_GroupInfo.Description', txt_note_add);
+
+
+
+                $.ajax({
+                    url: '/AuGroup/Update/',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    async: true, cache: false, traditional: true,
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
+                    success: function (data) {
+                        CreateRollingWaitingIcon(false);
+                        Close();
+                        if (data.success == "-1") {
+                            jError("Lỗi check lại kết nối tới server", "Lỗi");
+                        } else if (data.success > 0) {
+                            jAlert('Thêm mới thành công!', "THÔNG BÁO", function () {
+                                Search(1, 1);
+                                return false;
+                            });
+                            return false;
+                        } else if (data.success == "-2") {
+                            jError('Thêm mới không thành công, do trùng mã nhà cung cấp!', "THÔNG BÁO", function () {
+                                return false;
+                            });
+                        }
+                    }
+                });
+
+            } catch (ex) {
+                console.log(ex);
+            }
+        }
+    </script>
+}
+catch (Exception ex)
+{
+
+}
+
+

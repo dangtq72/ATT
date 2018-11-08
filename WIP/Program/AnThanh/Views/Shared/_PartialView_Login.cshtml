@@ -1,0 +1,72 @@
+﻿<div class="d-main">
+    <div class="">
+        <form id="_FormLogin">
+            <div class="divCover divCover_popup" style="padding: 0px 40px;">
+                <div style="padding-top: 10px; padding-bottom: 10px; color:#505050;"><b>AN THÀNH</b></div>
+                <div class="div-search-ad">
+                    <div class="div-search-title" style="width: 125px;padding-left: 17px;">
+                        <div class="user-icon" style="width: 70px;padding-left: 21px;color:#505050;font-weight:bold">Tài khoản</div>
+                    </div>
+                    <div class="div-search-content">
+                        <div class="control-group">
+                            <div class="controls">
+                                <div class="input-prepend">
+                                    <input name="txtUser" id="_txtUserName" type="text" maxlength="50" placeholder="Tên đăng nhập">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="div-search-ad">
+                    <div class="div-search-title" style="width: 125px;padding-left: 17px;">
+                        <img src="../Content/Version2/icon/icon_pass.png" style="width:15px;float: left;margin-top: 7px;margin-left: 6px;" />
+                        <div style="width: 70px;padding-left: 0px;color:#505050;font-weight:bold">Mật khẩu</div>
+                    </div>
+                    <div class="div-search-content">
+                        <div class="control-group">
+                            <div class="input-prepend" style="margin-bottom: 6px;position: relative">
+                                <input name="txtPassword" style="height:31px;" type="password" id="txt_pass" placeholder="Mật khẩu">
+                            </div>
+
+                            <div class="input-prepend">
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="d-popup-footer">
+                <input type="button" class="btn-default" value="Đăng nhập" style="padding: 0px 34px; margin: -10px 20px 0px;" onclick="CheckLogin();" />
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    function CheckLogin() {
+        try {
+            var user_name = $("#_txtUserName").val().trim();
+            var txt_pass = $("#txt_pass").val().trim();
+            $.ajax({
+                type: 'POST',
+                url: '/Home/CheckUser/',
+                data: {
+                    user_name: user_name,
+                    password: txt_pass
+                }
+                 , async: false, cache: false, traditional: true,
+                success: function (data) {
+                    if (data.success > 0) {
+                        jAlert("Đăng nhập thành công", "Thông báo", function () {
+                            CloseDivAllStock('divWrapperViewPopup');
+                        });
+                    } else {
+                        jError('Sai tài khoản hoặc mật khẩu!', "lỗi");
+                    }
+                }
+            });
+        } catch (e) {
+
+        }
+    }
+</script>

@@ -1,0 +1,156 @@
+﻿@{
+     Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.title = "Quản lý người dùng";
+}
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 120px;
+    }
+</style>
+
+<div class="divCover divCover_Title">
+    <div class="d-nav">
+        <span class="fa fa-home"></span>&ensp;
+        Đại lý
+        <span>&ensp;>&ensp;</span>
+        <a href="/phan_hang/quan_ly_phan_hang" class="green">Quản lý người dùng</a>
+    </div>
+</div>
+<div class="col-container border">
+    <div class="d_left_content_TMDT col">
+        <div class="divCover content_left">
+            <div class="title_search">
+                <span class="content_title">TÌM KIẾM NGƯỜI DÙNG</span>
+                <span class="icon_title">
+                    <i class="fas fa-align-right"></i>
+                </span>
+            </div>
+            <div class="content_search">
+                <div class="div-search-title-N">
+                    <span>Tên hạng</span>
+                </div>
+                <div class="div-search-ad">
+                    <div class="div-search-content">
+                        <div>
+                            <input data-controlcondition="TRUE" type="text" id="txt_Name_search" class="input_search" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="div-search-btn">
+                <input class="btn-default search" data-controlcondition="TRUE" type="button" value="Tìm kiếm" onclick="User_search(1)" />
+                <input class="btn-default addnew" data-controlcondition="TRUE" type="button" value="Thêm mới người dùng" onclick="GotoViewAdd()" />
+            </div>
+        </div>
+    </div>
+    <div class="d_right_content_TMDT col">
+        <div class="divCover">
+            <div class="title_table">
+                <span class="content_title title-table">DANH SÁCH NGƯỜI DÙNG</span>
+            </div>
+            <div id="divDataUser" class="divDataTables">
+                @Html.Partial("~/Views/User/_Partial_List_User.cshtml")
+            </div>
+        </div>
+    </div>
+</div>
+<div id="divWrapperViewUser" class="divWrapperPopup" style="display: none;">
+    <div class="divPopup" id="divViewUser">
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+       
+    });
+    function GotoViewAdd() {
+        try {
+            $.ajax({
+                type: 'POST',
+                url: '/User/UserViewRegister/',
+                dataType: "html",
+                data: {
+                }
+                , async: false, cache: false, traditional: true,
+                success: function (data) {
+                    $("#divViewUser").html(data);
+                    ShowPopupDialog('divWrapperViewUser', 'THÔNG TIN NGƯỜI SỬ DỤNG', 800, 1000, 'txt_user_name');
+                    $("#btnExitPopups img").attr("src", '/images/icon/delete.png');
+                }
+            });
+        } catch (e) {
+            alert(e);
+        }
+    }
+    function GotoViewEdit(id) {
+        try {
+            $.ajax({
+                type: 'GET',
+                url: '/User/GotoViewUpdate/',
+                dataType: "html",
+                data: {
+                    Id: id
+                }
+                , async: false, cache: false, traditional: true,
+                success: function (data) {
+                    $("#divViewUser").html(data);
+                    ShowPopupDialog('divWrapperViewUser', 'CẬP NHẬT THÔNG TIN NGƯỜI SỬ DỤNG', 800, 1000, 'txt_user_name_edit');
+                    $("#btnExitPopups img").attr("src", '/images/icon/delete.png');
+                }
+            });
+        } catch (e) {
+            alert(e);
+        }
+    }
+    function User_search(p_NumPage) {
+        try {
+            var p_keysearch;
+            p_keysearch = $("#txt_Name_search").val();
+            $.ajax({
+                type: 'POST',
+                url: '/User/User_Search/',
+                data: {
+                    p_keysearch: p_keysearch,
+                    p_CurrentPage: p_NumPage
+                },
+                async: true, cache: false, traditional: true,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    $("#divDataUser").html(data);
+                }
+            });
+        } catch (e) {
+            alert(e);
+        }
+    }
+    function User_delete(id) {
+        try {
+            MessageBoxConfirm("Cảnh Báo", "Bạn chắc chắn muốn xóa thành viên này?", function () {
+                $.ajax({
+                    type: 'POST',
+                    url: '/User/User_Delete/',
+                    data: {
+                        user_id: id
+                    }
+                 , async: false, cache: false, traditional: true,
+                    success: function (data) {
+                        if (data > 0) {
+                            jAlert("Xóa thành viên thành công", "Thông báo", function () {
+                                User_search(1);
+                            });
+                        } else {
+                            jError('Có lỗi trong quá trình xóa thành viên!', "lỗi");
+                        }
+                    }
+                });
+            });
+        } catch (e) {
+            alert(e);
+        }
+    }
+</script>
+
+

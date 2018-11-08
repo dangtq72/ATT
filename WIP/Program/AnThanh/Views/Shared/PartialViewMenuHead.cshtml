@@ -1,0 +1,219 @@
+﻿<div class="d-menu-head">
+    @*<a class="hnx-icon" href="/Home"></a>*@
+    <div class="classMenu-pannel" style="float:left">
+        An Thành
+    </div>
+    <div class="classMenu-left">
+        <ul style="width:70%">
+                <li>
+                    <a href="#">Quản trị<span class="font-16"></span> </a>
+                    <div class="div-sub-menu">
+                        <div class="d-sub-mn-img">
+                            <img src="~/images/banner/golf.png" />
+                        </div>
+                        <div class="d-sub-mn-content">
+                            <a href="/User/UserDisplay"><span class="crice-icon">&#8226;</span>Quản lý người dùng</a>
+                          
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <a href="#">Danh mục<span class="font-16"></span> </a>
+                    <div class="div-sub-menu">
+                        <div class="d-sub-mn-img">
+                            <img src="~/images/banner/golf.png" />
+                        </div>
+                        <div class="d-sub-mn-content">
+                            <a href="/ModuleBaseData/Supplier/SupplierDisplay"><span class="crice-icon">&#8226;</span>Nhà cung cấp</a>
+                            <a href="/ModuleBaseData/Carriers/CarriersDisplay"><span class="crice-icon">&#8226;</span>Hãng tàu</a>
+                            <a href="/Location/LocationDisplay"><span class="crice-icon">&#8226;</span>Tỉnh/ Huyện</a>
+                        </div>
+                        <div class="d-sub-mn-content">
+                            <a href="/Customer/CustomerDisplay"><span class="crice-icon">&#8226;</span>Khách hàng</a>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <a href="#">Sự kiện<span class="font-16"></span> </a>
+                    <div class="div-sub-menu">
+                        <div class="d-sub-mn-img">
+                            <img src="~/images/banner/golf.png" />
+                        </div>
+                       
+                    </div>
+                </li>
+                <li>
+                    <a href="/Trang_Chu">Khách hàng <span class="font-16"></span> </a>
+                    <div class="div-sub-menu">
+                        <div class="d-sub-mn-img">
+                            <img src="~/images/banner/golf.png" />
+                        </div>
+                      
+                    </div>
+                </li>
+        </ul>
+        <div style="padding:10px;float:right;">
+        <input type="button" onclick="GotoViewLogin();" value="Đăng nhập"/></div>
+    </div>
+</div>
+<div id="divWrapperViewPopup" class="divWrapperPopup" style="display: none;">
+    <div class="divPopup" id="divViewPopup">
+    </div>
+</div>
+<script>
+    function GotoViewLogin() {
+        try {
+            $.ajax({
+                type: 'POST',
+                url: '/Home/GotoFormLogin/',
+                dataType: "html",
+                data: {
+                }
+                , async: false, cache: false, traditional: true,
+                success: function (data) {
+                    $("#divViewPopup").html(data);
+                    ShowPopupDialog('divWrapperViewPopup', 'ĐĂNG NHẬP', 400, 1000, '_txtUserName');
+                    $("#btnExitPopups img").attr("src", '/images/icon/delete.png');
+                }
+            });
+        } catch (e) {
+            alert(e);
+        }
+    }
+</script>
+<style>
+    #Notification_detal a:last-child {
+        border: none;
+    }
+
+    #menu_Notification {
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        top: 15px;
+        right: 35px;
+        padding: 0px 12px 25px 12px;
+    }
+
+        #menu_Notification img {
+            transform: rotate(40deg);
+            width: 17px;
+            margin-top: 15px;
+        }
+
+    #Notification_detal {
+        position: relative;
+        right: 268px;
+        width: 300px;
+        border: 1px solid #aaa;
+        top: 5px;
+        background: #ffffff;
+    }
+
+        #Notification_detal a {
+            display: table;
+            padding: 15px 0px;
+            border-bottom: 1px solid #aaa;
+            /* margin-left: 16px; */
+            width: 80%;
+            margin: auto;
+        }
+
+    #number_Notification {
+        width: 11px;
+        position: absolute;
+        top: 12px;
+        margin-left: 8px;
+        border: 1px solid red;
+        /* padding: 0px 0px 0px 0px; */
+        text-align: center;
+        z-index: 100;
+        border-radius: 18px;
+        font-size: 10px;
+        font-weight: bold;
+        color: white;
+        background: red;
+    }
+
+    .userName {
+        color: #030303;
+        text-align: center;
+        line-height: 44px;
+        text-transform: uppercase;
+        font-weight: bold;
+        padding-bottom: 11px;
+    }
+
+    #menu ul {
+        background: #fff;
+        list-style-type: none;
+        text-align: center;
+        padding: 0px;
+    }
+
+    #menu li {
+        position: relative;
+    }
+
+    .sub-menu {
+        position: absolute;
+        display: none;
+    }
+
+        .sub-menu a {
+            border-bottom: 1px solid #aaa;
+        }
+
+        .sub-menu li {
+            margin-left: 0 !important;
+        }
+
+    #menu li {
+        color: #f1f1f1;
+        display: inline-block;
+        width: 170px;
+        height: 40px;
+        line-height: 40px;
+    }
+
+    #menu a {
+        text-decoration: none;
+        color: #030303;
+        display: block;
+    }
+
+    .cls_menu_user:hover {
+        color: forestgreen !important;
+        font-style: italic;
+    }
+
+    .cls_menu_user {
+        color: #000000;
+        font-size: 16px;
+        text-align: left;
+        padding-left: 30px;
+    }
+
+    ul li {
+        list-style-type: none;
+    }
+
+    .triangle_Down {
+        border-left: 7px solid transparent;
+        border-right: 7px solid transparent;
+        border-top: 7px solid #ffffff;
+        margin-top: 8px;
+        width: 0px;
+        margin-left: 3px;
+    }
+
+    .triangle_Down01 {
+        border-left: 7px solid transparent;
+        border-right: 7px solid transparent;
+        border-top: 7px solid #ffffff;
+        margin-top: 32px;
+        width: 0px;
+        margin-left: 131px;
+    }
+</style>
+

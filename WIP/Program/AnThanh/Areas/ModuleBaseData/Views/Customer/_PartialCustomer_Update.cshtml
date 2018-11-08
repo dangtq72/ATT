@@ -1,0 +1,208 @@
+﻿@using ObjInfo.ModuleBaseData;
+@model CustomerInfo
+@try
+{
+    <input  type="hidden" id="txt_customer_id" value="@Model.ID"/>
+    <div class="d-main">
+        <div class="" style="padding:5px 38px 27px 38px">
+            <form id="_FormUpdateCustomer">
+                <div class="divCover">
+                    <div class="div-search-col">
+                        <div class="div-search-title-N">
+                            <span>Mã khách hàng*</span>
+                        </div>
+
+                        <div class="div-search-ad">
+                            <div class="div-search-content">
+                                <div>
+                                    <input data-controlcondition="TRUE" type="text" id="txt_customer_code_edit" value="@Model.Customer_Code" class="input_search" maxlength="50" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-search-col">
+                        <div class="div-search-col floatleft">
+                            <div class="div-search-title-N">
+                                <span>Tên khách hàng*</span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <input data-controlcondition="TRUE" type="text" id="txt_customer_name_edit" value="@Model.Customer_Name" class="input_search" maxlength="200" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="div-search-col-50 floatright width49">
+                            <div class="div-search-title-N">
+                                <span>Điện thoại*</span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <input data-controlcondition="TRUE" type="text" id="txt_phone_edit" value="@Model.Phone" class="input_search" maxlength="50" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-search-col-2">
+                        <div class="div-search-col floatleft">
+                            <div class="div-search-title-N">
+                                <span>Fax</span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <input data-controlcondition="TRUE" type="text" value="@Model.Fax" id="txt_fax_edit" class="input_search" maxlength="50" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="div-search-col-50 floatright width49">
+                            <div class="div-search-title-N">
+                                <span>Email*</span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <input data-controlcondition="TRUE" type="text" value="@Model.Email" id="txt_email_edit" class="input_search" maxlength="50" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-search-col">
+                        <div class="div-search-title-N">
+                            <span>Ghi chú</span>
+                        </div>
+                        <div class="div-search-ad">
+                            <div class="div-search-content">
+                                <div>
+                                    <input data-controlcondition="TRUE" type="text" id="txt_note_edit" value="@Model.Notes" class="input_search" maxlength="500" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group-bottom">
+                    <input type="button" class="btn-default clsRegisterStocks" value="Chấp nhận" onclick="update_customer();" style="margin-right:10px;" />
+                    <input type="button" class="btn-default" value="Thoát" onclick="close_popup();" style="width: auto;" />
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        var txt_customer_code_edit = "";
+        var txt_customer_name_edit = "";
+        var txt_note_edit = "";
+        var txt_phone_edit = "";
+        var txt_email_edit = "";
+        var txt_fax_edit = "";
+        var txt_customer_id = "";
+        function validate_customer_update() {
+            try {
+                txt_customer_code_edit = $("#txt_customer_code_edit").val().trim();
+                txt_customer_name_edit = $("#txt_customer_name_edit").val().trim();
+                txt_note_edit = $("#txt_note_edit").val().trim();
+                txt_phone_edit = $("#txt_phone_edit").val().trim();
+                txt_email_edit = $("#txt_email_edit").val().trim();
+                txt_fax_edit = $("#txt_fax_edit").val().trim();
+                txt_customer_id = $("#txt_customer_id").val();
+                if (txt_customer_code_edit == "") {
+                    jError("Mã khách hàng không được để trống!", "Lỗi", function () {
+                        $("#txt_customer_code_edit").val('');
+                        $("#txt_customer_code_edit").focus();
+                        return false;
+                    });
+
+                };
+                if (txt_customer_name_edit == "") {
+                    jError("Tên khách hàng không được để trống!", "Lỗi", function () {
+                        $("#txt_customer_name_edit").val('');
+                        $("#txt_customer_name_edit").focus();
+
+                    });
+                    return false;
+                };
+                if (txt_phone_edit == "") {
+                    jError("Số điện thoại không được để trống!", "Lỗi", function () {
+                        $("#txt_phone_edit").val('');
+                        $("#txt_phone_edit").focus();
+                    });
+                    return false;
+                };
+                if (validateTel(txt_phone_edit) == false) {
+                    jError("Số điện thoại không đúng định dạng!", "Lỗi", function () {
+                        $("#txt_phone_edit").focus();
+                    });
+                    return false;
+                };
+                if (txt_email_edit == "") {
+                    jError("Email không được để trống!", "Lỗi", function () {
+                        $("#txt_email_edit").val('');
+                        $("#txt_email_edit").focus();
+                    });
+                    return false;
+                };
+                if (!IsvalidEmail(txt_email_edit)) {
+                    jError("Email không đúng định dạng!", "Lỗi", function () {
+                        $("#txt_email_edit").val('');
+                        $("#txt_email_edit").focus();
+                    });
+                    return false;
+                }
+                return true;
+            } catch (ex) {
+                alert(ex);
+            }
+        }
+        function collectDataToUpdateCustomer(formData) {
+            formData.append('Obj_Info.ID', txt_customer_id);
+            formData.append('Obj_Info.Customer_Code', txt_customer_code_edit);
+            formData.append('Obj_Info.Customer_Name', txt_customer_name_edit);
+            formData.append('Obj_Info.Notes', txt_note_edit);
+            formData.append('Obj_Info.Phone', txt_phone_edit);
+            formData.append('Obj_Info.Fax', txt_fax_edit);
+            formData.append('Obj_Info.Email', txt_email_edit);
+        }
+        function update_customer() {
+            try {
+                if (validate_customer_update()) {
+                    var formData = new FormData();
+                    collectDataToUpdateCustomer(formData);
+                    e = window.event || e;
+                    e.preventDefault();
+                    $.ajax({
+                        url: "/Customer/CustomerUpdate/",
+                        type: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        traditional: true,
+                        async: false,
+                        headers: { "cache-control": "no-cache" },
+                        success: function (data) {
+                            if (data == -1) {
+                                jError("Cập nhật thất bại");
+                                return false;
+                            }
+                            else {
+                                CloseDivAllStock('divWrapperViewCustomer');
+                                jAlert('Cập nhật thành công!', 'THÔNG BÁO', function () {
+                                    Customer_search(1);
+                                });
+                            }
+                        }
+                    })
+                }
+            } catch (e) {
+                alert(e);
+            }
+        }
+    </script>
+}
+catch (Exception ex)
+{
+
+}

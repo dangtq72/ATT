@@ -1,0 +1,300 @@
+﻿@using ObjInfo.Nation;
+@using AnThanh.Commons;
+@using ObjInfo.ModuleBaseData;
+@{
+    List<NationInfo> _listNation = DataMemory.GetNation();
+    ViewBag.Title = "Thêm mới";
+}
+@{
+    CarriersInfo carriers = new CarriersInfo();
+    if (ViewBag.carriers != null)
+    {
+        carriers = ViewBag.carriers;
+    }
+}
+
+<link href="~/Scripts/ComboCheckList/multiple-select.css" rel="stylesheet" />
+<script src="~/Scripts/ComboCheckList/jquery.multiple.select_new.js"></script>
+
+<style>
+    .ms-drop {
+        position: fixed;
+        width: 52.8% !important;
+        top: 332.766px !important;
+        left: 326px !important;
+    }
+
+    .ms-parent {
+        display: inline-block;
+        position: relative !important;
+        vertical-align: middle;
+    }
+
+    .ms-choice {
+        border-radius: 0px;
+    }
+</style>
+
+@try
+{
+    <div class="d-main">
+        <div class="" style="padding:5px 38px 27px 38px">
+            <form id="_FormRegistercarriers">
+                <div class="divCover">
+                    <div class="div-search-col">
+                        <div class="div-search-title-N">
+                            <span>Mã hãng tàu*</span>
+                        </div>
+
+                        <input id="txt_id_edit" value="@carriers.Id" class="display-none" />
+                        <div class="div-search-ad">
+                            <div class="div-search-content">
+                                <div>
+                                    <input data-controlcondition="TRUE" type="text" id="txt_carriers_code_edit" class="input_search" maxlength="100" value="@carriers.Code" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-search-col">
+                        <div class="div-search-title-N">
+                            <span>Tên hãng tàu*</span>
+                        </div>
+                        <div class="div-search-ad">
+                            <div class="div-search-content">
+                                <div>
+                                    <input data-controlcondition="TRUE" type="text" id="txt_name_edit" class="input_search" maxlength="500" value="@carriers.Name" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-search-col">
+                        <div class="div-search-title-N">
+                            <span>Quốc gia*</span>
+                        </div>
+                        <div class="div-search-ad">
+                            <div class="div-search-content">
+                                <div>
+                                    <select id="Nation_edit">
+                                        @foreach (var item in _listNation)
+                                        {
+                                            if (item.nationality_id == carriers.Nation)
+                                            {
+                                                <option value="@item.nationality_id" selected="selected">@item.name</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@item.nationality_id">@item.name</option>
+                                            }
+
+                                        }
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-search-col-2">
+                        <div class="div-search-col floatleft">
+                            <div class="div-search-title-N">
+                                <span>Số điện thoại*</span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <input data-controlcondition="TRUE" type="text" id="phone_edit" class="input_search" maxlength="50" value="@carriers.Phone" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="div-search-col-50 floatright width49">
+                            <div class="div-search-title-N">
+                                <span>Số Fax</span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <input data-controlcondition="TRUE" type="text" id="faxedit" class="input_search" maxlength="50" value="@carriers.Fax" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-search-col-2">
+                        <div class="div-search-col floatleft">
+                            <div class="div-search-title-N">
+                                <span>Email</span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <input data-controlcondition="TRUE" type="text" id="email_edit" class="input_search" maxlength="50" value="@carriers.Email" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="div-search-col-50 floatright width49">
+                            <div class="div-search-title-N">
+                                <span>Website</span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <input data-controlcondition="TRUE" type="text" id="website_edit" class="input_search" maxlength="50" value="@carriers.Website" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-search-col">
+                        <div class="div-search-title-N">
+                            <span>Ghi chú</span>
+                        </div>
+
+                        <div class="div-search-ad">
+                            <div class="div-search-content">
+                                <div>
+                                    <input data-controlcondition="TRUE" type="text" id="txt_note_edit" class="input_search" maxlength="500" value="@carriers.Notes" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group-bottom">
+                    <input type="button" class="btn-default clsRegisterStocks" value="Chấp nhận" onclick="return Update();" style="margin-right:10px;" />
+                    <input type="button" class="btn-default" value="Thoát" onclick="Close()" style="width: auto;" />
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        $('#Nation_edit').multipleSelect({
+            width: '100%', filter: true, isdatastring: true, single: true
+        });
+        function Update() {
+            try {
+                // validate
+                //1. Mã
+                var txt_carriers_code_edit = $("#txt_carriers_code_edit").val().trim();
+                if (txt_carriers_code_edit == "" || txt_carriers_code_edit == null) {
+                    jError("Mã hãng tàu không được để trống!", "lỗi", function () {
+                        $("#txt_carriers_code_edit").val('');
+                        $("#txt_carriers_code_edit").focus();
+                    });
+                    return false;
+                }
+                //2. tên
+                var txt_name_edit = $("#txt_name_edit").val().trim();
+                if (txt_name_edit == "" || txt_name_edit == null) {
+                    jError("Tên hãng tàu không được để trống!", "lỗi", function () {
+                        $("#txt_name_edit").val('');
+                        $("#txt_name_edit").focus();
+                    });
+                    return false;
+                }
+                // 3 quôc gia
+                var Nation_edit = $("#Nation_edit").val().trim();
+                if (Nation_edit == "" || Nation_edit == null || Nation_edit == 0) {
+                    jError("Quốc gia không được để trống!", "lỗi", function () {
+                        $("#Nation_edit").val('');
+                        $("#Nation_edit").focus();
+                    });
+                    return false;
+                }
+                // 3 quôc gia
+                var phone_edit = $("#phone_edit").val().trim();
+                if (phone_edit == "" || phone_edit == null || phone_edit == 0) {
+                    jError("Số điện thoại không được để trống!", "lỗi", function () {
+                        $("#phone_edit").val('');
+                        $("#phone_edit").focus();
+                    });
+                    return false;
+                }
+                //
+                if (validateTel(phone_edit) == false) {
+                    jError("Số điện thoại không đúng định dạng!", "Lỗi", function () {
+                        $("#phone_edit").focus();
+                    });
+                    return false;
+                }
+                var txt_note_edit = $("#txt_note_edit").val();
+                var website_edit = $("#website_edit").val();
+                var fax_edit = $("#fax_edit").val();
+                var email_edit = $("#email_edit").val();
+                var txt_id_edit = $("#txt_id_edit").val();
+
+                if (email_edit != "" && email_edit != null) {
+                    alert("e");
+                    if (!IsvalidEmail(email_edit)) {
+                        $('#email_edit').focus();
+
+                        jError('Email không đúng định dạng!');
+                        return false;
+                    }
+                }
+
+                if (fax_edit != "" && fax_edit != null) {
+                    alert("e");
+                    if (validateTel(fax_edit) == false) {
+                        jError("Số Fax không đúng định dạng!", "Lỗi", function () {
+                            $("#fax_edit").focus();
+                        });
+                        return false;
+                    }
+                }
+
+
+                var formData = new FormData();
+                formData.append('carriersinfo.Id', txt_id_edit);
+                formData.append('carriersinfo.Code', txt_carriers_code_edit);
+                formData.append('carriersinfo.Name', txt_name_edit);
+                formData.append('carriersinfo.Notes', txt_note_edit);
+                formData.append('carriersinfo.Phone', phone_edit);
+                formData.append('carriersinfo.Fax', fax_edit);
+                formData.append('carriersinfo.Email', email_edit);
+                formData.append('carriersinfo.Website', website_edit);
+                formData.append('carriersinfo.Nation', Nation_edit);
+
+
+                $.ajax({
+                    url: '/carriers/Edit',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    async: true, cache: false, traditional: true,
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
+                    success: function (data) {
+                        CreateRollingWaitingIcon(false);
+
+                        if (data.success == "-1") {
+                            jError("Lỗi check lại kết nối tới server", "Lỗi");
+                        } else if (data.success == "0") {
+                            jAlert('Sửa thông tin thành công!', "THÔNG BÁO", function () {
+                                Close();
+                                Search(1, 1);
+                                return false;
+                            });
+                            return false;
+                        } else if (data.success == "-2") {
+                            jError('Sửa không thành công, do trùng mã nhà cung cấp!', "THÔNG BÁO", function () {
+                                $("#txt_carriers_code_edit").focus();
+                                return false;
+                            });
+                        }
+                    }
+                });
+
+            } catch (ex) {
+                console.log(ex);
+            }
+        }
+    </script>
+}
+catch (Exception ex)
+{
+
+}
+
+

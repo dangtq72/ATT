@@ -1,0 +1,54 @@
+/* [ -- Master Stylesheet -- ] */
+/* ##################################################
+
+:: Template Name: South - Real Estate Agency Template
+:: Author: Colorlib
+:: Author URL: https://colorlib.com
+:: Version: 1.0
+:: Created: 15 April 2018
+:: Last Updated: 25 April 2018
+
+################################################## */
+/* ##### Index of Stylesheet #####
+
+:: 1.0 Import Fonts 
+:: 2.0 Import All CSS
+:: 3.0 Base CSS
+:: 4.0 Preloader Area CSS
+:: 5.0 Scroll Up Area CSS
+:: 6.0 Section Heading Area CSS
+:: 7.0 South Button CSS
+:: 8.0 Header Area CSS
+:: 9.0 Welcome Area CSS
+:: 10.0 Advanced Search Area
+:: 11.0 Single Property Area CSS
+:: 12.0 Testimonials Area CSS
+:: 13.0 Editor Area CSS
+:: 14.0 Call to Action CSS
+:: 15.0 Footer Area CSS
+:: 16.0 Breadcumb Area CSS
+:: 17.0 About Us Area CSS
+:: 18.0 Team Member Area CSS
+:: 19.0 Listings Area CSS
+:: 20.0 Blog Area CSS 
+:: 21.0 Contact Area CSS
+:: 22.0 Shortcode Area CSS
+
+##### Index of Stylesheet ##### /*
+
+/* :: 1.0 Import Fonts */
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700");
+/* :: 2.0 Import All CSS */
+@import url(animate.css);
+@import url(owl.carousel.css);
+@import url(classy-nav.min.css);
+@import url(magnific-popup.css);
+@import url(font-awesome.min.css);
+@import url(themify-icons.css);
+@import url(nice-select.css);
+
+.nice-select .list {
+    left: 0 !important;
+    right: 0 !important;
+    border-radius: 0;
+}

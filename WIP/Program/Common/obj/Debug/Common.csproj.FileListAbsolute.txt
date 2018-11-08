@@ -1,0 +1,5 @@
+C:\Users\OS-WIN10\Desktop\AnthanhProject\AnThanh\Common\bin\Debug\Common.dll
+C:\Users\OS-WIN10\Desktop\AnthanhProject\AnThanh\Common\bin\Debug\Common.pdb
+C:\Users\OS-WIN10\Desktop\AnthanhProject\AnThanh\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+C:\Users\OS-WIN10\Desktop\AnthanhProject\AnThanh\Common\obj\Debug\Common.dll
+C:\Users\OS-WIN10\Desktop\AnthanhProject\AnThanh\Common\obj\Debug\Common.pdb

@@ -1,0 +1,57 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Dịch vụ";
+}
+
+<div class="divCover divCover_Title">
+    <div class="d-nav">
+        <span class="fa fa-home"></span>&ensp;
+        Quản lý danh mục
+        <span>&ensp;>&ensp;</span>
+        <a href="/Service/ServiceDisplay" class="green">Dịch vụ</a>
+    </div>
+</div>
+<div class="col-container border">
+    <div class="d_left_content_TMDT col">
+        <div class="divCover content_left">
+            <div class="title_search">
+                <span class="content_title">TÌM KIẾM DỊCH VỤ</span>
+                <span class="icon_title">
+                    <i class="fas fa-align-right"></i>
+                </span>
+            </div>
+            <div class="content_search">
+                <div class="div-search-title-N">
+                    <span>Tên dịch vụ</span>
+                </div>
+                <div class="div-search-ad">
+                    <div class="div-search-content">
+                        <div>
+                            <input data-controlcondition="TRUE" type="text" id="txt_service_name" class="input_search" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-btn">
+                <input class="btn-default search" data-controlcondition="TRUE" type="button" value="Tìm kiếm" />
+                <input class="btn-default addnew" data-controlcondition="TRUE" type="button" value="Thêm mới dịch vụ"/>
+            </div>
+        </div>
+    </div>
+    <div class="d_right_content_TMDT col">
+        <div class="divCover">
+            <div class="title_table">
+                <span class="content_title title-table">DANH SÁCH DỊCH VỤ</span>
+            </div>
+            <div id="divDataRank" class="divDataTables">
+                @Html.Partial("~/Views/User/_Partial_List_User.cshtml")
+            </div>
+        </div>
+    </div>
+</div>
+<div id="divWrapperViewService" class="divWrapperPopup" style="display: none;">
+    <div class="divPopup" id="divViewService">
+    </div>
+</div>
+

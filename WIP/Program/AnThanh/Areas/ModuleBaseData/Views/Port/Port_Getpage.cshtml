@@ -1,0 +1,367 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.title = "Quản lý cảng";
+}
+<script src="~/Content/js/nvs.jquery.validate.data.js"></script>
+<div class="divCover divCover_Title">
+    <div class="d-nav">
+        <span class="fa fa-home"></span>&ensp;
+        Quản lý
+        <span>&ensp;>&ensp;</span>
+        <a href="~/ModuleBaseData/Port/Port_Getpage" class="green">Quản lý cảng</a>
+    </div>
+</div>
+<div class="col-container border">
+    <div class="d_left_content_TMDT col">
+        <div class="divCover content_left">
+            <div class="title_search">
+                <span class="content_title">TÌM KIẾM CẢNG</span>
+                <span class="icon_title">
+                    <i class="fas fa-align-right"></i>
+                </span>
+            </div>
+            <div class="content_search">
+                <div class="div-search-title-N">
+                    <span>Tên cảng</span>
+                </div>
+                <div class="div-search-ad">
+                    <div class="div-search-content">
+                        <div>
+                            <input data-controlcondition="TRUE" type="text" id="txt_Port_Text" class="input_search" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-btn">
+                <input class="btn-default search" data-controlcondition="TRUE" type="button" value="Tìm kiếm" onclick="Port_Search(1, 1)" />
+                <input class="btn-default addnew" data-controlcondition="TRUE" type="button" value="Thêm mới sản phẩm" onclick="Port_GetView_Insert()" />
+            </div>
+        </div>
+    </div>
+    <div class="d_right_content_TMDT col">
+        <div class="divCover">
+            <div class="title_table">
+                <span class="content_title title-table">DANH SÁCH CẢNG </span>
+                <a style="margin-left:400px;text-decoration:underline;" onclick="GotoViewImport();">Import danh sách</a>
+            </div>
+            <div id="divTable" class="divDataTables">
+                @Html.Partial("~/Areas/ModuleBaseData/Views/Port/_Port_List.cshtml")
+            </div>
+        </div>
+    </div>
+</div>
+<div id="divViewPort" class="divWrapperPopup" style="display: none;">
+
+</div>
+<script type="text/javascript">
+    var _frm = new FormData();
+    function Port_GetView_Insert() {
+        try {
+            $.ajax({
+                url: "/ModuleBaseData/Port/Port_View_Insert",
+                type: 'GET',
+                data: {  },
+                async: true, cache: false, traditional: false,
+                success: function (data) {
+                    var _flg = data['redirect'];
+                    if (_flg != undefined && _flg != "") {
+                        window.location = _flg;
+                    } else {
+                        $("#divViewPort").html(data);
+                        ShowPopupDialog("divViewPort", "Thêm mới cảng", 700, 0);
+                    }
+                },
+                error: function () {
+                }
+            });
+        } catch (e) {
+            nvsError(null, "Lỗi thao tác !");
+            return false;
+        }
+    }
+    function Port_GetView_Update(p_port_id) {
+        try {
+            $.ajax({
+                url: "/ModuleBaseData/Port/Port_View_Update",
+                type: 'GET',
+                data: { _portId: p_port_id },
+                async: false, cache: false, traditional: false,
+                success: function (data) {
+                    var _flg = data['redirect'];
+                    if (_flg != undefined && _flg != "") {
+                        window.location = _flg;
+                    } else {
+                        $("#divViewPort").html(data);
+                        ShowPopupDialog("divViewPort", "Sửa thông tin cảng", 700, 0);
+                    }
+                },
+                error: function () {
+                }
+            });
+        } catch (e) {
+            nvsError(null, "Lỗi thao tác !");
+            return false;
+        }
+    }
+    function Port_Search(_isSearch, _currentPage) {
+        try {
+            // gán các giá trị mặc định
+            _isSearch = _isSearch || 0;
+            _currentPage = _currentPage || 1;
+
+
+            // lấy cái điều kiện sort or search
+            var p_RecordPage = $("#sltRecordPage").val() || 0;
+            var p_OrderBy = "";
+            var p_OrderType = "";
+            var p_ProductText = "";
+
+
+            //-------- nếu có giá trị search thì lấy
+            //=------- cái else gán gt search từ chỗ nào đó qua mảng(chưa hiểu chỗ này cho lắm )
+            if (_isSearch == 1) {
+                p_port_text = $("#txt_Product_Text").val();
+            }
+            $.ajax({
+                //url: "/ModuleProduct/Mark/Search_Page_Mark",
+                url: "/ModuleBaseData/Port/Port_Search",
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({
+                    _productText: p_port_text, _recordpage: p_RecordPage, _currentpage: _currentPage
+                }),
+                async: true, cache: false, traditional: true,
+                success: function (data) {
+                    var _flag = data['redirect'];
+                    if (_flag != undefined && _flag != "") {
+                        window.location = _flag;
+                    } else if (data != null) {
+                        $("#divTable").html(data);
+                    } else {
+                        nvsError(null, "Lỗi kết nối tới server !");
+                        return false;
+                    };
+                },
+                error: function () {
+                }
+            });
+        } catch (e) {
+            nvsError(null, "Lỗi thao tác !");
+            return false;
+        }
+    }
+    function Port_Insert() {
+        try {
+            e = window.event || e;
+            e.preventDefault();
+            if (Port_CheckValidate() == false) {
+                return false;
+            }
+            $.ajax({
+                url: "/ModuleBaseData/Port/Port_Insert",
+                type: "POST",
+                enctype: "multipart/form-data",
+                processData: false, contentType: false,
+                data: _frm,
+                success: function (data) {
+                    var _flag = data['redirect'];
+                    if (_flag != undefined && _flag != "") {
+                        window.location = _flag;
+                    } else if (data.success >= 0) {
+                        jAlert("Thêm mới cảng thành công!", "THÔNG BÁO", function () {
+                            CloseDivAllStock('divViewPort');
+                            Port_Search(1, 1);
+                        });
+                    } else {
+                        nvsError(null, "Lỗi kết nối tới server !");
+                        return false;
+                    };
+                },
+                error: function () {
+                },
+            });
+        } catch (e) {
+            nvsError(null, "Lỗi thao tác !");
+            return false;
+        }
+    };
+    function Port_Update(p_Port_Id) {
+        try {
+            e = window.event || e;
+            e.preventDefault();
+            if (Port_CheckValidate() == false) {
+                return false;
+            }
+            _frm.append("Id", p_Port_Id);
+            $.ajax({
+                url: "/ModuleBaseData/Port/Port_Update",
+                type: "POST",
+                enctype: "multipart/form-data",
+                processData: false, contentType: false,
+                data: _frm,
+                success: function (data) {
+                    var _flag = data['redirect'];
+                    if (_flag != undefined && _flag != "") {
+                        window.location = _flag;
+                    } else if (data.success >= 0) {
+                        jAlert("Sửa thông tin cảng thành công!", "THÔNG BÁO", function () {
+                            CloseDivAllStock('divViewPort');
+                            Port_Search(1, 1);
+                        });
+                    } else {
+                        nvsError(null, "Lỗi kết nối tới server !");
+                        return false;
+                    };
+                },
+                error: function () {
+                },
+            });
+        } catch (e) {
+            nvsError(null, "Lỗi thao tác !");
+            return false;
+        }
+    };
+    function Port_CheckValidate() {
+        var p_Port_Code = $("#txtPort_Code").val().trim();
+        var p_Port_Name = $("#txtPort_Name").val().trim();
+        
+        var p_Port_Type = $("#sl_PortType").val();
+        var p_Note = $("#txtContent").val().trim();
+        if (isEmpty(p_Port_Code)) {
+            jError("Mã cảng không được để trống!", "Lỗi", function () {
+                $("#txtPort_Code").focus().val("");
+            });
+            return false;
+        }
+        if (isEmpty(p_Port_Name)) {
+            jError("Tên cảng không được để trống!", "Lỗi", function () {
+                $("#txtPort_Name").focus().val("");
+            });
+            return false;
+        
+        //if (p_Port_Type === -1) {
+        //    jError("Chưa chọn loại cảng!", "Lỗi", function () {
+        //        $("#sl_PortType").focus();
+        //    });
+        //    return false;
+        //}
+        _frm = new FormData;
+        _frm.append("Port_Code", p_Port_Code);
+        _frm.append("Port_Name", p_Port_Name);
+        _frm.append("Type", p_Port_Type);
+        _frm.append("Notes", p_Note);
+        return true;
+    }
+    function Port_Deleted(p_Port_Id) {
+        jConfirm('Bạn có chắc chắn xóa sản phẩm này', function () {
+            $.ajax({
+                url: "/ModuleBaseData/Port/Port_Deleted",
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ _portId: p_Port_Id }),
+                async: true, cache: false, traditional: true,
+                success: function (data) {
+                    var _flag = data['redirect'];
+                    if (_flag != undefined && _flag != "") {
+                        window.location = _flag;
+                    } else if (data.success == 0) {
+                        jAlert("Xóa cảng thành công!", "THÔNG BÁO", function () {
+                            Port_Search(1, 1);
+                        });
+                    }
+                    else {
+                        showError("Lỗi kết nối tới server!");
+                        return false;
+                    };
+                },
+                error: function () {
+                }
+            });
+        })
+
+    }
+    //Import Excel
+    function GotoViewImport(id) {
+        try {
+            $.ajax({
+                type: 'POST',
+                url: '/ModuleBaseData/Port/GotoViewImport',
+                dataType: "html",
+                data: {
+                }
+                , async: false, cache: false, traditional: true,
+                success: function (data) {
+                    $("#divViewPort").html(data);
+                    ShowPopupDialog('divViewPort', 'IMPORT THÔNG TIN CẢNG', 800, 1000, '');
+                    $("#btnExitPopups img").attr("src", '/images/icon/delete.png');
+                }
+            });
+        } catch (e) {
+            alert(e);
+        }
+    }
+    function Click_Upload_File() {
+        var _id_file = "file_import";
+        document.getElementById(_id_file).click();
+    }
+    function import_file() {
+        try {
+            var file_import = document.getElementById("file_import").files[0];
+            var data = new FormData();
+            data.append("fileImport", file_import);
+            if (file_import == "" || file_import == null) {
+                showError("Chọn file !");
+                return false;
+            } else {
+                $.ajax({
+                    type: 'Post',
+                    url: '/ModuleBaseData/Port/Import_file_excel',
+                    type: 'POST',
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    traditional: true,
+                    async: false,
+                    headers: { "cache-control": "no-cache" },
+                    success: function (data) {
+                        if (data == -1) {
+                            jError("Thêm mới thất bại");
+                            return false;
+                        } else if (data == -4) {
+                            jError("Không có dữ liệu để import !");
+                            return false;
+                        }
+                        else if (data == -3) {
+                            jError("Định dạng tệp không đúng !");
+                            return false;
+                        }
+                        else {
+                            CloseDivAllStock('divViewPort');
+                            Port_Search(1, 1);
+                            jAlert('Thêm mới thành công!', 'Thông báo');
+                        }
+                    }
+                });
+            }
+        } catch (e) {
+            alert(e);
+        }
+    }
+    function checkfile(sender) {
+        var validExts = new Array(".xlsx", ".xls");
+        var fileExt = sender.value;
+        txt_img = sender.files[0].name;
+        var _id_file = document.getElementById("file_name");
+        _id_file.innerHTML = txt_img;
+        _id_file.classList.add("upload_file");
+
+        fileExt = fileExt.substring(fileExt.lastIndexOf('.'));
+        if (validExts.indexOf(fileExt) < 0) {
+            alert("Định dạng tệp không đúng, chọn file " +
+                validExts.toString() + " types.");
+            return false;
+        }
+        else return true;
+    }
+</script>

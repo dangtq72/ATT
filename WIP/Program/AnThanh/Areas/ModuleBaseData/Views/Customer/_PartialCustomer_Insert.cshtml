@@ -1,0 +1,202 @@
+﻿@try
+{
+    <div class="d-main">
+        <div class="" style="padding:5px 38px 27px 38px">
+            <form id="_FormRegisterSupplier">
+                <div class="divCover">
+                    <div class="div-search-col">
+                        <div class="div-search-title-N">
+                            <span>Mã khách hàng*</span>
+                        </div>
+
+                        <div class="div-search-ad">
+                            <div class="div-search-content">
+                                <div>
+                                    <input data-controlcondition="TRUE" type="text" id="txt_customer_code" class="input_search" maxlength="50" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-search-col">
+                        <div class="div-search-col floatleft">
+                            <div class="div-search-title-N">
+                                <span>Tên khách hàng*</span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <input data-controlcondition="TRUE" type="text" id="txt_customer_name" class="input_search" maxlength="200" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="div-search-col-50 floatright width49">
+                            <div class="div-search-title-N">
+                                <span>Điện thoại*</span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <input data-controlcondition="TRUE" type="text" id="txt_phone" class="input_search" maxlength="50" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-search-col-2">
+                        <div class="div-search-col floatleft">
+                            <div class="div-search-title-N">
+                                <span>Fax</span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <input data-controlcondition="TRUE" type="text" id="txt_fax" class="input_search" maxlength="50" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="div-search-col-50 floatright width49">
+                            <div class="div-search-title-N">
+                                <span>Email*</span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <input data-controlcondition="TRUE" type="text" id="txt_email" class="input_search" maxlength="50" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-search-col">
+                        <div class="div-search-title-N">
+                            <span>Ghi chú</span>
+                        </div>
+                        <div class="div-search-ad">
+                            <div class="div-search-content">
+                                <div>
+                                    <input data-controlcondition="TRUE" type="text" id="txt_note" class="input_search" maxlength="500" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group-bottom">
+                    <input type="button" class="btn-default clsRegisterStocks" value="Chấp nhận" onclick="insert_customer();" style="margin-right:10px;" />
+                    <input type="button" class="btn-default" value="Thoát" onclick="close_popup();" style="width: auto;" />
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        var txt_customer_code = "";
+        var txt_customer_name = "";
+        var txt_note = "";
+        var txt_phone = "";
+        var txt_email = "";
+        var txt_fax = "";
+        function validate_customer() {
+            try {
+                txt_customer_code = $("#txt_customer_code").val().trim();
+                txt_customer_name = $("#txt_customer_name").val().trim();
+                txt_note = $("#txt_note").val().trim();
+                txt_phone = $("#txt_phone").val().trim();
+                txt_email = $("#txt_email").val().trim();
+                txt_fax = $("#txt_fax").val().trim();
+                if (txt_customer_code == "") {
+                    jError("Mã khách hàng không được để trống!", "Lỗi", function () {
+                        $("#txt_customer_code").val('');
+                        $("#txt_customer_code").focus();
+                        return false;
+                    });
+                    
+                };
+                if (txt_customer_name == "") {
+                    jError("Tên khách hàng không được để trống!", "Lỗi", function () {
+                        $("#txt_customer_name").val('');
+                        $("#txt_customer_name").focus();
+
+                    });
+                    return false;
+                };
+                if (txt_phone == "") {
+                    jError("Số điện thoại không được để trống!", "Lỗi", function () {
+                        $("#txt_phone").val('');
+                        $("#txt_phone").focus();
+                    });
+                    return false;
+                };
+                if (validateTel(txt_phone) == false) {
+                    jError("Số điện thoại không đúng định dạng!", "Lỗi", function () {
+                        $("#txt_phone").focus();
+                    });
+                    return false;
+                };
+                if (txt_email == "") {
+                    jError("Email không được để trống!", "Lỗi", function () {
+                        $("#txt_email").val('');
+                        $("#txt_email").focus();
+                    });
+                    return false;
+                };
+                if (!IsvalidEmail(txt_email)) {
+                    jError("Email không đúng định dạng!", "Lỗi", function () {
+                        $("#txt_email").focus();
+                    });
+                    return false;
+                }
+                return true;
+            } catch (ex) {
+                alert(ex);
+            }
+        }
+        function collectDataToAddCustomer(formData) {
+            formData.append('Obj_Info.Customer_Code', txt_customer_code);
+            formData.append('Obj_Info.Customer_Name', txt_customer_name);
+            formData.append('Obj_Info.Notes', txt_note);
+            formData.append('Obj_Info.Phone', txt_phone);
+            formData.append('Obj_Info.Fax', txt_fax);
+            formData.append('Obj_Info.Email', txt_email);
+        }
+        function insert_customer() {
+            try {
+                if (validate_customer()) {
+                    var formData = new FormData();
+                    collectDataToAddCustomer(formData);
+                    e = window.event || e;
+                    e.preventDefault();
+                    $.ajax({
+                        url: "/Customer/CustomerInsert/",
+                        type: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        traditional: true,
+                        async: false,
+                        headers: { "cache-control": "no-cache" },
+                        success: function (data) {
+                            if (data == -1) {
+                                jError("Thêm mới thất bại");
+                                return false;
+                            }
+                            else {
+                                CloseDivAllStock('divWrapperViewCustomer');
+                                jAlert('Thêm mới thành công!', 'THÔNG BÁO', function () {
+                                    Customer_search(1);
+                                });
+                            }
+                        }
+                    })
+                }
+            } catch (e) {
+                alert(e);
+            }
+        }
+        
+    </script>
+}
+catch (Exception ex)
+{
+
+}

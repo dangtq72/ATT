@@ -1,0 +1,248 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.title = "Quản lý khách hàng";
+}
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 120px;
+    }
+</style>
+
+<div class="divCover divCover_Title">
+    <div class="d-nav">
+        <span class="fa fa-home"></span>&ensp;
+        Quản lý danh mục
+        <span>&ensp;>&ensp;</span>
+        <a href="/Customer/CustomerDisplay" class="green">Quản lý khách hàng</a>
+    </div>
+</div>
+<div class="col-container border">
+    <div class="d_left_content_TMDT col">
+        <div class="divCover content_left">
+            <div class="title_search">
+                <span class="content_title">TÌM KIẾM KHÁCH HÀNG</span>
+                <span class="icon_title">
+                    <i class="fas fa-align-right"></i>
+                </span>
+            </div>
+            <div class="content_search">
+                <div class="div-search-title-N">
+                    <span>Từ khóa</span>
+                </div>
+                <div class="div-search-ad">
+                    <div class="div-search-content">
+                        <div>
+                            <input data-controlcondition="TRUE" type="text" id="txt_key_search" class="input_search" placeholder="Tên, code" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-btn">
+                <input class="btn-default search" data-controlcondition="TRUE" type="button" onclick="Customer_search(1);" value="Tìm kiếm" />
+                <input class="btn-default addnew" data-controlcondition="TRUE" type="button" onclick="ViewAdd();" value="Thêm mới khách hàng" />
+            </div>
+        </div>
+    </div>
+    <div class="d_right_content_TMDT col">
+        <div class="divCover">
+            <div class="title_table">
+                <span class="content_title title-table">DANH SÁCH KHÁCH HÀNG</span>
+                <a style="margin-left:400px;text-decoration:underline;" onclick="GotoViewImport();">Import danh sách</a>
+            </div>
+            <div id="divDataCustomer" class="divDataTables">
+                @Html.Partial("/Areas/ModuleBaseData/Views/Customer/_Partial_ListCustomer.cshtml")
+            </div>
+        </div>
+    </div>
+
+</div>
+<div id="divWrapperViewCustomer" class="divWrapperPopup" style="display: none;">
+    <div class="divPopup" id="divViewCustomer">
+    </div>
+</div>
+<script>
+    function ViewAdd() {
+        try {
+            $.ajax({
+                type: 'POST',
+                url: '/Customer/CustomerRegister/',
+                dataType: "html",
+                data: {
+                }
+                , async: false, cache: false, traditional: true,
+                success: function (data) {
+                    $("#divViewCustomer").html(data);
+                    ShowPopupDialog('divWrapperViewCustomer', 'THÔNG TIN KHÁCH HÀNG', 800, 1000, 'txt_customer_code');
+                    $("#btnExitPopups img").attr("src", '/images/icon/delete.png');
+                }
+            });
+        } catch (e) {
+            alert(e);
+        }
+    }
+    function GotoViewEdit(id) {
+        try{
+            $.ajax({
+                type: 'GET',
+                url: '/Customer/GotoViewUpdate/',
+                dataType: "html",
+                data: {
+                    Id: id
+                }
+                , async: false, cache: false, traditional: true,
+                success: function (data) {
+                    $("#divViewCustomer").html(data);
+                    ShowPopupDialog('divWrapperViewCustomer', 'CẬP NHẬT THÔNG TIN KHÁCH HÀNG', 800, 1000, 'txt_customer_code_edit');
+                    $("#btnExitPopups img").attr("src", '/images/icon/delete.png');
+                }
+            });
+        } catch (e) {
+            alert(e);
+        }
+    }
+    function GotoViewImport() {
+        try {
+            $.ajax({
+                type: 'POST',
+                url: '/Customer/GotoViewImport/',
+                dataType: "html",
+                data: {
+                }
+                , async: false, cache: false, traditional: true,
+                success: function (data) {
+                    $("#divViewCustomer").html(data);
+                    ShowPopupDialog('divWrapperViewCustomer', 'IMPORT THÔNG TIN KHÁCH HÀNG', 800, 1000, '');
+                    $("#btnExitPopups img").attr("src", '/images/icon/delete.png');
+                }
+            });
+        } catch (e) {
+            alert(e);
+        }
+    }
+    function Customer_search(p_NumPage) {
+        try{
+            var p_keysearch;
+            p_keysearch = $("#txt_key_search").val();
+            $.ajax({
+                type: 'POST',
+                url: '/Customer/Customer_Search/',
+                data: {
+                    p_keysearch: p_keysearch,
+                    p_CurrentPage: p_NumPage
+                },
+                async: true, cache: false, traditional: true,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    $("#divDataCustomer").html(data);
+                }
+            });
+        } catch (e) {
+            alert(e);
+        }
+    }
+    function Customer_delete(id) {
+        try {
+            MessageBoxConfirm("Cảnh Báo", "Bạn chắc chắn muốn xóa khách hàng này?", function () {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Customer/Customer_Delete/',
+                    data: {
+                        customer_id : id
+                    }
+                 , async: false, cache: false, traditional: true,
+                    success: function (data) {
+                    if (data > 0) {
+                        jAlert("Xóa khách hàng thành công", "Thông báo", function () {
+                            Customer_search(1);
+                        });
+                    } else {
+                        jError('Có lỗi trong quá trình xóa khách hàng!', "lỗi");
+                    }
+                }
+                });
+            });
+        } catch (e) {
+            alert(e);
+        }
+    }
+    function jsPaging(page) {
+        Customer_search(page);
+    }
+    function close_popup() {
+        try {
+            CloseDivAllStock('divWrapperViewCustomer');
+        } catch (e) {
+            alert(e);
+        }
+    }
+    function Click_Upload_File() {
+        var _id_file = "file_import";
+        document.getElementById(_id_file).click();
+    }
+    function import_file() {
+        try {
+            var file_import = document.getElementById("file_import").files[0];
+            var data = new FormData();
+            data.append("fileImport", file_import);
+            if (file_import == "" || file_import == null) {
+                showError("Chọn file !");
+                return false;
+            } else {
+                $.ajax({
+                    type: 'Post',
+                    url: '/Customer/Import_file_excel/',
+                    type: 'POST',
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    traditional: true,
+                    async: false,
+                    headers: { "cache-control": "no-cache" },
+                    success: function (data) {
+                        if (data == -1) {
+                            jError("Thêm mới thất bại");
+                            return false;
+                        } else if (data == -4) {
+                            jError("Không có dữ liệu để import !");
+                            return false;
+                        }
+                        else if (data == -3) {
+                            jError("Định dạng tệp không đúng !");
+                            return false;
+                        } 
+                        else {
+                            CloseDivAllStock('divWrapperViewCustomer');
+                            Customer_search(1);
+                            jAlert('Thêm mới thành công!', 'Thông báo');
+                        }
+                    }
+                });
+            }
+        } catch (e) {
+            alert(e);
+        }
+    }
+    function checkfile(sender) {
+        var validExts = new Array(".xlsx", ".xls");
+        var fileExt = sender.value;
+        txt_img = sender.files[0].name;
+        var _id_file = document.getElementById("file_name");
+        _id_file.innerHTML = txt_img;
+        _id_file.classList.add("upload_file");
+
+        fileExt = fileExt.substring(fileExt.lastIndexOf('.'));
+        if (validExts.indexOf(fileExt) < 0) {
+            alert("Định dạng tệp không đúng, chọn file " +
+                     validExts.toString() + " types.");
+            return false;
+        }
+        else return true;
+    }
+</script>
+

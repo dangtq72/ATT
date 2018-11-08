@@ -1,0 +1,57 @@
+﻿@using ObjInfo.ModuleBaseData
+@model List<PortInfo>
+@{
+    ViewBag.Title = "Danh sách cảng";
+}
+<div id="divContainTable" class="divmousewheel">
+    <table id="_tableDatas" class="clsTable clsTable-border">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th class="class200">Mã cảng</th>
+                <th class="class250">Tên cảng</th>
+                <th class="class250">Loại cảng</th>
+                <th class="class200">Mô tả</th>
+                <th class="class150">Chức năng</th>
+            </tr>
+        </thead>
+        @if (Model.Count == 0)
+        {
+            <tr role="row" class="odd" style="height: 35px;">
+
+                <td class="tdCenterAlign" colspan="6" style="text-align: center; font-size: 18px; padding: 10px 0px 10px 0px;">
+                    <p>Không có kết quả nào</p>
+                </td>
+            </tr>
+        }
+        else
+        {
+            <tbody>
+                @foreach(PortInfo item in Model)
+                {
+                    <tr role="row" style="height: 35px;">
+                        <td class="tdCenterAlign">@item.STT</td>
+                        <td class="tdLeftAlign">@item.Port_Code</td>
+                        <td class="tdLeftAlign">@item.Port_Name</td>
+                        <td class="tdLeftAlign">@item.Type</td>
+                        <td class="tdLeftAlign">@item.Notes</td>
+                        <td class="tdCenterAlign" style="white-space:nowrap">
+                            <a href="javascript:;" onclick="Port_GetView_Update(@item.Id)">
+                                <i class="fas fa-edit tooltip gray"><span class="tooltiptext">Sửa</span></i>
+                            </a>&ensp;
+                            <a href="javascript:;" onclick="Port_Deleted(@item.Id)">
+                                <i class="fas fa-trash-alt tooltip gray"><span class="tooltiptext">Xóa</span></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        }
+    </table>
+</div>
+<div class="_ClassPage">
+    <ul>
+        @Html.Raw(ViewBag.Paging)
+    </ul>
+</div>

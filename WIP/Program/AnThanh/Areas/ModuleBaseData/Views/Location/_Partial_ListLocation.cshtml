@@ -1,0 +1,61 @@
+﻿@using ObjInfo.ModuleBaseData
+@{
+    List<LocationInfo> list_data = new List<LocationInfo>();
+    if (ViewBag.List != null)
+    {
+        list_data = ViewBag.List;
+    }
+
+}
+@try
+{
+    <div id="divContainTable" class="divmousewheel">
+        <table id="_tableDatas" class="clsTable clsTable-border">
+            <thead>
+                <tr>
+                    <th class="class50">STT</th>
+                    <th class="class250">Tỉnh/Thành phố</th>
+                    <th class="class250">Quận/ Huyện/Thị xã/ Khu CN</th>
+                    <th class="class250">Ghi chú</th>
+                </tr>
+            </thead>
+            @if (list_data.Count == 0)
+            {
+                <tr role="row" class="odd" style="height: 35px;">
+
+                    <td class="tdCenterAlign" colspan="8" style="text-align: center; font-size: 18px; padding: 10px 0px 10px 0px;">
+                        <p>Không có kết quả nào</p>
+                    </td>
+                </tr>
+            }
+
+            else
+            {
+                <tbody>
+                    @foreach (LocationInfo item in list_data)
+                    {
+                        <tr role="row" style="height: 35px;">
+                            <td class="tdCenterAlign">@item.STT</td>
+                            <td class="tdLeftAlign">@item.Parent_Name</td>
+                            <td class="tdLeftAlign">@item.Name</td>
+                            <td class="tdLeftAlign">@item.Notes</td>
+                        </tr>
+                    }
+                </tbody>
+
+            }
+        </table>
+    </div>
+    <div class="_ClassPage">
+        <ul>
+            @Html.Raw(ViewBag.Paging)
+        </ul>
+    </div>
+}
+catch (Exception ex)
+{
+
+}
+
+
+

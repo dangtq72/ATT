@@ -1,0 +1,24 @@
+﻿<div class="d-main">
+    <div class="divCover divCover_popup" id="div-search-simple">
+        <div>
+            <div>
+                <div>File import </div>
+            </div>
+            <div style="margin-top:10px;">
+                <div class="file_import">
+                    <a href="javascript:Click_Upload_File();" style="color:#0054A6;" id="file_name">+ TẢI FILE LÊN</a>
+                    <input style="display:none;" type="file"
+                           accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                           onchange="checkfile(this);"
+                           id="file_import" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="divCover" style="margin-top:20px;">
+        <div class="div-search-btn" style="margin-right:20px;margin-bottom:20px;">
+            <input type="button" class="btn-default" value="Chấp nhận" onclick="import_file();" style="width:auto" />
+            <input type="button" class="btn-default" onclick="exits();" value="Thoát" style="width:auto" />
+        </div>
+    </div>
+</div>

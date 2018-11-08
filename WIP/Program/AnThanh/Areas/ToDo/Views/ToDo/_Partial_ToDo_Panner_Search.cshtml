@@ -1,0 +1,54 @@
+﻿@using BusinessFacadeLayer.MemmoryBL
+@using NaviCommon
+@using ObjInfo.ToDo
+@{
+    List<ToDoInfo> _list_data = new List<ToDoInfo>();
+    decimal count_workjob = 0;
+    if (ViewBag.ListTodo != null)
+    {
+        _list_data = ViewBag.ListTodo;
+        count_workjob = ViewBag.SumRecord;
+    }
+
+
+}
+
+@try
+{
+    <div class="div-search-ad" style="margin-bottom:10px;">
+        <div class="div-search-content">
+            <div>
+                <div class="w-30 panel_search panel_search_1  h-50 " data-controlcondition="TRUE" type="button" value="Tìm kiếm" onclick="SearchTodo1()">@count_workjob Việc cần làm</div>
+                <div class="w-30 panel_search panel_search_2  h-50 " style="margin: 0 10px;" id="" data-controlcondition="TRUE" type="button" value="Tìm kiếm" onclick="SearchTodo2()">Yêu cầu</div>
+                <div class="w-30 panel_search panel_search_3  h-50 " data-controlcondition="TRUE" type="button" value="Tìm kiếm" onclick="SearchTodo3()">Remain</div>
+            </div>
+        </div>
+    </div>
+    @Html.Partial("~/Areas/ToDo/Views/ToDo/_Partial_Todo_List.cshtml")
+    <script>
+
+        $(document).ready(function () {
+            try {
+
+                $(".panel_search").removeClass("arrow_box")
+                $(".panel_search_1").addClass('arrow_box');
+
+            } catch (ex) {
+                console.log(ex);
+            }
+        });
+        $(".panel_search").click(function () {
+            try {
+                $(".panel_search").removeClass("arrow_box")
+                $(this).addClass('arrow_box');
+
+            } catch (ex) {
+                console.log(ex);
+            }
+        });
+    </script>
+}
+catch(Exception)
+{
+    //Ignore
+}

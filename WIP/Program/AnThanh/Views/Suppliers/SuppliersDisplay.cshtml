@@ -1,0 +1,124 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.title = "Quản lý nhà cung cấp";
+}
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 120px;
+    }
+</style>
+
+<div class="divCover divCover_Title">
+    <div class="d-nav">
+        <span class="fa fa-home"></span>&ensp;
+        Đại lý
+        <span>&ensp;>&ensp;</span>
+        <a href="/phan_hang/quan_ly_phan_hang" class="green">Quản lý nhà cung cấp</a>
+    </div>
+</div>
+<div class="col-container border">
+    <div class="d_left_content_TMDT col">
+        <div class="divCover content_left">
+            <div class="title_search">
+                <span class="content_title">TÌM KIẾM NHÀ CUNG CẤP</span>
+                <span class="icon_title">
+                    <i class="fas fa-align-right"></i>
+                </span>
+            </div>
+            <div class="content_search">
+                <div class="div-search-title-N">
+                    <span>Từ khóa</span>
+                </div>
+                <div class="div-search-ad">
+                    <div class="div-search-content">
+                        <div>
+                            <input data-controlcondition="TRUE" type="text" id="txt_key_search" class="input_search" placeholder="Tên, code" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-btn">
+                <input class="btn-default search" data-controlcondition="TRUE" type="button" value="Tìm kiếm" onclick="Search(1, 1)" />
+                <input class="btn-default addnew" data-controlcondition="TRUE" type="button" value="Thêm mới phân hạng" onclick="ViewAdd()" />
+            </div>
+        </div>
+    </div>
+    <div class="d_right_content_TMDT col">
+        <div class="divCover">
+            <div class="title_table">
+                <span class="content_title title-table">DANH SÁCH NHÀ CUNG CẤP</span>
+            </div>
+            <div id="divDataSuppliers" class="divDataTables">
+                @Html.Partial("~/Views/Suppliers/_Partial_List.cshtml")
+            </div>
+        </div>
+    </div>
+  
+</div>
+<div id="divWrapperViewRank" class="divWrapperPopup" style="display: none;">
+    <div class="divPopup" id="divViewRank">
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+
+    });
+    function jsPaging(page) {
+        Search(page, 0);
+    }
+
+    function Search(p_NumPage, p_type) {
+
+        try {
+            var p_keysearch;
+          
+            p_keysearch = $("#txt_key_search").val();
+           
+
+            $.ajax({
+                type: 'POST',
+                url: '/Suppliers/Search/',
+                data: {
+                    p_keysearch: p_keysearch ,
+                    p_CurrentPage: p_NumPage
+                },
+                async: true, cache: false, traditional: true,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    $("#divDataSuppliers").html(data);
+                }
+            });
+        }
+        catch (e) {
+            alert(e);
+        }
+    }
+
+    function ViewAdd() {
+        try {
+            $.ajax({
+                type: 'POST',
+                url: '/User/UserViewRegister/',
+                dataType: "html",
+                data: {
+                }
+                , async: false, cache: false, traditional: true,
+                success: function (data) {
+                    $("#divViewRank").html(data);
+                    ShowPopupDialog('divWrapperViewRank', 'THÔNG TIN KHÁCH HÀNG', 800, 1000, 'txt_Name');
+                    $("#btnExitPopups img").attr("src", '/images/icon/delete.png');
+                }
+            });
+        } catch (e) {
+            alert(e);
+        }
+    }
+</script>
+
+

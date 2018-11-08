@@ -1,0 +1,71 @@
+﻿@using ObjInfo.UserAndRole
+@{
+    ViewBag.Title = "_Partial_List_User";
+    List<Au_GroupInfo> list_data = new List<Au_GroupInfo>();
+    if (ViewBag.List != null)
+    {
+        list_data = ViewBag.List;
+    }
+
+}
+<div id="divContainTable" class="divmousewheel">
+    <table id="_tableDatas" class="clsTable clsTable-border">
+        <thead>
+            <tr>
+                <th class="class50">STT</th>
+                <th class="class250">Nhóm quyền</th>
+                <th class="class250">Loại</th>
+                <th class="class250">Mô tả</th>
+                <th class="class250">Cập nhật</th>
+                <th class="class100">Chức năng</th>
+            </tr>
+        </thead>
+        @if (list_data.Count == 0)
+        {
+            <tr role="row" class="odd" style="height: 35px;">
+
+                <td class="tdCenterAlign" colspan="8" style="text-align: center; font-size: 18px; padding: 10px 0px 10px 0px;">
+                    <p>Không có kết quả nào</p>
+                </td>
+            </tr>
+        }
+
+        else
+        {
+            <tbody>
+                @foreach (var item in list_data)
+                {
+                    <tr role="row" style="height: 35px;">
+                        <td class="tdCenterAlign">@item.STT</td>
+                        <td class="tdLeftAlign">@item.Group_Name</td>
+                        <td class="tdLeftAlign">@item.User_Type</td>
+                        <td class="tdLeftAlign">@item.Description</td>
+                        <td class="tdLeftAlign">@item.Created_Date.ToString()</td>
+                      
+                        <td class="tdCenterAlign" style="white-space:nowrap">
+                            <a href="javascript:;" onclick="Detail(@item.Group_Id)">
+                                <i class="fas fa-align-justify tooltip gray"><span class="tooltiptext">Chi tiết</span></i>
+                            </a>&ensp;
+                            <a href="javascript:;" onclick="Edit(@item.Group_Id)">
+                                <i class="fas fa-edit tooltip gray"><span class="tooltiptext">Sửa</span></i>
+                            </a>&ensp;
+                            <a href="javascript:;" onclick="Delete(@item.Group_Id)">
+                                <i class="fas fa-trash-alt tooltip gray"><span class="tooltiptext">Xóa</span></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        }
+    </table>
+</div>
+<div class="_ClassPage">
+    <ul>
+        @Html.Raw(ViewBag.Paging)
+    </ul>
+</div>
+<script>
+
+
+</script>

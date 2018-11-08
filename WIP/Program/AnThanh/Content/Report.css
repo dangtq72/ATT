@@ -1,0 +1,99 @@
+﻿.d_chuyenmuc {
+        background-color: #F9F9F9;
+        border: 1px solid #F1F1F1;
+        border-left: 2px solid #156701;
+        color: #336699;
+        cursor: pointer;
+        font-family: Verdana, Tahoma, 'Times New Roman' !important;
+        font-size: 13px;
+        font-weight: bold;
+        height: 40px;
+        line-height: 40px;
+        vertical-align: central;
+        margin: 5px 0 0;
+    }
+
+        .d_chuyenmuc:first-of-type {
+            margin-top: 0;
+        }
+
+        .d_chuyenmuc img:first-child {
+            float: left;
+            margin: 12px 10px 0;
+        }
+
+        .d_chuyenmuc img:last-child {
+            float: right;
+            margin: 13px 12px 0 0;
+        }
+
+    .img_question {
+        width: 15px;
+        height: 15px;
+    }
+
+    ._div_faq_ques {
+        float: right;
+        width: 101%;
+        margin-right: -35px;
+        -moz-word-break: break-word;
+        -o-word-break: break-word;
+        word-break: break-word;
+    }
+
+    .d_expand {
+        clear: both;
+        color: #2c6e90;
+        cursor: pointer;
+        font-size: 14px;
+        width: 92%;
+        margin-bottom: 5px;
+        float: left;
+        padding: 4px 0 0 17px;
+        font-family: MyriadPro-Cond !important;
+        text-align: justify;
+    }
+
+    .divQ_A {
+        width: 100%;
+        border-bottom: 1px solid #E8E8E8;
+        margin: 0 auto;
+    }
+
+        .divQ_A:last-child {
+            border-bottom: none;
+        }
+
+    .d_question {
+        margin: 0 0 5px;
+        float: left;
+        line-height: 170%;
+    }
+
+    ._div_faq_ques_img {
+        margin-right: 5px;
+        float: left;
+        line-height: 30px;
+    }
+
+    .d_expanquestion {
+        display: none;
+        border: 1px solid #E8E8E8;
+        height: auto;
+        border-top: none;
+        width: 100%;
+    }
+
+    .ClassColorFocus {
+        color: #336699;
+    }
+
+    .d_chuyenmuc {
+        width: 100%;
+        float: left;
+    }
+
+    ._div_faq_ques {
+        word-wrap: break-word;
+        line-height: 170%;
+    }

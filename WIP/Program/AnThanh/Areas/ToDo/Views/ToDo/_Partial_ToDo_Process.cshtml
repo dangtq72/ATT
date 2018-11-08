@@ -1,0 +1,198 @@
+﻿@using ObjInfo.ToDo
+@using NaviCommon
+@using ObjInfo.Catalogue
+@{
+    List<AllCodeInfo> _lstStatus = ViewBag.ListStatus;
+    List<ToDoInfo> _Listtodo = new List<ToDoInfo>();
+    if (ViewBag.ListTodo != null)
+    {
+        _Listtodo = ViewBag.ListTodo;
+    }
+
+    int _currstatus = 1;
+    if (ViewBag.Currstatus != null)
+    {
+        _currstatus = ViewBag.Currstatus;
+    }
+
+    var _FirstTodo = new ToDoInfo();
+    if (_Listtodo.Count > 0)
+    {
+        _FirstTodo = _Listtodo[0];
+    }
+    int todoType = ViewBag.ToDoType;
+}
+
+<style>
+
+    ol.etapier li.done {
+        border-color: yellowgreen;
+    }
+
+        ol.etapier li.done:before {
+            background-color: yellowgreen;
+            border-color: yellowgreen;
+        }
+
+
+    ol.etapier {
+        display: table;
+        list-style-type: none;
+        margin: 0 auto 20px auto;
+        padding: 0;
+        table-layout: fixed;
+        width: 100%;
+    }
+
+        ol.etapier li {
+            display: table-cell;
+            text-align: center;
+            padding-bottom: 10px;
+            white-space: nowrap;
+            position: relative;
+        }
+
+            ol.etapier li a {
+                color: inherit;
+            }
+
+        ol.etapier li {
+            color: silver;
+        }
+
+            ol.etapier li.done {
+                color: black;
+            }
+
+            ol.etapier li:before {
+                position: absolute;
+                bottom: -11px;
+                left: 50%;
+                margin-left: -7.5px;
+                color: white;
+                height: 15px;
+                width: 15px;
+                line-height: 15px;
+                border: 2px solid silver;
+                border-radius: 15px;
+            }
+
+            ol.etapier li.done:before {
+                content: "\2713";
+                color: white;
+            }
+
+            ol.etapier li.active {
+                content: " ";
+                font-weight: bold;
+                color: black;
+            }
+
+            ol.etapier li.todo.active:before {
+                color: yellowgreen;
+                background-color: yellowgreen !important;
+                border: 5px solid yellowgreen;
+                bottom: -13.5px;
+            }
+
+
+            ol.etapier li.todo:before {
+                content: " ";
+                background-color: white;
+            }
+
+            ol.etapier li.pass:before {
+                content: "";
+                background-color: white;
+            }
+
+            ol.etapier li.pass:not(:last-child):after {
+                content: '';
+                height: 4px;
+                width: 100%;
+                background-color: yellowgreen !important;
+                color: yellowgreen;
+                position: absolute;
+                top: 26px;
+                left: 50%;
+                margin-left: 9.5px;
+            }
+
+            ol.etapier li.done:not(:last-child):after {
+                content: '';
+                height: 4px;
+                width: 100%;
+                background-color: yellowgreen !important;
+                color: yellowgreen;
+                position: absolute;
+                top: 26px;
+                left: 50%;
+                margin-left: 9.5px;
+            }
+
+            ol.etapier li.todo:not(:last-child):after {
+                content: '';
+                height: 4px;
+                width: 100%;
+                background-color: silver !important;
+                color: silver;
+                position: absolute;
+                top: 26px;
+                left: 50%;
+                margin-left: 9.5px;
+            }
+
+            ol.etapier li.todo.active:after {
+                margin-left: 16px;
+            }
+</style>
+@try
+{
+    <div style="width:100%;margin-top:7px; float:left;">
+        <ol class="etapier">
+            @foreach (var item in _lstStatus)
+            {
+
+                if (Convert.ToInt32(item.CdVal) <= _currstatus)
+                {
+                    <li class="done" data-status="@item.CdVal">@item.Description</li>
+                }
+                else if (Convert.ToInt32(item.CdVal) == _currstatus + 1)
+                {
+                    <li class="todo active" data-status="@item.CdVal">@item.Description</li>
+                }
+                else
+                {
+                    <li class="todo" data-status="@item.CdVal">@item.Description</li>
+                }
+            }
+        </ol>
+    </div>
+    <div style="width:100%;margin-top:7px; float:left;">
+        <ol class="etapier">
+            @foreach (var item in _lstStatus)
+            {
+
+                if (item.CdVal == _currstatus.ToString())
+                {
+                    <li style="border:none">@_FirstTodo.Request_By</li>
+                }
+                else
+                {
+                    <li style="border:none">@_FirstTodo.Request_By</li>
+                }
+            }
+        </ol>
+    </div>
+}
+catch (Exception)
+{
+    //ignore
+}
+
+
+<script>
+    $(document).ready(function () {
+    })
+</script>
+

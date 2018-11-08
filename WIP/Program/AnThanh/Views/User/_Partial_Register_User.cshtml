@@ -1,0 +1,143 @@
+﻿@{
+    ViewBag.Title = "Người sử dụng";
+}
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    /*.div-search-title > div {
+        width: 200px;
+    }*/
+</style>
+
+<div class="d-main">
+    <div class="" style="padding:5px 38px 27px 38px">
+        <form id="_FormRegisterRank">
+            <div class="divCover">
+                <div class="div-search-col">
+                    <div class="div-search-title-N">
+                        <span>Tên người dùng*</span>
+                    </div>
+                    <div class="div-search-ad">
+                        <div class="div-search-content">
+                            <div>
+                                <input data-controlcondition="TRUE" type="text" id="txt_user_name" class="input_search" maxlength="50" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="div-search-col">
+                    <div class="div-search-title-N">
+                        <span>Mật khẩu*</span>
+                    </div>
+                    <div class="div-search-ad">
+                        <div class="div-search-content">
+                            <div>
+                                <input data-controlcondition="TRUE" type="text" id="txt_password" class="input_search" maxlength="50" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="div-search-col">
+                    <div class="div-search-title-N">
+                        <span>Loại người dùng</span>
+                    </div>
+                    <div class="div-search-ad">
+                        <div class="div-search-content">
+                            <div>
+                                <input data-controlcondition="TRUE" type="text" id="txt_user_type" class="input_search" maxlength="50" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="div-search-col">
+                    <div class="div-search-col floatleft">
+                        <div class="div-search-title-N">
+                            <span>Nhóm người dùng*</span>
+                        </div>
+                        <div class="div-search-ad">
+                            <div class="div-search-content">
+                                <div>
+                                    <input data-controlcondition="TRUE" type="text" id="txt_group_id" class="input_search" maxlength="250" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group-bottom">
+                <input type="button" class="btn-default clsRegisterStocks" value="Chấp nhận" onclick="insert_user();" style="margin-right:10px;" />
+                <input type="button" class="btn-default" value="Thoát" onclick="CloseRank()" style="width: auto;" />
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+        var txt_user_name = "";
+        var txt_password = "";
+        var txt_user_type = "";
+        var txt_group_id = "";
+        function validate_customer() {
+            try {
+                txt_user_name = $("#txt_user_name").val().trim();
+                txt_password = $("#txt_password").val().trim();
+                txt_user_type = $("#txt_user_type").val().trim();
+                txt_group_id = $("#txt_group_id").val().trim();
+                if (txt_user_name == "") {
+                    jError("Tên người dùng không được để trống!", "Lỗi", function () {
+                        $("#txt_user_name").val('');
+                        $("#txt_user_name").focus();
+                    });
+                    return false;
+                };
+                if (txt_password == "") {
+                    jError("Mật khẩu không được để trống!", "Lỗi", function () {
+                        $("#txt_password").val('');
+                        $("#txt_password").focus();
+                    });
+                    return false;
+                };
+                return true;
+            } catch (ex) {
+                alert(ex);
+            }
+        }
+        function collectDataToAddUser(formData) {
+            formData.append('Obj_Info.User_Name', txt_user_name);
+            formData.append('Obj_Info.Password', txt_password);
+            formData.append('Obj_Info.User_Type', txt_user_type);
+            formData.append('Obj_Info.Group_Id', txt_group_id);
+        }
+        function insert_user() {
+            try {
+                if (validate_customer()) {
+                    var formData = new FormData();
+                    collectDataToAddUser(formData);
+                    e = window.event || e;
+                    e.preventDefault();
+                    $.ajax({
+                        url: "/User/User_Insert/",
+                        type: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        traditional: true,
+                        async: false,
+                        headers: { "cache-control": "no-cache" },
+                        success: function (data) {
+                            if (data == -1) {
+                                jError("Thêm mới thất bại");
+                                return false;
+                            }
+                            else {
+                                CloseDivAllStock('divWrapperViewUser');
+                                jAlert('Thêm mới thành công!', 'THÔNG BÁO', function () {
+                                    User_search(1);
+                                });
+                            }
+                        }
+                    })
+                }
+            } catch (e) {
+                alert(e);
+            }
+        }
+</script>

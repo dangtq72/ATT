@@ -1,0 +1,8 @@
+C:\Users\OS-WIN10\Desktop\AnthanhProject\AnThanh\Common\obj\Debug\NVS_Common.csprojAssemblyReference.cache
+C:\Users\OS-WIN10\Desktop\AnthanhProject\AnThanh\Common\obj\Debug\NVS_Common.csproj.CoreCompileInputs.cache
+C:\Users\OS-WIN10\Desktop\AnthanhProject\AnThanh\Common\obj\Debug\Common.dll
+C:\Users\OS-WIN10\Desktop\AnthanhProject\AnThanh\Common\obj\Debug\Common.pdb
+C:\Users\OS-WIN10\Desktop\AnthanhProject\AnThanh\Common\bin\Debug\Common.dll
+C:\Users\OS-WIN10\Desktop\AnthanhProject\AnThanh\Common\bin\Debug\Common.pdb
+C:\Users\OS-WIN10\Desktop\AnthanhProject\AnThanh\Common\bin\Debug\log4net.dll
+C:\Users\OS-WIN10\Desktop\AnthanhProject\AnThanh\Common\obj\Debug\NVS_Common.csproj.CopyComplete

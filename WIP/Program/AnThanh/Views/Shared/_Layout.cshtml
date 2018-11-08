@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - TMDT</title>
+    <meta property="fb:app_id" content="1840277116059451" />
+    <link href="~/Content/css/site.css" rel="stylesheet" />
+    <link href="~/Content/css/style.css" rel="stylesheet" />
+    <link href="~/Content/Fontawesome/css/all.css" rel="stylesheet" />
+
+    <script src="~/Content/js/ASSForm.js"></script>
+
+    <script src="~/Content/js/nvs.jquery.validate.data.js"></script>
+
+  
+    <script src="~/Content/js/jquery-validate-data.js"></script>
+
+
+    <script src="~/Content/js/nvs.jquery.alert.js"></script>
+    <script src="~/Content/js/nvs.jquery.filter.search.js"></script>
+
+    @*<script src="~/Content/js/nvs.jquery.util.js"></script>*@
+    <script src="~/Content/js/site.js"></script>
+    <script src="~/Content/js/jquery-2.2.4.min.js"></script>
+    <script src="~/Content/js/messagebox/popup.js"></script>
+    <script src="~/Content/js/messagebox/JsFormPopup.js"></script>
+    <script src="~/Content/js/jquery-ui.js"></script>
+
+    <link href="~/Content/css/Extend_StyleSheet.css" rel="stylesheet" />
+    <link href="~/Content/css/CssFormPoup/jquery.confirm.css" rel="stylesheet" />
+    <link href="~/Content/css/CssFormPoup/StyleFormPopup.css" rel="stylesheet" />
+    <script src="~/Content/js/AlertPopup/TMDTAlert.js"></script>
+    <link href="~/Content/js/AlertPopup/NVSAlertCss.css" rel="stylesheet" />
+   
+
+    <script src="~/Content/js/ComboCheckList/jquery.multiple.select_new.js"></script>
+    <link href="~/Content/js/ComboCheckList/multiple-select.css" rel="stylesheet" />
+    <link href="~/Content/css/CSSWaitingIcon/rolling.css" rel="stylesheet" />
+
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="wrapper-menu">
+            <div class="classMenu">
+                <div class="menucontent" id="menucontent">
+                    @Html.Partial("~/Views/Shared/PartialViewMenuHead.cshtml")
+                </div>
+            </div>
+        </div>
+        @*<div class="div-banner" id="div-banner"> </div>*@
+
+        <div class="wrapper-content">
+            <div class="content">
+                @RenderBody()
+            </div>
+
+        </div>
+        <div class="classFooter">
+           @Html.Partial("~/Views/Shared/PartialFooter.cshtml")
+        </div>
+    </div>
+</body>
+</html>
+
+

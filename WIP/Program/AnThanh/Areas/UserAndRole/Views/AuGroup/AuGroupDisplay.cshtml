@@ -1,0 +1,196 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.title = "Quản lý nhóm người dùng";
+}
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 120px;
+    }
+</style>
+
+<div class="divCover divCover_Title">
+    <div class="d-nav">
+        <span class="fa fa-home"></span>&ensp;
+        Quản trị
+        <span>&ensp;>&ensp;</span>
+        <a href="/phan_hang/quan_ly_phan_hang" class="green">Quản lý nhóm người dùng</a>
+    </div>
+</div>
+<div class="col-container border">
+    <div class="d_left_content_TMDT col">
+        <div class="divCover content_left">
+            <div class="title_search">
+                <span class="content_title">TÌM KIẾM NHÓM NGƯỜI DÙNG</span>
+                <span class="icon_title">
+                    <i class="fas fa-align-right"></i>
+                </span>
+            </div>
+            <div class="content_search">
+                <div class="div-search-title-N">
+                    <span>Từ khóa</span>
+                </div>
+                <div class="div-search-ad">
+                    <div class="div-search-content">
+                        <div>
+                            <input data-controlcondition="TRUE" type="text" id="txt_key_search" class="input_search" placeholder="Tên, code" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-btn">
+                <input class="btn-default search" data-controlcondition="TRUE" type="button" value="Tìm kiếm" onclick="Search(1, 1)" />
+                <input class="btn-default addnew" data-controlcondition="TRUE" type="button" value="Thêm mới" onclick="ViewAdd()" />
+            </div>
+        </div>
+    </div>
+    <div class="d_right_content_TMDT col">
+        <div class="divCover">
+            <div class="title_table">
+                <div class="content_title title-table" style="position:relative">
+                    DANH SÁCH NHÓM NGƯỜI DÙNG
+                 
+                </div>
+            </div>
+            <div id="divDataAuGroup" class="divDataTables">
+              
+                @Html.Partial("~/Areas/UserAndRole/Views/AuGroup/_Partial_List.cshtml")
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<div id="divWrapperView" class="divWrapperPopup" style="display: none;">
+    <div class="divPopup" id="divView">
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+
+    });
+    function jsPaging(page) {
+        Search(page, 0);
+    }
+
+    function Search(p_NumPage, p_type) {
+
+        try {
+            var p_keysearch;
+
+            p_keysearch = $("#txt_key_search").val();
+
+
+            $.ajax({
+                type: 'POST',
+                url: '/AuGroup/Search/',
+                data: {
+                    p_keysearch: p_keysearch ,
+                    p_CurrentPage: p_NumPage
+                },
+                async: true, cache: false, traditional: true,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    $("#divDataAuGroup").html(data);
+                }
+            });
+        }
+        catch (e) {
+            alert(e);
+        }
+    }
+
+    function ViewAdd() {
+        try {
+            $.ajax({
+                type: 'POST',
+                url: '/AuGroup/ViewRegister/',
+                dataType: "html",
+                data: {
+                }
+                , async: false, cache: false, traditional: true,
+                success: function (data) {
+                    $("#divView").html(data);
+                    ShowPopupDialog('divWrapperView', 'THÔNG TIN NHÓM NGƯỜI DÙNG', 800, 1000, 'txt_au_group_add');
+                    $("#btnExitPopups img").attr("src", '/images/icon/delete.png');
+                }
+            });
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function Edit(id) {
+        try {
+            $.ajax({
+                type: 'get',
+                url: '/AuGroup/EditView/',
+                dataType: "html",
+                data: {
+                    id:id
+                }
+                , async: false, cache: false, traditional: true,
+                success: function (data) {
+                    $("#divView").html(data);
+                    ShowPopupDialog('divWrapperView', 'SỬA THÔNG TIN NHÓM QUYỀN', 800, 1000, 'txt_group_edit');
+                    $("#btnExitPopups img").attr("src", '/images/icon/delete.png');
+                }
+            });
+        } catch (e) {
+            alert(e);
+        }
+    }
+    function Delete(id) {
+        try {
+            MessageBoxConfirm("Cảnh Báo", "Bạn chắc chắn muốn xóa hãng này?", function () {
+                $.ajax({
+                    type: 'POST',
+                    url: '/AuGroup/Delete/',
+                    data: {
+                        id: id
+                    },
+                    async: true, cache: false, traditional: true,
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
+                    success: function (data) {
+                        CreateRollingWaitingIcon(false);
+                        if (data.success == "-1") {
+                            jError("Lỗi check lại kết nối tới server", "Lỗi");
+                        } else if (data.success == "0") {
+                            jAlert('Xóa hãng tàu thành công!', "THÔNG BÁO", function () {
+                                Search(1, 1);
+                                return false;
+                            });
+                            return false;
+                        } else if (data.success == "-2") {
+                            jError('Xóa hãng không thành công, do nhà cung cấp có trong hệ thống!', "THÔNG BÁO", function () {
+                                return false;
+                            });
+                        }
+                    }
+                });
+            }, function () {
+                return false;
+            });
+        } catch (e) {
+            alert(e);
+        }
+    }
+  
+
+    function Close() {
+        try {
+            CloseDivAllStock('divWrapperView');
+        } catch (e) {
+            alert(e);
+        }
+    }
+</script>
+
+

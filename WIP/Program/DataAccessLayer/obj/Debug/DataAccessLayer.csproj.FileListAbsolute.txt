@@ -1,0 +1,11 @@
+D:\Working\AnThanh\WIP\Program\DataAccessLayer\bin\Debug\DataAccessLayer.dll
+D:\Working\AnThanh\WIP\Program\DataAccessLayer\bin\Debug\DataAccessLayer.pdb
+D:\Working\AnThanh\WIP\Program\DataAccessLayer\bin\Debug\NaviCommon.dll
+D:\Working\AnThanh\WIP\Program\DataAccessLayer\bin\Debug\ObjInfo.dll
+D:\Working\AnThanh\WIP\Program\DataAccessLayer\bin\Debug\NaviCommon.pdb
+D:\Working\AnThanh\WIP\Program\DataAccessLayer\bin\Debug\ObjInfo.pdb
+D:\Working\AnThanh\WIP\Program\DataAccessLayer\obj\Debug\DataAccessLayer.csprojResolveAssemblyReference.cache
+D:\Working\AnThanh\WIP\Program\DataAccessLayer\obj\Debug\DataAccessLayer.dll
+D:\Working\AnThanh\WIP\Program\DataAccessLayer\obj\Debug\DataAccessLayer.pdb
+D:\Working\AnThanh\WIP\Program\DataAccessLayer\bin\Debug\log4net.dll
+D:\Working\AnThanh\WIP\Program\DataAccessLayer\bin\Debug\Oracle.DataAccess.dll

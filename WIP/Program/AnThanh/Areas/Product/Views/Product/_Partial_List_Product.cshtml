@@ -1,0 +1,59 @@
+﻿@using ObjInfo.ModuleBaseData
+@model List<Product_Info>
+@{
+    ViewBag.Title = "Danh sách sản phẩm";
+   }
+<div id="divContainTable" class="divmousewheel">
+    <table id="_tableDatas" class="clsTable clsTable-border">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th class="class200">Mã sản phẩm</th>
+                <th class="class250">Tên sản phẩm</th>
+                <th class="class250">Mã SP Bravo</th>
+                <th class="class250">Nhóm sản phẩm</th>     
+                <th class="class200">Mô tả</th>
+                <th class="class150">Chức năng</th>
+            </tr>
+        </thead>
+        @if (Model.Count == 0)
+        {
+            <tr role="row" class="odd" style="height: 35px;">
+
+                <td class="tdCenterAlign" colspan="9" style="text-align: center; font-size: 18px; padding: 10px 0px 10px 0px;">
+                    <p>Không có kết quả nào</p>
+                </td>
+            </tr>
+        }
+        else
+        {
+            <tbody>
+                @foreach(Product_Info item in Model)
+                {
+                    <tr role="row" style="height: 35px;">
+                        <td class="tdCenterAlign">@item.STT</td>
+                        <td class="tdLeftAlign">@item.Product_Code</td>
+                        <td class="tdLeftAlign">@item.Product_Name</td>
+                        <td class="tdLeftAlign">@item.Bravo_Code</td>
+                        <td class="tdLeftAlign">@item.Product_Group_Content</td>
+                        <td class="tdLeftAlign">@item.Note</td>
+                        <td class="tdCenterAlign" style="white-space:nowrap">
+                            <a href="javascript:;" onclick="Product_GetView_Update(@item.Product_Id)">
+                                <i class="fas fa-edit tooltip gray"><span class="tooltiptext">Sửa</span></i>
+                            </a>&ensp;
+                            <a href="javascript:;" onclick="Product_Deleted(@item.Product_Id)">
+                                <i class="fas fa-trash-alt tooltip gray"><span class="tooltiptext">Xóa</span></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        }
+    </table>
+</div>
+<div class="_ClassPage">
+    <ul>
+        @Html.Raw(ViewBag.Paging)
+    </ul>
+</div>

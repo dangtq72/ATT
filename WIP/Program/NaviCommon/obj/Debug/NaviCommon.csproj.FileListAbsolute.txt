@@ -1,0 +1,8 @@
+D:\Working\AnThanh\WIP\Program\NaviCommon\bin\Debug\NaviCommon.dll
+D:\Working\AnThanh\WIP\Program\NaviCommon\bin\Debug\NaviCommon.pdb
+D:\Working\AnThanh\WIP\Program\NaviCommon\bin\Debug\ObjInfo.dll
+D:\Working\AnThanh\WIP\Program\NaviCommon\bin\Debug\ObjInfo.pdb
+D:\Working\AnThanh\WIP\Program\NaviCommon\obj\Debug\NaviCommon.csprojResolveAssemblyReference.cache
+D:\Working\AnThanh\WIP\Program\NaviCommon\obj\Debug\NaviCommon.dll
+D:\Working\AnThanh\WIP\Program\NaviCommon\obj\Debug\NaviCommon.pdb
+D:\Working\AnThanh\WIP\Program\NaviCommon\bin\Debug\log4net.dll

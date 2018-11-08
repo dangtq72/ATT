@@ -1,0 +1,316 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.title = "Quản lý nhà cung cấp";
+}
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 120px;
+    }
+</style>
+
+<div class="divCover divCover_Title">
+    <div class="d-nav">
+        <span class="fa fa-home"></span>&ensp;
+        Đại lý
+        <span>&ensp;>&ensp;</span>
+        <a href="/phan_hang/quan_ly_phan_hang" class="green">Quản lý nhà cung cấp</a>
+    </div>
+</div>
+<div class="col-container border">
+    <div class="d_left_content_TMDT col">
+        <div class="divCover content_left">
+            <div class="title_search">
+                <span class="content_title">TÌM KIẾM NHÀ CUNG CẤP</span>
+                <span class="icon_title">
+                    <i class="fas fa-align-right"></i>
+                </span>
+            </div>
+            <div class="content_search">
+                <div class="div-search-title-N">
+                    <span>Từ khóa</span>
+                </div>
+                <div class="div-search-ad">
+                    <div class="div-search-content">
+                        <div>
+                            <input data-controlcondition="TRUE" type="text" id="txt_key_search" class="input_search" placeholder="Tên, code" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-btn">
+                <input class="btn-default search" data-controlcondition="TRUE" type="button" value="Tìm kiếm" onclick="Search(1, 1)" />
+                <input class="btn-default addnew" data-controlcondition="TRUE" type="button" value="Thêm mới" onclick="ViewAdd()" />
+            </div>
+        </div>
+    </div>
+    <div class="d_right_content_TMDT col">
+        <div class="divCover">
+            @*<div class="title_table">
+                    <div class="div-search-col-2">
+                        <div class="content_title title-table" style="float:left">DANH SÁCH NHÀ CUNG CẤP</div>
+                        <div>
+                            <div class="file_import" style="float:right">
+                                <a href="javascript:Click_Upload_File();" style="color:#0054A6;" id="file_name">+ TẢI FILE LÊN</a>
+                                <input style="display:none;" type="file"
+                                       accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                                       onchange="checkfile(this);"
+                                       id="file_import" />
+                                <input type="button" class="btn-default" value="Chấp nhận" onclick="import_file();" style="width:auto" />
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+
+            <div class="title_table">
+              
+                <div class="content_title title-table" style="position:relative">
+                    DANH SÁCH NHÀ CUNG CẤP
+                    <div class="file_import" style="position:absolute; top: -10px;right: 10px;">
+                        <a href="javascript:Click_Upload_File();" style="color:#0054A6;" id="file_name">+ TẢI FILE LÊN</a>
+                        <input style="display:none;" type="file"
+                               accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                               onchange="checkfile(this);"
+                               id="file_import" />
+                        <input type="button" class="btn-default" value="Import" onclick="import_file();" style="width:auto" />
+                    </div>
+                   
+                </div>
+                   
+            
+            </div>
+
+            <div id="divDataSuppliers" class="divDataTables">
+                @Html.Partial("~/Areas/ModuleBaseData/Views/Supplier/_Partial_ListSupplier.cshtml")
+            </div>
+        </div>
+    </div>
+
+</div>
+<div id="divWrapperView" class="divWrapperPopup" style="display: none;">
+    <div class="divPopup" id="divView">
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+
+    });
+    function jsPaging(page) {
+        Search(page, 0);
+    }
+
+    function Search(p_NumPage, p_type) {
+
+        try {
+            var p_keysearch;
+
+            p_keysearch = $("#txt_key_search").val();
+
+
+            $.ajax({
+                type: 'POST',
+                url: '/Supplier/Search/',
+                data: {
+                    p_keysearch: p_keysearch,
+                    p_CurrentPage: p_NumPage
+                },
+                async: true, cache: false, traditional: true,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    $("#divDataSuppliers").html(data);
+                }
+            });
+        }
+        catch (e) {
+            alert(e);
+        }
+    }
+
+    function ViewAdd() {
+        try {
+            $.ajax({
+                type: 'POST',
+                url: '/Supplier/ViewRegister/',
+                dataType: "html",
+                data: {
+                }
+                , async: false, cache: false, traditional: true,
+                success: function (data) {
+                    $("#divView").html(data);
+                    ShowPopupDialog('divWrapperView', 'THÔNG TIN NHÀ CUNG CẤP', 800, 1000, 'txt_supplier_code_add');
+                    $("#btnExitPopups img").attr("src", '/images/icon/delete.png');
+                }
+            });
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function Edit(id) {
+        try {
+            $.ajax({
+                type: 'get',
+                url: '/Supplier/EditView/',
+                dataType: "html",
+                data: {
+                    id: id
+                }
+                , async: false, cache: false, traditional: true,
+                success: function (data) {
+                    $("#divView").html(data);
+                    ShowPopupDialog('divWrapperView', 'SỬA THÔNG TIN NHÀ CUNG CẤP', 800, 1000, 'txt_supplier_code_edit');
+                    $("#btnExitPopups img").attr("src", '/images/icon/delete.png');
+                }
+            });
+        } catch (e) {
+            alert(e);
+        }
+    }
+    function Delete(id) {
+        try {
+            MessageBoxConfirm("Cảnh Báo", "Bạn chắc chắn muốn xóa nhà cung cấp này?", function () {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Supplier/Delete/',
+                    data: {
+                        id: id
+                    },
+                    async: true, cache: false, traditional: true,
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
+                    success: function (data) {
+                        CreateRollingWaitingIcon(false);
+                        if (data.success == "-1") {
+                            jError("Lỗi check lại kết nối tới server", "Lỗi");
+                        } else if (data.success == "0") {
+                            jAlert('Xóa nhà cung cấp thành công!', "THÔNG BÁO", function () {
+                                Search(1, 1);
+                                return false;
+                            });
+                            return false;
+                        } else if (data.success == "-2") {
+                            jError('Xóa NCC không thành công, do nhà cung cấp có trong hệ thống!', "THÔNG BÁO", function () {
+                                return false;
+                            });
+                        }
+                    }
+                });
+            }, function () {
+                return false;
+            });
+        } catch (e) {
+            alert(e);
+        }
+    }
+    function Detail(id) {
+        try {
+            $.ajax({
+                type: 'get',
+                url: '/Supplier/ViewDetail/',
+                dataType: "html",
+                data: {
+                    id: id
+                }
+                , async: false, cache: false, traditional: true,
+                success: function (data) {
+                    $("#divView").html(data);
+                    ShowPopupDialog('divWrapperView', 'THÔNG TIN NHÀ CUNG CẤP', 800, 1000, 'txt_supplier_code_edit');
+                    $("#btnExitPopups img").attr("src", '/images/icon/delete.png');
+                }
+            });
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function Click_Upload_File() {
+        var _id_file = "file_import";
+        document.getElementById(_id_file).click();
+    }
+
+    function checkfile(sender) {
+        var validExts = new Array(".xlsx", ".xls");
+        var fileExt = sender.value;
+        txt_img = sender.files[0].name;
+        var _id_file = document.getElementById("file_name");
+        _id_file.innerHTML = txt_img;
+        _id_file.classList.add("upload_file");
+
+        fileExt = fileExt.substring(fileExt.lastIndexOf('.'));
+        if (validExts.indexOf(fileExt) < 0) {
+            alert("Định dạng tệp không đúng, chọn file " +
+                validExts.toString() + " types.");
+            return false;
+        }
+        else return true;
+    }
+    function RemoveFile() {
+       
+        $("#file_import").val('');
+        var _spanfile = $("#file_name");
+        _spanfile.text("+ TẢI FILE LÊN");
+
+    }
+    function import_file() {
+        try {
+            var file_import = document.getElementById("file_import").files[0];
+            var data = new FormData();
+            data.append("fileImport", file_import);
+            if (file_import == "" || file_import == null) {
+                jError("Không có dữ liệu để import, chọn file import !");
+                return false;
+            } else {
+                $.ajax({
+                    type: 'Post',
+                    url: '/Supplier/Import_file_excel/',
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    traditional: true,
+                    async: false,
+                    headers: { "cache-control": "no-cache" },
+                    success: function (data) {
+                        alert(data);
+                        if (data == -1) {
+                            jError("Thêm mới thất bại");
+                            RemoveFile();
+                            return false;
+                        } else if (data == -4) {
+                            jError("Không có dữ liệu để import !");
+                            return false;
+                        }
+                        else if (data == -3) {
+                            jError("Định dạng tệp không đúng !");
+                            return false;
+                        }
+                        else {
+                            Search(1, 1);
+                            jAlert('Thêm mới thành công, hãy kiểm tra lại danh sách để đảm bảo import file đúng!', 'Thông báo', function () {
+                               
+                                RemoveFile();
+                            });
+                        }
+                    }
+                });
+            }
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function Close() {
+        try {
+            CloseDivAllStock('divWrapperView');
+        } catch (e) {
+            alert(e);
+        }
+    }
+</script>
+
+

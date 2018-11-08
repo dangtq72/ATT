@@ -1,0 +1,88 @@
+﻿@using ObjInfo.ToDo
+@using NaviCommon.Extension
+@using ObjInfo.Catalogue
+@{
+    List<ToDoInfo> _list_data = new List<ToDoInfo>();
+    if (ViewBag.ListTodo != null)
+    {
+        _list_data = ViewBag.ListTodo;
+    }
+
+}
+@try
+{
+    <div class="">
+        <table id="tableListTodo" class="clsTable clsTable-border  border-10">
+            <thead>
+                <tr>
+                    <th class="class30">STT</th>
+                    <th class="class250">ID</th>
+                    <th class="class150">Nội dung</th>
+                    <th class="class150">Người gửi</th>
+                    <th class="class100">Thời gian gửi</th>
+                    <th class="class150">Người xử lý</th>
+                    <th class="class150">Thời gian chờ</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (_list_data.Count > 0)
+                {
+                    foreach (var item in _list_data)
+                    {
+                <tr role="row" style="height: 35px;">
+                    <td class="tdCenterAlign">@item.Stt</td>
+                    <td class="tdLeftAlign">
+                        <a href="/todo/todo/todo_action?code=@item.Code&type=@item.Type">
+                            @item.Code_Name
+                        </a>
+                    </td>
+                    <td class="tdLeftAlign">@item.Content</td>
+                    <td class="tdLeftAlign">@item.Request_By</td>
+                    <td class="tdCenterAlign">@item.Request_Date.ToDateStringN0()</td>
+                    <td class="tdLeftAlign">@item.Processor_By</td>
+                    @if (item.Extime != null && item.Extime.Length > 0)
+                    {
+                        string time = item.Extime;
+                        string[] _ex = time.Split('|');
+                        if (Convert.ToInt16(_ex[0]) > 0)
+                        {
+                            time = _ex[0] + " ngày " + _ex[1] + " giờ";
+                        }
+                        else if (Convert.ToInt16(_ex[0]) == 0 && Convert.ToInt16(_ex[1]) == 0)
+                        {
+                            time = _ex[2] + " phút";
+                        }
+                        else if (Convert.ToInt16(_ex[0]) == 0 && Convert.ToInt16(_ex[1]) != 0)
+                        {
+                            time = _ex[1] + " giờ";
+                        }
+                        <td class="tdLeftAlign">@time</td>
+                    }
+
+                </tr>
+                    }
+                }
+                else
+                {
+                    <tr role="row" class="odd" style="height: 35px;">
+                        <td class="tdCenterAlign" colspan="8" style="text-align: center; font-size: 18px; padding: 10px 0 10px 0;">
+                            <p>Không có kết quả nào</p>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="_ClassPage">
+        <ul>
+            @Html.Raw(ViewBag.Paging)
+        </ul>
+    </div>
+
+}
+catch (Exception)
+{
+    // ignored
+}
+
