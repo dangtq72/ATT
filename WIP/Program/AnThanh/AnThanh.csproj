@@ -473,6 +473,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\TestGit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -507,7 +508,6 @@
     <Folder Include="Areas\ToDo\Views\Shared\" />
     <Folder Include="Areas\UserAndRole\Models\" />
     <Folder Include="Content\css\CssFormPoup\NewFolder\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BusinessFacadeLayer\BusinessFacadeLayer.csproj">
