@@ -1,1 +1,8 @@
-﻿
+﻿@using ObjInfo.Import
+@using ObjInfo.Catalogue
+@using AnThanh.Commons
+
+@{ 
+    List<AllCodeInfo> lstStatus = DataMemory.Get_AllCodeByCDTYPE("CONTRACT_STATUS");
+    
+}
