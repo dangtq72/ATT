@@ -3,3 +3,9 @@ D:\Working\AnThanh\WIP\Program\ObjInfo\bin\Debug\ObjInfo.pdb
 D:\Working\AnThanh\WIP\Program\ObjInfo\obj\Debug\ObjInfo.dll
 D:\Working\AnThanh\WIP\Program\ObjInfo\obj\Debug\ObjInfo.pdb
 D:\Working\AnThanh\WIP\Program\ObjInfo\obj\Debug\ObjInfo.csprojResolveAssemblyReference.cache
+D:\Project\ATT01\ATT\WIP\Program\ObjInfo\bin\Debug\ObjInfo.dll
+D:\Project\ATT01\ATT\WIP\Program\ObjInfo\bin\Debug\ObjInfo.pdb
+D:\Project\ATT01\ATT\WIP\Program\ObjInfo\obj\Debug\ObjInfo.csprojAssemblyReference.cache
+D:\Project\ATT01\ATT\WIP\Program\ObjInfo\obj\Debug\ObjInfo.csproj.CoreCompileInputs.cache
+D:\Project\ATT01\ATT\WIP\Program\ObjInfo\obj\Debug\ObjInfo.dll
+D:\Project\ATT01\ATT\WIP\Program\ObjInfo\obj\Debug\ObjInfo.pdb

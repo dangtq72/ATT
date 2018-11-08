@@ -9,3 +9,16 @@ D:\Working\AnThanh\WIP\Program\DataAccessLayer\obj\Debug\DataAccessLayer.dll
 D:\Working\AnThanh\WIP\Program\DataAccessLayer\obj\Debug\DataAccessLayer.pdb
 D:\Working\AnThanh\WIP\Program\DataAccessLayer\bin\Debug\log4net.dll
 D:\Working\AnThanh\WIP\Program\DataAccessLayer\bin\Debug\Oracle.DataAccess.dll
+D:\Project\ATT01\ATT\WIP\Program\DataAccessLayer\bin\Debug\DataAccessLayer.dll
+D:\Project\ATT01\ATT\WIP\Program\DataAccessLayer\bin\Debug\DataAccessLayer.pdb
+D:\Project\ATT01\ATT\WIP\Program\DataAccessLayer\bin\Debug\log4net.dll
+D:\Project\ATT01\ATT\WIP\Program\DataAccessLayer\bin\Debug\NaviCommon.dll
+D:\Project\ATT01\ATT\WIP\Program\DataAccessLayer\bin\Debug\ObjInfo.dll
+D:\Project\ATT01\ATT\WIP\Program\DataAccessLayer\bin\Debug\Oracle.DataAccess.dll
+D:\Project\ATT01\ATT\WIP\Program\DataAccessLayer\bin\Debug\NaviCommon.pdb
+D:\Project\ATT01\ATT\WIP\Program\DataAccessLayer\bin\Debug\ObjInfo.pdb
+D:\Project\ATT01\ATT\WIP\Program\DataAccessLayer\obj\Debug\DataAccessLayer.csprojAssemblyReference.cache
+D:\Project\ATT01\ATT\WIP\Program\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.CoreCompileInputs.cache
+D:\Project\ATT01\ATT\WIP\Program\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.CopyComplete
+D:\Project\ATT01\ATT\WIP\Program\DataAccessLayer\obj\Debug\DataAccessLayer.dll
+D:\Project\ATT01\ATT\WIP\Program\DataAccessLayer\obj\Debug\DataAccessLayer.pdb
