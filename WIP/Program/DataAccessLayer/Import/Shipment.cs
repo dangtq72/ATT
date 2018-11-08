@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Import
 {
-    class Shipment
+    public class Shipment
     {
+
     }
 }
