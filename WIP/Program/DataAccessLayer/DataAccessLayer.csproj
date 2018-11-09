@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helper\OracleHelper.cs" />
+    <Compile Include="Import\ContractDA.cs" />
     <Compile Include="ModuleBaseDataDA\CarriersDA.cs" />
     <Compile Include="ModuleBaseDataDA\CustomerDA.cs" />
     <Compile Include="ModuleBaseDataDA\LocationDA.cs" />

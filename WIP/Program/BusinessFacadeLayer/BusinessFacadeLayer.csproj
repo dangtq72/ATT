@@ -54,6 +54,8 @@
     <Compile Include="ModuleBaseDataBL\ServiceBL.cs" />
     <Compile Include="ModuleBaseDataBL\SupplierBL.cs" />
     <Compile Include="ToDo\ToDoBL.cs" />
+    <Compile Include="Import\ContractBL.cs" />
+    <Compile Include="Import\ShipmentBL.cs" />
     <Compile Include="UserAndRole\Au_GroupBL.cs" />
     <Compile Include="User\UserBL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

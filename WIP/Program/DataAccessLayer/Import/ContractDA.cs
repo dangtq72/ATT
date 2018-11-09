@@ -13,7 +13,7 @@ namespace DataAccessLayer.Import
 {
     public class ContractDA
     {
-        public DataSet Search(string contractCode, string contractDate, string importObject, string status, string startAt, string endAt, ref decimal totalRecord)
+        public DataSet Search(string contractCode, string contractDate, string importObject, string status, string startAt, string endAt, ref decimal totalRecord)     
         {
             try
             {

@@ -286,6 +286,16 @@
     <Content Include="Areas\ModuleBaseData\Views\Location\LocationDisplay.cshtml" />
     <Content Include="Areas\ModuleBaseData\Views\Location\_Partial_ListLocation.cshtml" />
     <Content Include="Areas\ModuleBaseData\Views\Location\_Partial_ImportFile.cshtml" />
+    <Content Include="Areas\ModuleImport\Views\web.config" />
+    <Content Include="Areas\ModuleImport\Views\Contract\Contract_Display.cshtml" />
+    <Content Include="Areas\ModuleImport\Views\Contract\Contract_Insert.cshtml" />
+    <Content Include="Areas\ModuleImport\Views\Contract\Contract_Update.cshtml" />
+    <Content Include="Areas\ModuleImport\Views\Contract\_Partial_Contract_Insert.cshtml" />
+    <Content Include="Areas\ModuleImport\Views\Contract\_Partial_Contract_List.cshtml" />
+    <Content Include="Areas\ModuleImport\Views\Contract\_Partial_Contract_Update.cshtml" />
+    <Content Include="Areas\ModuleImport\Views\Contract\_Partial_Shipment_Insert.cshtml" />
+    <Content Include="Areas\ModuleImport\Views\Contract\_Partial_Shipment_List.cshtml" />
+    <Content Include="Areas\ModuleImport\Views\Contract\_Partial_Shipment_Update.cshtml" />
     <None Include="Content\js\jquery-1.10.2.intellisense.js" />
     <Content Include="Content\js\jquery-1.10.2.js" />
     <Content Include="Content\js\jquery-1.10.2.min.js" />
@@ -458,6 +468,8 @@
     <Compile Include="Areas\ModuleBaseData\Controllers\PortController.cs" />
     <Compile Include="Areas\ModuleBaseData\Controllers\SupplierController.cs" />
     <Compile Include="Areas\ModuleBaseData\ModuleBaseDataAreaRegistration.cs" />
+    <Compile Include="Areas\ModuleImport\Controllers\ContractController.cs" />
+    <Compile Include="Areas\ModuleImport\ModuleImportAreaRegistration.cs" />
     <Compile Include="Areas\Product\Controllers\ProductController.cs" />
     <Compile Include="Areas\Product\ProductAreaRegistration.cs" />
     <Compile Include="Areas\ToDo\Controllers\ToDoController.cs" />
@@ -502,6 +514,8 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\ModuleBaseData\Models\" />
     <Folder Include="Areas\ModuleBaseData\Views\Shared\" />
+    <Folder Include="Areas\ModuleImport\Models\" />
+    <Folder Include="Areas\ModuleImport\Views\Shared\" />
     <Folder Include="Areas\Product\Models\" />
     <Folder Include="Areas\Product\Views\Shared\" />
     <Folder Include="Areas\ToDo\Models\" />
