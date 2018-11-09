@@ -43,6 +43,23 @@ namespace BusinessFacadeLayer.Import
             return lstContract;
         }
 
+        public Contract GetById(decimal contractId)
+        {
+            Contract contract = new Contract();
+            var contractDa = new ContractDA();
+            try
+            {
+                var ds = contractDa.GetById(contractId);
+                contract = CBO<Contract>.FillObject_From_DataSet(ds);
+            }
+            catch (Exception ex)
+            {
+                Common.log.Error(ex.ToString());
+                contract = new Contract();
+            }
+            return contract;
+        }
+
         public Contract GetByCode(string code)
         {
             Contract contract = new Contract();
@@ -77,13 +94,13 @@ namespace BusinessFacadeLayer.Import
             return contract;
         }
 
-        public decimal Insert_ContainShipment(Contract contract, List<Shipment> shipments)
+        public decimal Insert_ContainShipment(Contract contract, List<Shipment> shipments, List<ContractDetail> contractDetails)
         {
             decimal _result = -1;
             var contractDa = new ContractDA();
             try
             {
-                _result = contractDa.InsertContract_ContainShipments(contract, shipments.ToArray());
+                _result = contractDa.InsertContract_ContainShipments(contract, shipments.ToArray(), contractDetails.ToArray());
             }
             catch (Exception ex)
             {
@@ -93,15 +110,13 @@ namespace BusinessFacadeLayer.Import
             return _result;
         }
 
-        public decimal Update_ContainShipment(Contract contract, List<Shipment> shipments)
+        public decimal Update_ContainShipment(Contract contract, List<Shipment> shipments, List<ContractDetail> contractDetails)
         {
             decimal _result = -1;
             var contractDa = new ContractDA();
             try
             {
-                Shipment[] arrShipmentAdd = shipments.Where(s => s.Id == 0).ToArray();
-                Shipment[] arrShipmentEdit = shipments.Where(s => s.Id > 0).ToArray();
-                _result = contractDa.UpdateContract_ContainShipments(contract, arrShipmentAdd, arrShipmentEdit);
+                _result = contractDa.UpdateContract_ContainShipments(contract, shipments.ToArray(), contractDetails.ToArray());
             }
             catch (Exception ex)
             {

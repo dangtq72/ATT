@@ -51,5 +51,6 @@ namespace ObjInfo.Import
         public string Import_Object_Display { get; set; }
         public int Intent_Type { get; set; }
         public int Intent_Type_Display { get; set; }
+        public int Deleted { get; set; }
     }
 }
