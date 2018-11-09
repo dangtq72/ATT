@@ -14,5 +14,7 @@ namespace ObjInfo.Import
         public decimal Quantity { get; set; }
         public decimal Unit_Price { get; set; }
         public decimal Supplier_Id { get; set; }
+        public decimal Supplier_Name { get; set; }
+
     }
 }
