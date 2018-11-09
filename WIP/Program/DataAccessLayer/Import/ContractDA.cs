@@ -38,6 +38,23 @@ namespace DataAccessLayer.Import
             }
         }
 
+        // Theo id
+        public DataSet GetById(decimal contractId)
+        {
+            try
+            {
+                DataSet _ds = OracleHelper.ExecuteDataset(Common.gConnectString, CommandType.StoredProcedure, "pkg_contract.proc_contract_getbyid",
+                    new OracleParameter("p_contract_id", OracleDbType.Decimal, contractId, ParameterDirection.Input),
+                    new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output));
+                return _ds;
+            }
+            catch (Exception ex)
+            {
+                Common.log.Error(ex.ToString());
+                return new DataSet();
+            }
+        }
+
         // Theo mã hợp đồng
         public DataSet GetByCode(string contractCode)
         {

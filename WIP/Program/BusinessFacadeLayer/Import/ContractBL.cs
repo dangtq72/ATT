@@ -43,6 +43,23 @@ namespace BusinessFacadeLayer.Import
             return lstContract;
         }
 
+        public Contract GetById(decimal contractId)
+        {
+            Contract contract = new Contract();
+            var contractDa = new ContractDA();
+            try
+            {
+                var ds = contractDa.GetById(contractId);
+                contract = CBO<Contract>.FillObject_From_DataSet(ds);
+            }
+            catch (Exception ex)
+            {
+                Common.log.Error(ex.ToString());
+                contract = new Contract();
+            }
+            return contract;
+        }
+
         public Contract GetByCode(string code)
         {
             Contract contract = new Contract();

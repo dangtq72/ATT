@@ -7,7 +7,7 @@ using ObjInfo.Import;
 using BusinessFacadeLayer.Import;
 using NaviCommon;
 
-namespace AnThanh.Areas.Import.Controllers
+namespace AnThanh.Areas.ModuleImport.Controllers
 {
     public class ContractController : Controller
     {
@@ -31,7 +31,7 @@ namespace AnThanh.Areas.Import.Controllers
             {
                 NaviCommon.Common.log.Error(ex.ToString());
             }
-            return View("~/Areas/Import/Views/Contract/Contract_Display.cshtml");
+            return View("~/Areas/ModuleImport/Views/Contract/Contract_Display.cshtml");
         }
 
         [HttpPost]
@@ -53,13 +53,13 @@ namespace AnThanh.Areas.Import.Controllers
             {
                 NaviCommon.Common.log.Error(ex.ToString());
             }
-            return PartialView("~/Areas/Import/Views/Contract/_Partial_Contract_List.cshtml");
+            return PartialView("~/Areas/ModuleImport/Views/Contract/_Partial_Contract_List.cshtml");
         }
 
         [HttpGet]
         public ActionResult Contract_Insert()
         {
-            return View("~/Areas/Import/Views/Contract/Contract_Insert.cshtml");
+            return View("~/Areas/ModuleImport/Views/Contract/Contract_Insert.cshtml");
         }
 
         [HttpPost]
@@ -80,9 +80,12 @@ namespace AnThanh.Areas.Import.Controllers
         }
 
         [HttpGet]
-        public ActionResult Contract_Update()
+        public ActionResult Contract_Update(decimal contractId)
         {
-            return View("~/Areas/Import/Views/Contract/Contract_Update.cshtml");
+            var contractBl = new ContractBL();
+            Contract contract = new Contract();
+            contract = contractBl.GetById(contractId);
+            return View("~/Areas/ModuleImport/Views/Contract/Contract_Update.cshtml");
         }
 
         [HttpPost]
@@ -105,7 +108,7 @@ namespace AnThanh.Areas.Import.Controllers
         [HttpGet]
         public ActionResult Shipment_GetViewToInsert()
         {
-            return PartialView("~/Areas/Import/Views/Contract/_Partial_Shipment_Insert.cshtml");
+            return PartialView("~/Areas/ModuleImport/Views/Contract/_Partial_Shipment_Insert.cshtml");
         }
 
         [HttpPost]
@@ -117,7 +120,7 @@ namespace AnThanh.Areas.Import.Controllers
         [HttpGet]
         public ActionResult Shipment_GetViewToUpdate()
         {
-            return PartialView("~/Areas/Import/Views/Contract/_Partial_Shipment_Insert.cshtml");
+            return PartialView("~/Areas/ModuleImport/Views/Contract/_Partial_Shipment_Insert.cshtml");
         }
 
         [HttpPost]

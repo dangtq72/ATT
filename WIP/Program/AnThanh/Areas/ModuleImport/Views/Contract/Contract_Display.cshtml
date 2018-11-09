@@ -1,8 +1,109 @@
 ﻿
+
+@using ObjInfo.Import
+@using ObjInfo.Catalogue
+@using AnThanh.Commons
+
 @{
-    ViewBag.Title = "Contract_Display";
+    ViewBag.Title = "Hợp đồng";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Contract_Display</h2>
+@{
+    List<AllCodeInfo> lstStatus = DataMemory.Get_AllCodeByCDTYPE("CONTRACT_STATUS");
+    List<AllCodeInfo> lstImportObject = DataMemory.Get_AllCodeByCDTYPE("IMPORT_OBJECT");
+}
 
+@try
+{
+    <div class="divCover divCover_Title">
+        <div class="d-nav">
+            <span class="fa fa-home"></span>&ensp;
+            Hợp đồng
+            <span>&ensp;>&ensp;</span>
+            <a href="/import/contract_display" class="green">Quản lý hợp đồng</a>
+        </div>
+    </div>
+    <div class="col-container border">
+        <div class="d_left_content_TMDT col">
+            <div class="divCover content_left">
+                <div class="title_search">
+                    <span class="content_title">TÌM KIẾM HỢP ĐỒNG</span>
+                    <span class="icon_title">
+                        <i class="fas fa-align-right"></i>
+                    </span>
+                </div>
+                <div class="content_search">
+                    <div class="div-search-title-N">
+                        <span>Mã / Số hợp đồng</span>
+                    </div>
+                    <div class="div-search-ad">
+                        <div class="div-search-content">
+                            <div>
+                                <input data-controlcondition="TRUE" type="text" id="txtContractName" class="input_search" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="div-search-btn">
+                    <input class="btn-default search" data-controlcondition="TRUE" type="button" value="Tìm kiếm" onclick="Contract_Search(1)" />
+                    <input class="btn-default addnew" data-controlcondition="TRUE" type="button" value="Thêm mới người dùng" onclick="Contract_GetViewInsert()" />
+                </div>
+            </div>
+        </div>
+        <div class="d_right_content_TMDT col">
+            <div class="divCover">
+                <div class="title_table">
+                    <span class="content_title title-table">DANH SÁCH HỢP ĐỒNG</span>
+                </div>
+                <div id="divDataContract" class="divDataTables">
+                    @Html.Partial("~/Areas/ModuleImport/Views/Contract/_Partial_Contract_List.cshtml")
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="divWrapperViewUser" class="divWrapperPopup" style="display: none;">
+        <div class="divPopup" id="divViewUser">
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+
+        });
+
+        function Contract_Search(pageNum) {
+            var _keySearch = "", _contractCode = "", _contractDate = "", _importObject = "", _status = "";
+            _contractCode = $('#txtContractCode').val().trim();
+            _keySearch = _contractCode + '|' + _contractDate + '|' + _importObject + '|' + _status;
+            
+            $.ajax({
+                type: 'POST',
+                url: '/Import/Contract/Contract_Display',
+                data: {
+                    keySearch: _keySearch,
+                    currentPage: pageNum
+                },
+                async: true, cache: false, traditional: true,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    $("#divDataContract").html(data);
+                }
+            });
+        }
+
+        function Contract_GetViewInsert() {
+            window.location = "/ModuleImport/Contract/Contract_Insert";
+        }
+
+        function Contract_GetViewUpdate(contractId) {
+            window.location = "/ModuleImport/Contract/Contract_Update?contractId=" + contractId;
+        }
+    </script>
+}
+catch (Exception)
+{
+}
