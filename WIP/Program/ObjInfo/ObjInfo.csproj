@@ -44,6 +44,7 @@
     <Compile Include="Catalogue\AllCodeInfo.cs" />
     <Compile Include="Import\Contract.cs" />
     <Compile Include="Import\ContractDetail.cs" />
+    <Compile Include="Import\Contrac_logistic.cs" />
     <Compile Include="Import\Shipment.cs" />
     <Compile Include="Import\Shipment_Container.cs" />
     <Compile Include="ModuleBaseData\CarriersInfo.cs" />

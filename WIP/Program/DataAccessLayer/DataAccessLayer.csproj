@@ -53,6 +53,7 @@
     <Compile Include="Helper\OracleHelper.cs" />
     <Compile Include="Import\ContractDA.cs" />
     <Compile Include="Import\ContractDetailDA.cs" />
+    <Compile Include="Import\Contrac_LogisticDA.cs" />
     <Compile Include="Import\ShipmentDA.cs" />
     <Compile Include="ModuleBaseDataDA\CarriersDA.cs" />
     <Compile Include="ModuleBaseDataDA\CustomerDA.cs" />

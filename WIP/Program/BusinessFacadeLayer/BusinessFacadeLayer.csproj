@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Import\Contract_LogisticBL.cs" />
     <Compile Include="MemmoryBL\Memory_BL.cs" />
     <Compile Include="ModuleBaseDataBL\CarriersBL.cs" />
     <Compile Include="ModuleBaseDataBL\CustomerBL.cs" />
