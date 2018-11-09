@@ -100,7 +100,7 @@ namespace BusinessFacadeLayer.Import
             var contractDa = new ContractDA();
             try
             {
-                _result = contractDa.InsertContract_ContainShipments(contract, shipments.ToArray());
+                //_result = contractDa.InsertContract_ContainShipments(contract, shipments.ToArray());
             }
             catch (Exception ex)
             {
