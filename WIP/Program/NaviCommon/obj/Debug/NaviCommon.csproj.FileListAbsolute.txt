@@ -16,3 +16,13 @@ D:\Project\ATT01\ATT\WIP\Program\NaviCommon\obj\Debug\NaviCommon.csproj.CoreComp
 D:\Project\ATT01\ATT\WIP\Program\NaviCommon\obj\Debug\NaviCommon.csproj.CopyComplete
 D:\Project\ATT01\ATT\WIP\Program\NaviCommon\obj\Debug\NaviCommon.dll
 D:\Project\ATT01\ATT\WIP\Program\NaviCommon\obj\Debug\NaviCommon.pdb
+D:\Working\ATT\WIP\Program\NaviCommon\bin\Debug\NaviCommon.dll
+D:\Working\ATT\WIP\Program\NaviCommon\bin\Debug\NaviCommon.pdb
+D:\Working\ATT\WIP\Program\NaviCommon\bin\Debug\log4net.dll
+D:\Working\ATT\WIP\Program\NaviCommon\bin\Debug\ObjInfo.dll
+D:\Working\ATT\WIP\Program\NaviCommon\bin\Debug\ObjInfo.pdb
+D:\Working\ATT\WIP\Program\NaviCommon\obj\Debug\NaviCommon.csprojAssemblyReference.cache
+D:\Working\ATT\WIP\Program\NaviCommon\obj\Debug\NaviCommon.csproj.CoreCompileInputs.cache
+D:\Working\ATT\WIP\Program\NaviCommon\obj\Debug\NaviCommon.csproj.CopyComplete
+D:\Working\ATT\WIP\Program\NaviCommon\obj\Debug\NaviCommon.dll
+D:\Working\ATT\WIP\Program\NaviCommon\obj\Debug\NaviCommon.pdb
