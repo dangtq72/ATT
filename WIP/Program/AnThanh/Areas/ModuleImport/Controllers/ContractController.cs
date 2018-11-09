@@ -63,14 +63,14 @@ namespace AnThanh.Areas.ModuleImport.Controllers
         }
 
         [HttpPost]
-        public ActionResult Contract_Insert(Contract contract, List<Shipment> lstShipment)
+        public ActionResult Contract_Insert(Contract contract, List<Shipment> lstShipment, List<ContractDetail> contractDetails)
         {
             var contractBl = new ContractBL();
             decimal _success = -1;
 
             try
             {
-                _success = contractBl.Insert_ContainShipment(contract, lstShipment);
+                _success = contractBl.Insert_ContainShipment(contract, lstShipment, contractDetails);
             }
             catch (Exception ex)
             {
@@ -89,14 +89,14 @@ namespace AnThanh.Areas.ModuleImport.Controllers
         }
 
         [HttpPost]
-        public ActionResult Contract_Update(Contract contract, List<Shipment> lstShipment)
+        public ActionResult Contract_Update(Contract contract, List<Shipment> lstShipment, List<ContractDetail> contractDetails)
         {
             var contractBl = new ContractBL();
             decimal _success = -1;
 
             try
             {
-                _success = contractBl.Update_ContainShipment(contract, lstShipment);
+                _success = contractBl.Update_ContainShipment(contract, lstShipment, contractDetails);
             }
             catch (Exception ex)
             {

@@ -146,10 +146,6 @@ namespace DataAccessLayer.Import
             }
         }
         
-        
-
-        
-
         public decimal InsertContract_ContainShipments(Contract contract, Shipment[] shipments, ContractDetail[] contractDetails)
         {
             decimal _result = -1;
@@ -191,13 +187,17 @@ namespace DataAccessLayer.Import
             return _result;
         }
 
-        public decimal UpdateContract_ContainShipments(Contract contract, Shipment[] shipmentsAdd, Shipment[] shipmentsEdit)
+        public decimal UpdateContract_ContainShipments(Contract contract, Shipment[] shipments, ContractDetail[] contractDetails)
         {
             decimal _result = -1;
             var shipmentDa = new ShipmentDA();
             var contractDetailDa = new ContractDetailDA();
             try
             {
+                var shipmentsAdd = shipments.Where(s => s.Id == 0).ToArray();
+                var shipmentsEdit = shipments.Where(s => s.Id > 0).ToArray();
+                var detailsAdd = contractDetails.Where(cd => cd.Contract_Detail_Id == 0).ToArray();
+                var detailsEdit = contractDetails.Where(cd => cd.Contract_Detail_Id > 0).ToArray();
                 using (var conn = new OracleConnection(Common.gConnectString))
                 {
                     conn.Open();
@@ -213,7 +213,14 @@ namespace DataAccessLayer.Import
                         {
                             _result = shipmentDa.UpdateShipments(shipmentsEdit, trans);
                         }
-
+                        if (_result >= 0 && detailsAdd.Length > 0)
+                        {
+                            _result = contractDetailDa.InsertContractDetail(detailsAdd, trans);
+                        }
+                        if (_result >= 0 && detailsEdit.Length > 0)
+                        {
+                            _result = contractDetailDa.UpdateContractDetail(detailsEdit, trans);
+                        }
                         if (_result < 0)
                         {
                             trans.Rollback();
