@@ -54,6 +54,7 @@
     <Compile Include="ModuleBaseData\Product_Info.cs" />
     <Compile Include="ModuleBaseData\ServiceInfo.cs" />
     <Compile Include="ModuleBaseData\SupplierInfo.cs" />
+    <Compile Include="ModuleOrders\DeliveryInfo.cs" />
     <Compile Include="ModuleOrders\OrderInfo.cs" />
     <Compile Include="Nation\NationInfo.cs" />
     <Compile Include="ToDo\ToDoInfo.cs" />

@@ -54,6 +54,7 @@
     <Compile Include="ModuleBaseDataBL\ProductBL.cs" />
     <Compile Include="ModuleBaseDataBL\ServiceBL.cs" />
     <Compile Include="ModuleBaseDataBL\SupplierBL.cs" />
+    <Compile Include="ModuleOrders\DeliveryBL.cs" />
     <Compile Include="ModuleOrders\OrdersBL.cs" />
     <Compile Include="ToDo\ToDoBL.cs" />
     <Compile Include="Import\ContractBL.cs" />

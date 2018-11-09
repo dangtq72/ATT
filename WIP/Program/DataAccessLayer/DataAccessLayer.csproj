@@ -63,6 +63,7 @@
     <Compile Include="ModuleBaseDataDA\ServiceDA.cs" />
     <Compile Include="ModuleBaseDataDA\SupplierDA.cs" />
     <Compile Include="ModuleMemmoryDA\MemmoryDA.cs" />
+    <Compile Include="ModuleOrder\DeliveryDA.cs" />
     <Compile Include="ModuleOrder\OrdersDA.cs" />
     <Compile Include="Todo\ToDoDA.cs" />
     <Compile Include="UserAndRole\Au_GroupDA.cs" />
