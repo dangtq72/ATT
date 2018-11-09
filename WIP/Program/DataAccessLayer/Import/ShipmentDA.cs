@@ -14,6 +14,67 @@ namespace DataAccessLayer.Import
 
     public class ShipmentDA
     {
+        public DataSet Search(string shipmentCode, string contractCode, string productCode, string billingNumber, string status, string requestObject, 
+            string importObject, string startAt, string endAt, ref decimal totalRecord)
+        {
+            try
+            {
+                OracleParameter paramReturn = new OracleParameter("p_total_record", OracleDbType.Decimal, ParameterDirection.Output);
+                DataSet _ds = OracleHelper.ExecuteDataset(Common.gConnectString, CommandType.StoredProcedure, "pkg_shipment.proc_shipment_search",
+                    new OracleParameter("p_shipment_code", OracleDbType.Varchar2, shipmentCode, ParameterDirection.Input),
+                    new OracleParameter("p_contract_code", OracleDbType.Varchar2, contractCode, ParameterDirection.Input),
+                    new OracleParameter("p_product_code", OracleDbType.Varchar2, productCode, ParameterDirection.Input),
+                    new OracleParameter("p_billing_number", OracleDbType.Varchar2, billingNumber, ParameterDirection.Input),
+                    new OracleParameter("p_request_object", OracleDbType.Varchar2, requestObject, ParameterDirection.Input),
+                    new OracleParameter("p_import_object", OracleDbType.Varchar2, importObject, ParameterDirection.Input),
+                    new OracleParameter("p_status", OracleDbType.Varchar2, status, ParameterDirection.Input),
+                    new OracleParameter("p_start_at", OracleDbType.Varchar2, startAt, ParameterDirection.Input),
+                    new OracleParameter("p_end_at", OracleDbType.Varchar2, endAt, ParameterDirection.Input),
+                    paramReturn,
+                    new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output));
+
+                totalRecord = Convert.ToDecimal(paramReturn.Value.ToString());
+                return _ds;
+            }
+            catch (Exception ex)
+            {
+                Common.log.Error(ex.ToString());
+                return new DataSet();
+            }
+        }
+
+        public DataSet GetByContractId(decimal contractId)
+        {
+            try
+            {
+                DataSet _ds = OracleHelper.ExecuteDataset(Common.gConnectString, CommandType.StoredProcedure, "pkg_shipment.proc_shipment_getbycontract",
+                    new OracleParameter("p_contract_id", OracleDbType.Decimal, contractId, ParameterDirection.Input),
+                    new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output));
+                return _ds;
+            }
+            catch (Exception ex)
+            {
+                Common.log.Error(ex.ToString());
+                return new DataSet();
+            }
+        }
+
+        public DataSet GetById(decimal id)
+        {
+            try
+            {
+                DataSet _ds = OracleHelper.ExecuteDataset(Common.gConnectString, CommandType.StoredProcedure, "pkg_shipment.proc_shipment_getbyid",
+                    new OracleParameter("p_id", OracleDbType.Decimal, id, ParameterDirection.Input),
+                    new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output));
+                return _ds;
+            }
+            catch (Exception ex)
+            {
+                Common.log.Error(ex.ToString());
+                return new DataSet();
+            }
+        }
+
         public decimal InsertShipments(Shipment[] shipments, OracleTransaction trans)
         {
             decimal _result = -1;
