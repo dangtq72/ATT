@@ -1,0 +1,9 @@
+- clone: open git command tại thư mục cần get về
+	git clone https://github.com/dangtq72/ATT
+- trước khi làm thì cần get dữ liệu từ server về
+	mở commnand -> git pull
+- đẩy dữ liệu lên server
+	- đẩy file mới: 
+		git add * -> đẩy all file mới lên (có file mới thì mới cần cái này)
+		git commit -a -m 'ghi chú'
+		git push
