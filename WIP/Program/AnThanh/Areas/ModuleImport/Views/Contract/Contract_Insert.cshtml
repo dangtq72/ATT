@@ -1,1 +1,230 @@
 ﻿
+@using AnThanh.Commons
+@using ObjInfo.Catalogue
+@using ObjInfo.ModuleBaseData
+@{
+    ViewBag.Title = "Thêm mới hợp đồng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    List<AllCodeInfo> lstImportObject = DataMemory.Get_AllCodeByCDTYPE("IMPORT_OBJECT");
+    List<AllCodeInfo> lstPaymentStatus = DataMemory.Get_AllCodeByCDTYPE("PAYMENT_STATUS");
+    List<AllCodeInfo> lstPaymentType = DataMemory.Get_AllCodeByCDTYPE("CONTRACT_PAYMENT_TYPE");
+    List<AllCodeInfo> lstContractStatus = DataMemory.Get_AllCodeByCDTYPE("CONTRACT_STATUS");
+    List<SupplierInfo> lstSupplier = new List<SupplierInfo>();
+    if (ViewBag.ListSuppliers != null)
+    {
+        lstSupplier = ViewBag.ListSuppliers;
+    }
+}
+
+<style>
+    .div-search-ad > div textarea {
+        height: 72px;
+    }
+
+    .title_register {
+        cursor: pointer;
+    }
+
+        .title_register :not(a):not(i):not(.tooltiptext):before {
+            content: '▼';
+            float: right;
+            margin-right: 15px;
+            width: 15px;
+            text-align: center;
+            display: inline-block;
+            color: #828282;
+        }
+
+        .title_register.active :not(a):not(i):not(.tooltiptext):before {
+            content: '▲';
+        }
+</style>
+<div class="divCover divCover_Title">
+    <div class="d-nav">
+        <span class="fa fa-home"></span>&ensp;
+        Hợp đồng
+        <span>&ensp;>&ensp;</span>
+        <a href="/chinh_sach/quan_ly_chinh_sach" class="green">Thêm mới hợp đồng</a>
+    </div>
+</div>
+
+<div class="border mt-10">
+    <div class="title_register" onclick="ToggleDetailDiv(this, event)">
+        <span class="content_title content_title_register">THÔNG TIN HỢP ĐỒNG</span>
+        <a href="javascript:;" style="float:right; margin-right:20px">Thêm danh mục hàng</a>
+    </div>
+    <div class="col-container-register">
+        <div class="content_register col">
+            <div class="divCover">
+                <div class="divCover">
+                    <div class="col cols">
+                        <div class="border-10">
+                            <div class="div-search-title-N">
+                                <span>Đơn vị nhập hàng <i class="redspan">(*)</i></span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <select id="cboImportObject">
+                                            @foreach (var item in lstImportObject)
+                                            {
+                                                <option value="@item.CdVal">@item.CdName</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col cols">
+                        <div class="border-10">
+                            <div class="div-search-title-N">
+                                <span>Người phụ trách <i class="redspan">(*)</i></span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <input type="text" name="Request_By" id="txtRequestBy" maxlength="50" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col cols">
+                        <div class="border-10">
+                            <div class="div-search-title-N">
+                                <span>Số hợp đồng<i class="redspan">(*)</i></span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <input type="text" name="txtContractCode" maxlength="50" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col cols">
+                        <div class="border-10">
+                            <div class="div-search-title-N">
+                                <span>Ngày hợp đồng<i class="redspan">(*)</i></span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <input class="datepicker" type="text" id="txtContractDate" name="ContractDate" placeholder="__/__/____" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col cols">
+                        <div class="border-10">
+                            <div class="div-search-title-N">
+                                <span>Nhà cung cấp<i class="redspan">(*)</i></span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <select id="cboSupplier" name="Supplier_Id">
+                                            @foreach (var item in lstSupplier)
+                                            {
+                                                <option value="@item.Id">@item.Name</option>
+                                            }
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col cols">
+                        <div class="border-10">
+                            <div class="div-search-title-N">
+                                <span>Điều kiện thanh toán<i class="redspan">(*)</i></span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <select id="cboPaymentType">
+                                            @foreach (var item in lstPaymentType)
+                                            {
+                                                <option value="@item.CdVal">@item.Description</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col cols">
+                        <div class="border-10">
+                            <div class="div-search-title-N">
+                                <span>Tình trạng thanh toán</span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <select id="cboPaymentStatus">
+                                            @foreach (var item in lstPaymentStatus)
+                                            {
+                                                <option value="@item.CdVal">@item.Description</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col cols">
+                        <div class="border-10">
+                            <div class="div-search-title-N">
+                                <span>Tình trạng hợp đồng</span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <select id="cboStatus">
+                                            @foreach (var item in lstContractStatus)
+                                            {
+                                                <option value="@item.CdVal">@item.Description</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col cols" style="width:100%">
+                        <div class="border-10">
+                            <div class="div-search-title-N">
+                                <span>Ghi chú</span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <textarea name="Notes" rows="3" cols="20" id="txtNotes"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function ToggleDetailDiv(elm, e) {
+        if (!$(e.target).is('i')) {
+            $(elm).nextUntil('.title_register').toggle('fast');
+            $(elm).toggleClass('active');
+        } else {
+            $(elm).parent().remove();
+        }
+
+    }
+</script>
+

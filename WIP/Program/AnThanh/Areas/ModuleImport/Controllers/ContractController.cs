@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using ObjInfo.Import;
 using BusinessFacadeLayer.Import;
 using NaviCommon;
+using ObjInfo.ModuleBaseData;
+using BusinessFacadeLayer.ModuleBaseDataBL;
 
 namespace AnThanh.Areas.ModuleImport.Controllers
 {
@@ -59,6 +61,17 @@ namespace AnThanh.Areas.ModuleImport.Controllers
         [HttpGet]
         public ActionResult Contract_Insert()
         {
+            var supplyBl = new SupplierBL();
+            List<SupplierInfo> lstSuppliers = new List<SupplierInfo>();
+            try
+            {
+                lstSuppliers = supplyBl.GetAll();
+                ViewBag.ListSuppliers = lstSuppliers;
+            }
+            catch (Exception ex)
+            {
+                Common.log.Error(ex.ToString());
+            }
             return View("~/Areas/ModuleImport/Views/Contract/Contract_Insert.cshtml");
         }
 
