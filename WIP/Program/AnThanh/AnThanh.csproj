@@ -296,6 +296,8 @@
     <Content Include="Areas\ModuleImport\Views\Contract\_Partial_Shipment_Insert.cshtml" />
     <Content Include="Areas\ModuleImport\Views\Contract\_Partial_Shipment_List.cshtml" />
     <Content Include="Areas\ModuleImport\Views\Contract\_Partial_Shipment_Update.cshtml" />
+    <Content Include="Areas\ModuleImport\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\ModuleImport\Views\Contract\_Partial_ContractDetail_Add.cshtml" />
     <None Include="Content\js\jquery-1.10.2.intellisense.js" />
     <Content Include="Content\js\jquery-1.10.2.js" />
     <Content Include="Content\js\jquery-1.10.2.min.js" />
