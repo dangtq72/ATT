@@ -1,0 +1,40 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.title = "Quản lý khách hàng";
+}
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 120px;
+    }
+</style>
+
+<div class="divCover divCover_Title">
+    <div class="d-nav">
+        <span class="fa fa-home"></span>&ensp;
+        Quản lý danh mục
+        <span>&ensp;>&ensp;</span>
+        <a href="/Customer/CustomerDisplay" class="green">Quản lý khách hàng</a>
+    </div>
+</div>
+<div class="col-container border">
+    <div>
+        <div class="divCover">
+            <div class="title_table">
+                <span class="content_title title-table">KẾ HOẠCH KÉO HÀNG TẠI CẢNG</span>
+                <a style="margin-left:400px;text-decoration:underline;" onclick="GotoViewImport();">Import danh sách</a>
+            </div>
+            <div id="divDataCustomer" class="divDataTables">
+                @Html.Partial("/Areas/ModuleOrders/Views/Delivery/_PartialListDelivery.cshtml")
+            </div>
+        </div>
+    </div>
+
+</div>
+<div id="divWrapperViewCustomer" class="divWrapperPopup" style="display: none;">
+    <div class="divPopup" id="divViewCustomer">
+    </div>
+</div>
+
+

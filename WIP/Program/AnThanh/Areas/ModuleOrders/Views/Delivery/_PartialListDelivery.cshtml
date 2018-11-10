@@ -1,0 +1,79 @@
+﻿@using ObjInfo.ModuleOrders
+@{
+    List<DeliveryInfo> list_data = new List<DeliveryInfo>();
+    if (ViewBag.List != null)
+    {
+        list_data = ViewBag.List;
+    }
+
+}
+@try
+{
+    <div id="divContainTable" class="divmousewheel">
+        <table id="_tableDatas" class="clsTable clsTable-border">
+            <thead>
+                <tr>
+                    <th class="class50">STT</th>
+                    <th class="class250">Ngày chốt</th>
+                    <th class="class250">NVKD</th>
+                    <th class="class250">Khối lượng(Ton)</th>
+                    <th class="class250">Khách hàng</th>
+                    <th class="class250">Điểm đến</th>
+                    <th class="class250">Ngày Giao hàng dự kiến</th>
+                    <th class="class250">Giá bán(VND)</th>
+                    <th class="class250">Tổng tiền(VND)</th>
+                    <th class="class250">Ghi chú</th>
+                    <th class="class250">Trạng thái</th>
+                    <th class="class100">Chức năng</th>
+                </tr>
+            </thead>
+            @if (list_data.Count == 0)
+            {
+                <tr role="row" class="odd" style="height: 35px;">
+
+                    <td class="tdCenterAlign" colspan="8" style="text-align: center; font-size: 18px; padding: 10px 0px 10px 0px;">
+                        <p>Không có kết quả nào</p>
+                    </td>
+                </tr>
+            }
+
+            else
+            {
+                <tbody>
+                    @foreach (DeliveryInfo item in list_data)
+                    {
+                        <tr role="row" style="height: 35px;">
+                            <td class="tdCenterAlign">@item.STT</td>
+                            <td class="tdLeftAlign">@item.Delivery_Date</td>
+                            <td class="tdLeftAlign">@item.Createdby</td>
+                            <td class="tdLeftAlign">@item.Phone</td>
+                            <td class="tdLeftAlign">@item.Email</td>
+                            <td class="tdLeftAlign">@item.Created_by</td>
+                            <td class="tdCenterAlign" style="white-space:nowrap">
+                                <a href="javascript:;" onclick="GotoViewEdit(@item.ID);">
+                                    <i class="fas fa-edit tooltip gray"><span class="tooltiptext">Sửa</span></i>
+                                </a>&ensp;
+                                <a href="javascript:;" onclick="Customer_delete(@item.ID);">
+                                    <i class="fas fa-trash-alt tooltip gray"><span class="tooltiptext">Xóa</span></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            }
+        </table>
+    </div>
+    <div class="_ClassPage">
+        <ul>
+            @Html.Raw(ViewBag.Paging)
+        </ul>
+    </div>
+}
+catch (Exception ex)
+{
+
+}
+
+
+

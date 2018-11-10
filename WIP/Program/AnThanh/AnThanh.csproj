@@ -298,6 +298,9 @@
     <Content Include="Areas\ModuleImport\Views\Contract\_Partial_Shipment_Update.cshtml" />
     <Content Include="Areas\ModuleImport\Views\_ViewStart.cshtml" />
     <Content Include="Areas\ModuleImport\Views\Contract\_Partial_ContractDetail_Add.cshtml" />
+    <Content Include="Areas\ModuleOrders\Views\web.config" />
+    <Content Include="Areas\ModuleOrders\Views\Delivery\Delivery_Display.cshtml" />
+    <Content Include="Areas\ModuleOrders\Views\Delivery\_PartialListDelivery.cshtml" />
     <None Include="Content\js\jquery-1.10.2.intellisense.js" />
     <Content Include="Content\js\jquery-1.10.2.js" />
     <Content Include="Content\js\jquery-1.10.2.min.js" />
@@ -472,6 +475,8 @@
     <Compile Include="Areas\ModuleBaseData\ModuleBaseDataAreaRegistration.cs" />
     <Compile Include="Areas\ModuleImport\Controllers\ContractController.cs" />
     <Compile Include="Areas\ModuleImport\ModuleImportAreaRegistration.cs" />
+    <Compile Include="Areas\ModuleOrders\Controllers\DeliveryController.cs" />
+    <Compile Include="Areas\ModuleOrders\ModuleOrdersAreaRegistration.cs" />
     <Compile Include="Areas\Product\Controllers\ProductController.cs" />
     <Compile Include="Areas\Product\ProductAreaRegistration.cs" />
     <Compile Include="Areas\ToDo\Controllers\ToDoController.cs" />
@@ -518,6 +523,8 @@
     <Folder Include="Areas\ModuleBaseData\Views\Shared\" />
     <Folder Include="Areas\ModuleImport\Models\" />
     <Folder Include="Areas\ModuleImport\Views\Shared\" />
+    <Folder Include="Areas\ModuleOrders\Models\" />
+    <Folder Include="Areas\ModuleOrders\Views\Shared\" />
     <Folder Include="Areas\Product\Models\" />
     <Folder Include="Areas\Product\Views\Shared\" />
     <Folder Include="Areas\ToDo\Models\" />
