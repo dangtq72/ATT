@@ -26,6 +26,21 @@ namespace BusinessFacadeLayer.ModuleOrders
             }
             return List_Obj;
         }
+        public List<OrderInfo> Order_Search(string p_keySearch, string p_from, string p_to, ref decimal p_total_record)
+        {
+            OrdersDA Obj_da = new OrdersDA();
+            List<OrderInfo> List_Obj = new List<OrderInfo>();
+            try
+            {
+                var ds = Obj_da.Order_Search(p_keySearch, p_from, p_to,ref p_total_record);
+                List_Obj = CBO<OrderInfo>.FillCollectionFromDataSet(ds);
+            }
+            catch (Exception ex)
+            {
+                Common.log.Error(ex.ToString());
+            }
+            return List_Obj;
+        }
         public OrderInfo GetOrderById(decimal Order_Id)
         {
             OrdersDA Obj_da = new OrdersDA();

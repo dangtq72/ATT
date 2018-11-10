@@ -122,5 +122,25 @@ namespace DataAccessLayer.ModuleOrder
                 return -1;
             }
         }
+        public DataSet Order_Search(string p_keySearch,string p_from , string p_to, ref decimal p_total_record)
+        {
+            try
+            {
+                OracleParameter paramReturn = new OracleParameter("p_total_record", OracleDbType.Decimal, ParameterDirection.Output);
+                DataSet _ds = OracleHelper.ExecuteDataset(Common.gConnectString, CommandType.StoredProcedure, "pkg_order.proc_order_search",
+                    new OracleParameter("p_key_search", OracleDbType.Varchar2, p_keySearch, ParameterDirection.Input),
+                    new OracleParameter("p_start_at", OracleDbType.Varchar2, p_from, ParameterDirection.Input),
+                    new OracleParameter("p_end_at", OracleDbType.Varchar2, p_to, ParameterDirection.Input),
+                    paramReturn,
+                    new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output));
+                p_total_record = Convert.ToDecimal(paramReturn.Value.ToString());
+                return _ds;
+            }
+            catch (Exception ex)
+            {
+                Common.log.Error(ex.ToString());
+                return new DataSet();
+            }
+        }
     }
 }

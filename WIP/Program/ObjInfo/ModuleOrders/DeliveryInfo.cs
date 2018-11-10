@@ -28,6 +28,7 @@ namespace ObjInfo.ModuleOrders
         public decimal Status { get; set; }
         public string Status_Display { get; set; }
         public DateTime Delivery_Date { get; set; }
+        public string Processor { get; set; }
         public string Createdby { get; set; }
         public DateTime CreatedDate { get; set; }
         public string ModifyBy { get; set; }

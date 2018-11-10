@@ -68,6 +68,7 @@ namespace DataAccessLayer.ModuleOrder
                     new OracleParameter("p_lst_cont", OracleDbType.Varchar2, Obj_Info.LST_CONT, ParameterDirection.Input),
                     new OracleParameter("p_status", OracleDbType.Decimal, Obj_Info.Status, ParameterDirection.Input),
                     new OracleParameter("p_delivery_date", OracleDbType.Date, Obj_Info.Delivery_Date, ParameterDirection.Input),
+                    new OracleParameter("p_processor", OracleDbType.Varchar2, Obj_Info.Processor, ParameterDirection.Input),
                     new OracleParameter("p_createdby", OracleDbType.Varchar2, Obj_Info.Createdby, ParameterDirection.Input),
                     new OracleParameter("p_createddate", OracleDbType.Date, DateTime.Now, ParameterDirection.Input),
                     paramReturn);
