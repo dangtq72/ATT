@@ -23,6 +23,10 @@ namespace ObjInfo.Import
         public int Payment_Status { get; set; }
         public string Payment_Status_Display { get; set; }
         public string Notes { get; set; }
+        public int Contract_Type { get; set; }
+        public DateTime Sign_Contract_Date { get; set; }
+        public int Price_Type { get; set; }
+        public string Supplier_Code { get; set; }
         public string Created_By { get; set; }
         public DateTime Created_Date { get; set; }
         public string Modified_By { get; set; }

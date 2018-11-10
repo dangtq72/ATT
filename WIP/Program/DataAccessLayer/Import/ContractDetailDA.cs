@@ -24,17 +24,27 @@ namespace DataAccessLayer.Import
                 cmd.Transaction = trans;
                 cmd.Parameters.Add("p_contract_code", OracleDbType.Varchar2, ParameterDirection.Input);
                 cmd.Parameters.Add("p_product_code", OracleDbType.Varchar2, ParameterDirection.Input);
+                cmd.Parameters.Add("p_bravo_code", OracleDbType.Varchar2, ParameterDirection.Input);
+                cmd.Parameters.Add("p_product_name", OracleDbType.Varchar2, ParameterDirection.Input);
+                cmd.Parameters.Add("p_country_name", OracleDbType.Varchar2, ParameterDirection.Input);
+                cmd.Parameters.Add("p_firm", OracleDbType.Varchar2, ParameterDirection.Input);
                 cmd.Parameters.Add("p_quantity", OracleDbType.Decimal, ParameterDirection.Input);
-                cmd.Parameters.Add("p_unit_price", OracleDbType.Decimal, ParameterDirection.Input);
-                cmd.Parameters.Add("p_supplier_id", OracleDbType.Decimal, ParameterDirection.Input);
+                cmd.Parameters.Add("p_price", OracleDbType.Decimal, ParameterDirection.Input);
+                cmd.Parameters.Add("p_total_price", OracleDbType.Decimal, ParameterDirection.Input);
+                cmd.Parameters.Add("p_co_free_tax", OracleDbType.Decimal, ParameterDirection.Input);
                 cmd.Parameters.Add("p_result", OracleDbType.Decimal, ParameterDirection.Output);
                 foreach (var detail in contractDetails)
                 {
                     cmd.Parameters["p_contract_code"].Value = detail.Contract_Code;
                     cmd.Parameters["p_product_code"].Value = detail.Product_Code;
+                    cmd.Parameters["p_bravo_code"].Value = detail.Product_Code;
+                    cmd.Parameters["p_product_name"].Value = detail.Product_Code;
+                    cmd.Parameters["p_country_name"].Value = detail.Product_Code;
+                    cmd.Parameters["p_firm"].Value = detail.Product_Code;
                     cmd.Parameters["p_quantity"].Value = detail.Quantity;
-                    cmd.Parameters["p_unit_price"].Value = detail.Unit_Price;
-                    cmd.Parameters["p_supplier_id"].Value = detail.Supplier_Id;
+                    cmd.Parameters["p_price"].Value = detail.Price;
+                    cmd.Parameters["p_total_price"].Value = detail.Total_Price;
+                    cmd.Parameters["p_co_free_tax"].Value = detail.Co_Free_Tax;
                     
                     cmd.ExecuteNonQuery();
                     _result = Convert.ToInt32(cmd.Parameters["p_result"].Value);
@@ -64,18 +74,28 @@ namespace DataAccessLayer.Import
                 cmd.Parameters.Add("p_contract_detail_id", OracleDbType.Decimal, ParameterDirection.Input);
                 cmd.Parameters.Add("p_contract_code", OracleDbType.Varchar2, ParameterDirection.Input);
                 cmd.Parameters.Add("p_product_code", OracleDbType.Varchar2, ParameterDirection.Input);
+                cmd.Parameters.Add("p_bravo_code", OracleDbType.Varchar2, ParameterDirection.Input);
+                cmd.Parameters.Add("p_product_name", OracleDbType.Varchar2, ParameterDirection.Input);
+                cmd.Parameters.Add("p_country_name", OracleDbType.Varchar2, ParameterDirection.Input);
+                cmd.Parameters.Add("p_firm", OracleDbType.Varchar2, ParameterDirection.Input);
                 cmd.Parameters.Add("p_quantity", OracleDbType.Decimal, ParameterDirection.Input);
-                cmd.Parameters.Add("p_unit_price", OracleDbType.Decimal, ParameterDirection.Input);
-                cmd.Parameters.Add("p_supplier_id", OracleDbType.Decimal, ParameterDirection.Input);
+                cmd.Parameters.Add("p_price", OracleDbType.Decimal, ParameterDirection.Input);
+                cmd.Parameters.Add("p_total_price", OracleDbType.Decimal, ParameterDirection.Input);
+                cmd.Parameters.Add("p_co_free_tax", OracleDbType.Decimal, ParameterDirection.Input);
                 cmd.Parameters.Add("p_result", OracleDbType.Decimal, ParameterDirection.Output);
                 foreach (var detail in contractDetails)
                 {
                     cmd.Parameters["p_contract_detail_id"].Value = detail.Contract_Detail_Id;
                     cmd.Parameters["p_contract_code"].Value = detail.Contract_Code;
                     cmd.Parameters["p_product_code"].Value = detail.Product_Code;
+                    cmd.Parameters["p_bravo_code"].Value = detail.Product_Code;
+                    cmd.Parameters["p_product_name"].Value = detail.Product_Code;
+                    cmd.Parameters["p_country_name"].Value = detail.Product_Code;
+                    cmd.Parameters["p_firm"].Value = detail.Product_Code;
                     cmd.Parameters["p_quantity"].Value = detail.Quantity;
-                    cmd.Parameters["p_unit_price"].Value = detail.Unit_Price;
-                    cmd.Parameters["p_supplier_id"].Value = detail.Supplier_Id;
+                    cmd.Parameters["p_price"].Value = detail.Price;
+                    cmd.Parameters["p_total_price"].Value = detail.Total_Price;
+                    cmd.Parameters["p_co_free_tax"].Value = detail.Co_Free_Tax;
 
                     cmd.ExecuteNonQuery();
                     _result = Convert.ToInt32(cmd.Parameters["p_result"].Value);

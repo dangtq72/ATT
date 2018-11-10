@@ -51,6 +51,9 @@ namespace ObjInfo.Import
         public string Import_Object_Display { get; set; }
         public int Intent_Type { get; set; }
         public int Intent_Type_Display { get; set; }
+        public decimal Booking_Type { get; set; }
+        public decimal Request_Change_Order { get; set; }
+        public DateTime ETA_Expected { get; set; }
         public int Deleted { get; set; }
     }
 }
