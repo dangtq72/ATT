@@ -22,10 +22,6 @@ namespace BusinessFacadeLayer.ModuleOrders
                 Common.log.Error(ex.ToString());
             }
             return List_Obj;
-
-
-
-
         }
         public DeliveryInfo GetDeliveryByID(decimal delivery_id)
         {
