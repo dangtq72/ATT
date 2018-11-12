@@ -11,8 +11,8 @@
     List<AllCodeInfo> lstPaymentStatus = DataMemory.AllCode_GetBy_CdTypeCdName("STATUS", "PAYMENT");
     List<AllCodeInfo> lstPaymentType = DataMemory.AllCode_GetBy_CdTypeCdName("TYPE", "CONTRACT_PAYMENT");
     List<AllCodeInfo> lstContractStatus = DataMemory.AllCode_GetBy_CdTypeCdName("STATUS", "CONTRACT");
-    List<AllCodeInfo> lstPriceType = DataMemory.AllCode_GetBy_CdTypeCdName("TYPE","PRICE");
-    List<AllCodeInfo> lstContractType = DataMemory.AllCode_GetBy_CdTypeCdName("TYPE","CONTRACT");
+    List<AllCodeInfo> lstPriceType = DataMemory.AllCode_GetBy_CdTypeCdName("TYPE", "PRICE");
+    List<AllCodeInfo> lstContractType = DataMemory.AllCode_GetBy_CdTypeCdName("TYPE", "CONTRACT");
     List<SupplierInfo> lstSupplier = new List<SupplierInfo>();
     if (ViewBag.ListSuppliers != null)
     {
@@ -25,9 +25,11 @@
         height: 35px !important;
         /* border-left: none !important; */
     }
-    .ms-drop{
-        width:100% !important;
+
+    .ms-drop {
+        width: 100% !important;
     }
+
     .title_register {
         cursor: pointer;
     }
@@ -307,13 +309,24 @@
             single: true,
             placeholder: "-- Chọn đk thanh toán --",
         });
+
+        $('#txtContractDate, #txtSignContractDate').datetimepicker({
+            format: 'd/m/Y',
+            formatDate: 'd/m/Y',
+            timepicker: false,
+            mask: '39/19/9999',
+            validateOnBlur: true,
+            scrollMonth: false,
+            scrollInput: false,
+        });
+
     })
     function DoAddContractDetail() {
         try {
             $.ajax({
                 url: "/ModuleImport/Contract/ContractDetail_GetViewToInsert",
                 type: 'GET',
-                data: {indexDetail: indexDetail},
+                data: { indexDetail: indexDetail },
                 async: true, cache: false, traditional: false,
                 beforeSend: function () {
                     CreateRollingWaitingIcon(true);
