@@ -144,9 +144,22 @@ namespace AnThanh.Areas.ModuleImport.Controllers
         }
 
         [HttpGet]
-        public ActionResult Shipment_GetViewToInsert(int _indexDetail = 0, int _indexShipment = 0)
+        public ActionResult Shipment_GetViewToInsert(int contractType ,int indexDetail = 0, int indexShipment = 0)
         {
-
+            var portBl = new PortBL();
+            List<PortInfo> lstPort = new List<PortInfo>();
+            try
+            {
+                lstPort = PortBL.Port_GetAll();
+                ViewBag.ListPort = lstPort;
+                ViewBag.ContractType = contractType;
+                ViewBag.IndexDetail = indexDetail;
+                ViewBag.IndexShipment = indexShipment;
+            }
+            catch (Exception ex)
+            {
+                NaviCommon.Common.log.Error(ex.ToString());
+            }
             return PartialView("~/Areas/ModuleImport/Views/Contract/_Partial_Shipment_Insert.cshtml");
         }
 

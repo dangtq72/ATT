@@ -320,3 +320,5 @@ D:\ATT\WIP\Program\AnThanh\obj\Debug\AnThanh.csproj.CoreCompileInputs.cache
 D:\ATT\WIP\Program\AnThanh\obj\Debug\AnThanh.csproj.CopyComplete
 D:\ATT\WIP\Program\AnThanh\obj\Debug\AnThanh.dll
 D:\ATT\WIP\Program\AnThanh\obj\Debug\AnThanh.pdb
+D:\ATT\WIP\Program\AnThanh\bin\Newtonsoft.Json.dll
+D:\ATT\WIP\Program\AnThanh\bin\Newtonsoft.Json.xml

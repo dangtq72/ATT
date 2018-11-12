@@ -16,7 +16,7 @@
     <div class="border mt-10" id="divContractDetail_@indexDetail">
         <div class="title_register" onclick="ToggleDetailDiv(this, event)">
             <span class="content_title content_title_register">THÔNG TIN HÀNG HÓA</span>
-            <a href="javascript:;" style="float:right; margin-right:20px" onclick="GetViewAddShipment()">Thêm shipment</a>
+            <a href="javascript:;" style="float:right; margin-right:20px" onclick="GetViewAddShipment(@indexDetail)">Thêm shipment</a>
         </div>
         <div class="col-container-register">
             <div class="content_register col">
@@ -148,7 +148,7 @@
                                 <div class="div-search-ad">
                                     <div class="div-search-content">
                                         <div>
-                                            <input type="radio" id="rdCoFreeTax" /> &ensp;C/O miễn thuế
+                                            <input type="checkbox" id="ckCoFreeTax_@indexDetail" /> &ensp;C/O miễn thuế
                                         </div>
                                     </div>
                                 </div>
@@ -176,6 +176,13 @@
                 var product = arrProduct.find(p => p.Product_Code == productCode);
                 $('#txtBravoCode_@indexDetail').val(product.Bravo_Code);
                 $('#txtProductName_@indexDetail').val(product.Product_Name);
+            });
+
+            $('#txtQuantity_@indexDetail, #txtPrice_@indexDetail').on('change', function () {
+                var quantity = $('#txtQuantity_@indexDetail').val().replace(/[,]/g, '');
+                var price = $('#txtPrice_@indexDetail').val().replace(/[,]/g, '');
+                var totalPrice = Number(quantity) * Number(price);
+                $('#txtTotalPrice_@indexDetail').val(totalPrice.toLocaleString('en-us'));
             });
         })
 

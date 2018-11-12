@@ -1,1 +1,519 @@
-﻿
+﻿@using ObjInfo.ModuleBaseData
+@using AnThanh.Commons
+@using ObjInfo.Catalogue
+@{
+    int indexShipment = ViewBag.IndexShipment;
+    int indexDetail = ViewBag.IndexDetail;
+    int contractType = ViewBag.ContractType;
+    List<PortInfo> lstPort = new List<PortInfo>();
+    if(ViewBag.ListPort != null)
+    {
+        lstPort = ViewBag.ListPort;
+    }
+    var _index = indexDetail.ToString() + indexShipment.ToString();
+    List<AllCodeInfo> lstShipmentStatus = DataMemory.AllCode_GetBy_CdTypeCdName("STATUS", "SHIPMENT");
+    List<AllCodeInfo> lstContType = DataMemory.AllCode_GetBy_CdTypeCdName("TYPE", "SHIPMENT_CONT");
+    List<AllCodeInfo> lstFormSaleType = DataMemory.AllCode_GetBy_CdTypeCdName("TYPE", "SALE");
+    List<AllCodeInfo> lstDistance = DataMemory.AllCode_GetBy_CdTypeCdName("DISTANCE", "SHIPMENT");
+    List<AllCodeInfo> lstPackType = DataMemory.AllCode_GetBy_CdTypeCdName("TYPE", "PACK");
+    List<AllCodeInfo> lstObject = DataMemory.AllCode_GetBy_CdTypeCdName("OBJECT", "IMPORT");
+    List<AllCodeInfo> lstIntentType = DataMemory.AllCode_GetBy_CdTypeCdName("TYPE", "SHIPMENT_INTENT");
+    List<AllCodeInfo> lstRequestChangeOrder = DataMemory.AllCode_GetBy_CdTypeCdName("TYPE", "REQUEST_CHANGE_ORDER");
+}
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    /*.div-search-title > div {
+        width: 200px;
+    }*/
+    .col-50{
+        width:33%;
+    }
+</style>
+<div class="divPopup">
+    <div class="d-main">
+        <div class="" style="padding:5px 38px 27px 38px">
+            <form id="_FormInsertShipment">
+                <div class="divCover">
+                    <div class="col cols">
+                        <div class="border-10">
+                            <div class="div-search-title-N">
+                                <span>Mã hợp đồng<i class="redspan">(*)</i></span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <input type="text" id="txtContractCodeShipment" readonly="readonly" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col cols">
+                        <div class="border-10">
+                            <div class="div-search-title-N">
+                                <span>Mã sản phẩm<i class="redspan">(*)</i></span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <input type="text" id="txtProductCodeShipment" readonly="readonly" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col cols">
+                        <div class="border-10">
+                            <div class="div-search-title-N">
+                                <span>Trạng thái<i class="redspan">(*)</i></span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <select id="cboShipmentStatus">
+                                            @foreach (var st in lstShipmentStatus)
+                                            {
+                                                <option value="@st.CdVal">@st.Description</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col cols">
+                        <div class="border-10">
+                            <div class="div-search-title-N">
+                                <span>Số Bill<i class="redspan">(*)</i></span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <input type="text" id="txtBillingNumber" maxlength="50" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col cols">
+                        <div class="border-10">
+                            <div class="div-search-title-N">
+                                <span>Số lượng<i class="redspan">(*)</i></span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <input type="text" id="txtQuantity" onkeyup="jsFormatNumber(this.value, this.id)" maxlength="15" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col cols">
+                        <div class="border-10">
+                            <div class="div-search-title-N">
+                                <span>Giá / tấn<i class="redspan">(*)</i></span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <input type="text" id="txtPrice" readonly="readonly" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col cols">
+                        <div class="border-10">
+                            <div class="div-search-title-N">
+                                <span>Tổng tiền<i class="redspan">(*)</i></span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <input type="text" id="txtTotalPrice" readonly="readonly" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col cols">
+                        <div class="border-10">
+                            <div class="div-search-title-N">
+                                <span>Chi phí khác<i class="redspan">(*)</i></span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <input type="text" id="txtOtherPrice" value="0" onkeyup="jsFormatNumber(this.value, this.id)" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col cols">
+                        <div class="border-10">
+                            <div class="div-search-title-N">
+                                <span>&ensp;</span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div style="margin-top:6px;">
+                                        @if (contractType == 1)
+                                        {
+                                            <input type="checkbox" id="ckBookingType" checked="checked" readonly="readonly" /><span>&ensp;Book tàu</span>
+                                        }
+                                        else
+                                        {
+                                            <input type="radio" id="ckBookingType" /><span>&ensp;Book tàu</span>
+                                        }
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col cols">
+                        <div class="border-10">
+                            <div class="div-search-title-N">
+                                <span>Loại Cont</span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <select id="cboContType">
+                                            <option value="0" selected>N/A</option>
+                                            @foreach (var item in lstContType)
+                                            {
+                                                <option value="@item.CdVal">@item.Description</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col cols">
+                        <div class="border-10">
+                            <div class="div-search-title-N">
+                                <span>Số lượng cont</span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <input type="text" id="txtContNumber" onkeyup="jsFormatNumber(this.value, this.id)" maxlength="5" readonly="readonly"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col cols">
+                        <div class="border-10">
+                            <div class="div-search-title-N">
+                                <span>Khối lượng cont</span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <input type="text" id="txtContVolume" onkeyup="jsFormatNumber(this.value, this.id)" maxlength="10" readonly="readonly"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col cols">
+                        <div class="border-10">
+                            <div class="div-search-title-N">
+                                <span>Giá vốn</span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <input type="text" id="txtCostPrice" onkeyup="jsFormatNumber(this.value, this.id)" maxlength="15"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col cols">
+                        <div class="border-10">
+                            <div class="div-search-title-N">
+                                <span>Hình thức bán</span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <select id="cboFormSaleType">
+                                            @foreach (var item in lstFormSaleType)
+                                            {
+                                                <option value="@item.CdVal">@item.Description</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col cols">
+                        <div class="border-10">
+                            <div class="div-search-title-N">
+                                <span>LSD</span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <input type="text" class="datepicker" id="txtLSD" placeholder="__/__/____" readonly="readonly"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col cols">
+                        <div class="border-10">
+                            <div class="div-search-title-N">
+                                <span>ETD</span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <input type="text" class="datepicker" id="txtETD" placeholder="__/__/____" readonly="readonly"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col cols">
+                        <div class="border-10">
+                            <div class="div-search-title-N">
+                                <span>ETA dự kiến</span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <input type="text" class="datepicker" id="txtETAExpected" placeholder="__/__/____" readonly="readonly"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col cols">
+                        <div class="border-10">
+                            <div class="div-search-title-N">
+                                <span>ETA</span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <input type="text" class="datepicker" id="txtETA" placeholder="__/__/____" readonly="readonly"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col cols">
+                        <div class="border-10">
+                            <div class="div-search-title-N">
+                                <span>Hãng tàu</span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <input type="text" id="txtPortCode" maxlength="50" readonly="readonly"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col cols">
+                        <div class="border-10">
+                            <div class="div-search-title-N">
+                                <span>Cảng xuất</span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <select id="cboPortOut" disabled="disabled">
+                                            @foreach (var port in lstPort)
+                                            {
+                                                <option value="@port.Port_Code">@port.Port_Code</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col cols">
+                        <div class="border-10">
+                            <div class="div-search-title-N">
+                                <span>Cảng nhập</span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <select id="cboPortIn" disabled="disabled">
+                                            @foreach (var port in lstPort)
+                                            {
+                                                <option value="@port.Port_Code">@port.Port_Code</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col cols">
+                        <div class="border-10">
+                            <div class="div-search-title-N">
+                                <span>Khoảng cách</span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <select id="cboDistance">
+                                            @foreach (var item in lstDistance)
+                                            {
+                                                <option value="@item.CdVal">@item.Description</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col cols">
+                        <div class="border-10">
+                            <div class="div-search-title-N">
+                                <span>Quy cách</span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <select id="cboDistance">
+                                            @foreach (var item in lstPackType)
+                                            {
+                                                <option value="@item.CdVal">@item.Description</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col cols">
+                        <div class="border-10">
+                            <div class="div-search-title-N">
+                                <span>Nhập cho đơn vị</span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <select id="cboRequestObject">
+                                            @foreach (var item in lstObject)
+                                            {
+                                                <option value="@item.CdVal">@item.Description</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col cols">
+                        <div class="border-10">
+                            <div class="div-search-title-N">
+                                <span>Đơn vị nhập</span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <input type="text" id="txtInportObject" readonly="readonly" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col cols">
+                        <div class="border-10">
+                            <div class="div-search-title-N">
+                                <span>Mục đích nhập</span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <select id="cboIntentType">
+                                        @foreach (var item in lstIntentType)
+                                        {
+                                            <option value="@item.CdVal">@item.Description</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col cols">
+                        <div class="border-10">
+                            <div class="div-search-title-N">
+                                <span>Yêu cầu khi đổi lệnh</span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <select id="cboIntentType">
+                                        @foreach (var item in lstRequestChangeOrder)
+                                        {
+                                            <option value="@item.CdVal">@item.Description</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group-bottom" style="width:100%; float:left; margin-bottom:15px; text-align:center">
+                    <input type="button" class="btn-default clsRegisterStocks" value="Chấp nhận" onclick="Shipment_Insert();" style="margin-right:10px;" />
+                    <input type="button" class="btn-default" value="Thoát" onclick="CloseDivAllStock('divViewProduct')" style="width: auto;" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#cboPortIn, #cboPortOut').multipleSelect({
+            width: '100%',
+            filter: true,
+            isdatastring: true,
+            single: true,
+            placeholder: "-- Chọn mã hàng --",
+        });
+
+        var contractCode = $('#txtContractCode').val();
+        var productCode = $('#cboProductCode').val();
+        $('#txtContractCodeShipment').val(contractCode);
+        $('#txtProductCodeShipment').val(productCode);
+
+        $('#ckBookingType').on('change', function () {
+            if ($(this).is(':checked')) {
+                $('#cboPortIn, #cboPortOut').multipleSelect('enable');
+                $('#cboContType').attr('disabled', false);
+                $('#txtContNumber').attr('readonly', false);
+                $('#txtContVolume').attr('readonly', false);
+                $('#txtLSD').attr('readonly', false);
+                $('#txtETD').attr('readonly', false);
+                $('#txtETAExpected').attr('readonly', false);
+                $('#txtETA').attr('readonly', false);
+            } else {
+                $('#cboPortIn, #cboPortOut').multipleSelect('disable')
+                $('#cboContType').attr('disabled', true);
+                $('#txtContNumber').attr('readonly', true);
+                $('#txtContVolume').attr('readonly', true);
+                $('#txtLSD').attr('readonly', true);
+                $('#txtETD').attr('readonly', true);
+                $('#txtETAExpected').attr('readonly', true);
+                $('#txtETA').attr('readonly', true);
+
+            }
+        })
+
+        $('#ckBookingType').trigger("change")
+    })
+</script>

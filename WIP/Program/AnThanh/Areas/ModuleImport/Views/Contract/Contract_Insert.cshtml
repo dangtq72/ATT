@@ -322,14 +322,13 @@
             scrollMonth: false,
             scrollInput: false,
         });
-
-    })
+    });
     function DoAddContractDetail() {
         try {
             $.ajax({
                 url: "/ModuleImport/Contract/ContractDetail_GetViewToInsert",
                 type: 'GET',
-                data: { indexDetail: indexDetail },
+                data: { indexDetail: _indexDetail },
                 async: true, cache: false, traditional: false,
                 beforeSend: function () {
                     CreateRollingWaitingIcon(true);
@@ -340,6 +339,7 @@
                         window.location = _flg;
                     } else {
                         $("#divDetailContainer").append(data);
+                        _indexDetail += 1;
                         _indexShipment[_indexDetail] = 0;
                     }
                 },
@@ -355,12 +355,13 @@
         }
     }
 
-    function Shipment_GetViewToAdd() {
+    function GetViewAddShipment(i) {
         try {
+            var contractType = $('#cboContractType').val();
             $.ajax({
                 url: "/ModuleImport/Contract/Shipment_GetViewToInsert",
                 type: 'GET',
-                data: { indexDetail: _indexDetail, indexShipment : _indexShipment },
+                data: {contractType:contractType, indexDetail: i, indexShipment : _indexShipment },
                 async: false, cache: false, traditional: false,
                 beforeSend: function () {
                     CreateRollingWaitingIcon(true);
@@ -371,7 +372,7 @@
                         window.location = _flg;
                     } else {
                         $("#divView").html(data);
-                        ShowPopupDialog("divWrapperPopup", "Thêm thông tin shipment", 700, 0);
+                        ShowPopupDialog("divView", "Thêm thông tin shipment", 1200, 0);
                     }
                 },
                 error: function () {
