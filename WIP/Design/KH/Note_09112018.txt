@@ -1,0 +1,42 @@
+1. PMH tạo Purchase Request(PR) -> gửi thông tin cho lãnh đạo ATT và yêu cầu duyệt (GĐ mua hàng, GĐ bán hàng, GĐ tài chính) 
+	-> nếu 3 cấp đều duyệt 			-> báo lại PMH để PMH tạo Purchase Order(PO) gửi cho NCC
+	-> 1 trong 3 cấp không duyệt 	-> báo lại PMH yêu cầu chỉnh sửa lại
+2. PMH tạo Purchase Order(PO)   -> gửi thông tin cho kế toán,TGĐ, sale và ATZ (nếu hình thức là FOB)
+
+3. Kế toán nhận thông tin PO
+	- nếu là LC: có 3-5 ngày kể từ ngày Purchase_Order_Date để hoàn thành LC
+	- nếu là TT: có 2 ngày để hoàn thành TT
+4. ATZ nhận thông tin PO (nếu hình thức mua hàng là FOB) 
+	-> ATZ sẽ có tối đa 2 ngày để booking tàu tính từ ngày Purchase_Order_Date
+
+5. PMH tạo hợp đồng và thông báo tới các bên liên quan (GĐ các bộ phận, ATZ, Sale, Kế toán)
+
+6. PMH hoặc ATZ (nếu là FOB) sau khi có thông tin lịch tàu -> cập nhật lịch tàu lên hệ thống, và thông báo tới các ban liên quan
+	PMH: thông báo --> ATZ, SALE, Kế toán
+	ATZ: thông báo --> PMH, SALE, Kế toán
+
+7. Có lịch hàng về cảng từ hãng tàu
+	- Nếu hàng FOB thì ATZ nhận thông tin từ hãng tàu và gửi thông báo tới 			-> PMH, Sale, Kế toán
+	- Nếu ko phải FOB thì PMH nhận thông báo hàng về từ hãng và gửi thông báo tới   -> Sale, ATZ, Kế toán
+	- PMH gửi hồ sơ gốc để ATZ làm thủ tục thông quan
+		 
+
+8. ATZ thông quan xong báo cho (GĐ các bộ phận, PMH, Sale, Kế toán)
+
+9. Sale cập nhật lịch kéo hàng
+	+ Kéo hàng tại cảng cho khách -> thông báo cho khách hàng, ATZ, bên mua, kế toán
+	+ Kéo hàng về kho -> thông báo cho kho, ATZ, bên mua, kế toán
+	+ nội dung thông báo: Thời gian dự kiến kéo hàng, khối lượng kéo, số cont
+
+10. Sau khi có lịch kéo hàng của sale, ATZ sẽ cập nhật lịch kéo hàng theo trạng thái
+	+ bắt đầu kéo 
+		* Tên lái xe, biển số xe, có thể có cả ảnh nhân viên kéo
+		* Ảnh cont trước khi kéo
+		* thông báo tới sale, bên nhận hàng, mua hàng, kế toán
+	+ Kéo tới nơi
+		* Ảnh cont sau khi kéo
+
+11. Tham số % bán hàng
+	+ 60% bán trước khi hàng lên tàu
+	+ 30% bán khi hàng đã lên tàu
+	+ 10% bán sau khi hàng đã về cảng

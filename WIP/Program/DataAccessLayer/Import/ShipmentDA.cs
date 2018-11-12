@@ -92,18 +92,10 @@ namespace DataAccessLayer.Import
                 cmd.Parameters.Add("p_amount", OracleDbType.Decimal, ParameterDirection.Input);
                 cmd.Parameters.Add("p_price", OracleDbType.Decimal, ParameterDirection.Input);
                 cmd.Parameters.Add("p_total_price", OracleDbType.Decimal, ParameterDirection.Input);
-                cmd.Parameters.Add("p_cont_type", OracleDbType.Decimal, ParameterDirection.Input);
                 cmd.Parameters.Add("p_cont_numbers", OracleDbType.Decimal, ParameterDirection.Input);
-                cmd.Parameters.Add("p_count_volume", OracleDbType.Decimal, ParameterDirection.Input);
-                cmd.Parameters.Add("p_currency", OracleDbType.Decimal, ParameterDirection.Input);
+                cmd.Parameters.Add("p_cont_volume", OracleDbType.Decimal, ParameterDirection.Input);
                 cmd.Parameters.Add("p_currency_rate", OracleDbType.Decimal, ParameterDirection.Input);
                 cmd.Parameters.Add("p_cost_price", OracleDbType.Decimal, ParameterDirection.Input);
-                cmd.Parameters.Add("p_cost_price_usd", OracleDbType.Decimal, ParameterDirection.Input);
-                cmd.Parameters.Add("p_sale_price_type", OracleDbType.Decimal, ParameterDirection.Input);
-                cmd.Parameters.Add("p_sale_price", OracleDbType.Decimal, ParameterDirection.Input);
-                cmd.Parameters.Add("p_sale_price_usd", OracleDbType.Decimal, ParameterDirection.Input);
-                cmd.Parameters.Add("p_other_price", OracleDbType.Decimal, ParameterDirection.Input);
-                cmd.Parameters.Add("p_is_co_free_tax", OracleDbType.Decimal, ParameterDirection.Input);
                 cmd.Parameters.Add("p_lsd", OracleDbType.Date, ParameterDirection.Input);
                 cmd.Parameters.Add("p_etd", OracleDbType.Date, ParameterDirection.Input);
                 cmd.Parameters.Add("p_eta", OracleDbType.Date, ParameterDirection.Input);
@@ -115,6 +107,11 @@ namespace DataAccessLayer.Import
                 cmd.Parameters.Add("p_request_object", OracleDbType.Decimal, ParameterDirection.Input);
                 cmd.Parameters.Add("p_import_object", OracleDbType.Decimal, ParameterDirection.Input);
                 cmd.Parameters.Add("p_intent_type", OracleDbType.Decimal, ParameterDirection.Input);
+                cmd.Parameters.Add("p_cont_type", OracleDbType.Decimal, ParameterDirection.Input);
+                cmd.Parameters.Add("p_currency", OracleDbType.Decimal, ParameterDirection.Input);
+                cmd.Parameters.Add("p_booking_type", OracleDbType.Decimal, ParameterDirection.Input);
+                cmd.Parameters.Add("p_request_change_order", OracleDbType.Decimal, ParameterDirection.Input);
+                cmd.Parameters.Add("p_eta_expected", OracleDbType.Date, ParameterDirection.Input);
                 cmd.Parameters.Add("p_result", OracleDbType.Decimal, ParameterDirection.Output);
 
                 foreach (var shipment in shipments)
@@ -129,16 +126,10 @@ namespace DataAccessLayer.Import
                     cmd.Parameters["p_total_price"].Value = shipment.Total_Price;
                     cmd.Parameters["p_cont_type"].Value = shipment.Cont_Type;
                     cmd.Parameters["p_cont_numbers"].Value = shipment.Cont_Numbers;
-                    cmd.Parameters["p_cout_volume"].Value = shipment.Cont_Volume;
+                    cmd.Parameters["p_cont_volume"].Value = shipment.Cont_Volume;
                     cmd.Parameters["p_currency"].Value = shipment.Currency;
                     cmd.Parameters["p_currency_rate"].Value = shipment.Currency_Rate;
                     cmd.Parameters["p_cost_price"].Value = shipment.Cost_Price;
-                    cmd.Parameters["p_cost_price_usd"].Value = shipment.Cost_Price_Usd;
-                    cmd.Parameters["p_sale_price_type"].Value = shipment.Sale_Price_Type;
-                    cmd.Parameters["p_sale_price"].Value = shipment.Sale_Price;
-                    cmd.Parameters["p_sale_price_usd"].Value = shipment.Sale_Price_Usd;
-                    cmd.Parameters["p_other_price"].Value = shipment.Other_Price;
-                    cmd.Parameters["p_is_co_free_tax"].Value = shipment.Is_CO_Free_Tax;
                     cmd.Parameters["p_lsd"].Value = shipment.LSD;
                     cmd.Parameters["p_etd"].Value = shipment.ETD;
                     cmd.Parameters["p_eta"].Value = shipment.ETA;
@@ -150,6 +141,9 @@ namespace DataAccessLayer.Import
                     cmd.Parameters["p_request_object"].Value = shipment.Request_Object;
                     cmd.Parameters["p_import_object"].Value = shipment.Import_Object;
                     cmd.Parameters["p_intent_type"].Value = shipment.Intent_Type;
+                    cmd.Parameters["p_booking_type"].Value = shipment.Booking_Type;
+                    cmd.Parameters["p_request_change_order"].Value = shipment.Request_Change_Order;
+                    cmd.Parameters["p_eta_expected"].Value = shipment.ETA_Expected;
                     cmd.ExecuteNonQuery();
                     _result = Convert.ToInt32(cmd.Parameters["p_result"].Value);
                     if (_result < 0)
@@ -184,18 +178,10 @@ namespace DataAccessLayer.Import
                 cmd.Parameters.Add("p_amount", OracleDbType.Decimal, ParameterDirection.Input);
                 cmd.Parameters.Add("p_price", OracleDbType.Decimal, ParameterDirection.Input);
                 cmd.Parameters.Add("p_total_price", OracleDbType.Decimal, ParameterDirection.Input);
-                cmd.Parameters.Add("p_cont_type", OracleDbType.Decimal, ParameterDirection.Input);
                 cmd.Parameters.Add("p_cont_numbers", OracleDbType.Decimal, ParameterDirection.Input);
                 cmd.Parameters.Add("p_cont_volume", OracleDbType.Decimal, ParameterDirection.Input);
-                cmd.Parameters.Add("p_currency", OracleDbType.Decimal, ParameterDirection.Input);
                 cmd.Parameters.Add("p_currency_rate", OracleDbType.Decimal, ParameterDirection.Input);
                 cmd.Parameters.Add("p_cost_price", OracleDbType.Decimal, ParameterDirection.Input);
-                cmd.Parameters.Add("p_cost_price_usd", OracleDbType.Decimal, ParameterDirection.Input);
-                cmd.Parameters.Add("p_sale_price_type", OracleDbType.Decimal, ParameterDirection.Input);
-                cmd.Parameters.Add("p_sale_price", OracleDbType.Decimal, ParameterDirection.Input);
-                cmd.Parameters.Add("p_sale_price_usd", OracleDbType.Decimal, ParameterDirection.Input);
-                cmd.Parameters.Add("p_other_price", OracleDbType.Decimal, ParameterDirection.Input);
-                cmd.Parameters.Add("p_is_co_free_tax", OracleDbType.Decimal, ParameterDirection.Input);
                 cmd.Parameters.Add("p_lsd", OracleDbType.Date, ParameterDirection.Input);
                 cmd.Parameters.Add("p_etd", OracleDbType.Date, ParameterDirection.Input);
                 cmd.Parameters.Add("p_eta", OracleDbType.Date, ParameterDirection.Input);
@@ -207,10 +193,16 @@ namespace DataAccessLayer.Import
                 cmd.Parameters.Add("p_request_object", OracleDbType.Decimal, ParameterDirection.Input);
                 cmd.Parameters.Add("p_import_object", OracleDbType.Decimal, ParameterDirection.Input);
                 cmd.Parameters.Add("p_intent_type", OracleDbType.Decimal, ParameterDirection.Input);
+                cmd.Parameters.Add("p_cont_type", OracleDbType.Decimal, ParameterDirection.Input);
+                cmd.Parameters.Add("p_currency", OracleDbType.Decimal, ParameterDirection.Input);
+                cmd.Parameters.Add("p_booking_type", OracleDbType.Decimal, ParameterDirection.Input);
+                cmd.Parameters.Add("p_request_change_order", OracleDbType.Decimal, ParameterDirection.Input);
+                cmd.Parameters.Add("p_eta_expected", OracleDbType.Date, ParameterDirection.Input);
                 cmd.Parameters.Add("p_result", OracleDbType.Decimal, ParameterDirection.Output);
 
                 foreach (var shipment in shipments)
                 {
+                    cmd.Parameters["p_id"].Value = shipment.Id;
                     cmd.Parameters["p_shipment_code"].Value = shipment.Shipment_Code;
                     cmd.Parameters["p_product_code"].Value = shipment.Product_Code;
                     cmd.Parameters["p_contract_code"].Value = shipment.Contract_Code;
@@ -225,12 +217,6 @@ namespace DataAccessLayer.Import
                     cmd.Parameters["p_currency"].Value = shipment.Currency;
                     cmd.Parameters["p_currency_rate"].Value = shipment.Currency_Rate;
                     cmd.Parameters["p_cost_price"].Value = shipment.Cost_Price;
-                    cmd.Parameters["p_cost_price_usd"].Value = shipment.Cost_Price_Usd;
-                    cmd.Parameters["p_sale_price_type"].Value = shipment.Sale_Price_Type;
-                    cmd.Parameters["p_sale_price"].Value = shipment.Sale_Price;
-                    cmd.Parameters["p_sale_price_usd"].Value = shipment.Sale_Price_Usd;
-                    cmd.Parameters["p_other_price"].Value = shipment.Other_Price;
-                    cmd.Parameters["p_is_co_free_tax"].Value = shipment.Is_CO_Free_Tax;
                     cmd.Parameters["p_lsd"].Value = shipment.LSD;
                     cmd.Parameters["p_etd"].Value = shipment.ETD;
                     cmd.Parameters["p_eta"].Value = shipment.ETA;
@@ -242,6 +228,9 @@ namespace DataAccessLayer.Import
                     cmd.Parameters["p_request_object"].Value = shipment.Request_Object;
                     cmd.Parameters["p_import_object"].Value = shipment.Import_Object;
                     cmd.Parameters["p_intent_type"].Value = shipment.Intent_Type;
+                    cmd.Parameters["p_booking_type"].Value = shipment.Booking_Type;
+                    cmd.Parameters["p_request_change_order"].Value = shipment.Request_Change_Order;
+                    cmd.Parameters["p_eta_expected"].Value = shipment.ETA_Expected;
                     cmd.ExecuteNonQuery();
                     _result = Convert.ToInt32(cmd.Parameters["p_result"].Value);
                     if (_result < 0)
