@@ -144,8 +144,9 @@ namespace AnThanh.Areas.ModuleImport.Controllers
         }
 
         [HttpGet]
-        public ActionResult Shipment_GetViewToInsert()
+        public ActionResult Shipment_GetViewToInsert(int _indexDetail = 0, int _indexShipment = 0)
         {
+
             return PartialView("~/Areas/ModuleImport/Views/Contract/_Partial_Shipment_Insert.cshtml");
         }
 

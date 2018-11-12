@@ -290,10 +290,13 @@
     </div>
 </div>
 <div class="border mt-10 detail-container" style="padding:20px" id="divDetailContainer">
+</div>
+<div id="divView" class="divWrapperPopup" style="display: none;">
 
 </div>
 <script>
-    var indexDetail = 0;
+    var _indexDetail = 0;
+    var _indexShipment = [];
     $(document).ready(function () {
         $('#cboSupplier').multipleSelect({
             width: '100%',
@@ -337,11 +340,42 @@
                         window.location = _flg;
                     } else {
                         $("#divDetailContainer").append(data);
+                        _indexShipment[_indexDetail] = 0;
                     }
                 },
                 error: function () {
+                },
+                complete: function () {
+                    CreateRollingWaitingIcon(false);
                 }
-                ,
+            });
+        } catch (e) {
+            nvsError(null, "Lỗi thao tác !");
+            return false;
+        }
+    }
+
+    function Shipment_GetViewToAdd() {
+        try {
+            $.ajax({
+                url: "/ModuleImport/Contract/Shipment_GetViewToInsert",
+                type: 'GET',
+                data: { indexDetail: _indexDetail, indexShipment : _indexShipment },
+                async: false, cache: false, traditional: false,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    var _flg = data['redirect'];
+                    if (_flg != undefined && _flg != "") {
+                        window.location = _flg;
+                    } else {
+                        $("#divView").html(data);
+                        ShowPopupDialog("divWrapperPopup", "Thêm thông tin shipment", 700, 0);
+                    }
+                },
+                error: function () {
+                },
                 complete: function () {
                     CreateRollingWaitingIcon(false);
                 }
