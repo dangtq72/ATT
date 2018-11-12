@@ -1,0 +1,6 @@
+1. Vùng miền: bắc - nam
+2. Company: AAA, ATT, ATZ .... lấy từ bảng company
+3. Bộ phận: PMH, Sale, Logistic (ATZ), Kế toán -> lấy từ allcode
+4. Chức vụ: GĐ, PGĐ, Admin, chuyên viên
+5. Nhóm hàng hóa: hạt nhựa, hóa chất, ALL
+6. Hình thức bán: USD, VNĐ, NA lấy từ allcode
