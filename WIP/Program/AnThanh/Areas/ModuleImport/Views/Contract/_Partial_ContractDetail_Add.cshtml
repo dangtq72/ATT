@@ -13,9 +13,152 @@
 }
 @try
 {
-    <div class="border mt-10" id="divContractDetail_@indexDetail">
-        
+<div class="border mt-10" id="divContractDetail_@indexDetail">
+    <div class="title_register" onclick="ToggleDetailDiv(this, event)">
+        <span class="content_title content_title_register">THÔNG TIN HÀNG HÓA</span>
+        <a href="javascript:;" style="float:right; margin-right:20px" onclick="GetViewAddShipment()">Thêm shipment</a>
     </div>
+    <div class="col-container-register">
+        <div class="content_register col">
+            <div class="divCover">
+                <div class="divCover">
+                    <div class="col cols">
+                        <div class="border-10">
+                            <div class="div-search-title-N">
+                                <span>Mã hàng<i class="redspan">(*)</i></span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <select id="cboProductCode_@indexDetail">
+                                            @foreach(var product in lstProduct)
+                                            {
+                                                <option value="@product.Product_Code">@product.Product_Code</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col cols">
+                        <div class="border-10">
+                            <div class="div-search-title-N">
+                                <span>Mã Bravo<i class="redspan">(*)</i></span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <input type="text" name="txtBravoCode_@indexDetail" readonly="readonly"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col cols" style="width:50%">
+                        <div class="border-10">
+                            <div class="div-search-title-N">
+                                <span>Tên hàng<i class="redspan">(*)</i></span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <input type="text" name="txtProductName_@indexDetail" readonly="readonly" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col cols">
+                        <div class="border-10">
+                            <div class="div-search-title-N">
+                                <span>Nước sản xuất</span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <input type="text" id="txtCountryName_@indexDetail" maxlength="50"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col cols">
+                        <div class="border-10">
+                            <div class="div-search-title-N">
+                                <span>Hãng sản xuất</span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <input type="text" id="txtFirm_@indexDetail" maxlength="50" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col cols">
+                        <div class="border-10">
+                            <div class="div-search-title-N">
+                                <span>Số lượng <i class="redspan">(*)</i></span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <input type="text" id="txtQuantity_@indexDetail" maxlength="20" onkeyup="jsFormatNumber(this.value, this.id)"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col cols">
+                        <div class="border-10">
+                            <div class="div-search-title-N">
+                                <span>Giá / tấn <i class="redspan">(*)</i></span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <input type="text" id="txtPrice_@indexDetail" maxlength="20" onkeyup="jsFormatNumber(this.value, this.id)" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col cols">
+                        <div class="border-10">
+                            <div class="div-search-title-N">
+                                <span>Tổng tiền<i class="redspan">(*)</i></span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <input type="text" id="txtTotalPrice_@indexDetail" readonly="readonly"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col cols">
+                        <div class="border-10">
+                            <div class="div-search-title-N">
+                                <span>&ensp;</span>
+                            </div>
+                            <div class="div-search-ad">
+                                <div class="div-search-content">
+                                    <div>
+                                        <input type="radio" id="rdCoFreeTax" /> &ensp;C/O miễn thuế
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
     <script>
         var arrService = JSON.parse('@Html.Raw(_jsonProduct.Replace("\\", "\\\\"))');
