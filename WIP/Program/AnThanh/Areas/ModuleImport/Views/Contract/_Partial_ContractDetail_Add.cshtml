@@ -1,1 +1,10 @@
-﻿
+﻿@using ObjInfo.Import
+@using ObjInfo.ModuleBaseData
+@{ 
+    List<Product_Info> lstProduct = new List<Product_Info>();
+    if(ViewBag.ListProduct != null)
+    {
+        lstProduct = ViewBag.ListProduct;
+    }
+
+}
