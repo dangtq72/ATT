@@ -75,6 +75,31 @@ namespace AnThanh.Commons
             }
         }
 
+        public static List<AllCodeInfo> AllCode_GetBy_CdTypeCdName(string p_cdtype, string p_cdname)
+        {
+            try
+            {
+                if (c_hs_Allcode.ContainsKey(p_cdname + "|" + p_cdtype))
+                {
+                    List<AllCodeInfo> _lst = new List<AllCodeInfo>();
+
+                    List<AllCodeInfo> _lst_tem = (List<AllCodeInfo>)c_hs_Allcode[p_cdname + "|" + p_cdtype];
+
+                    foreach (AllCodeInfo item in _lst_tem)
+                        _lst.Add(item);
+
+                    _lst = _lst.OrderBy(m => m.LSTODR).ToList();
+                    return _lst;
+                }
+                else return new List<AllCodeInfo>();
+            }
+            catch (Exception ex)
+            {
+                NaviCommon.Common.log.Error(ex.ToString());
+                return new List<AllCodeInfo>();
+            }
+        }
+
         public static List<AllCodeInfo> Get_AllCodeByCDTYPE(string cdtype)
         {
             List<AllCodeInfo> list = new List<AllCodeInfo>();
