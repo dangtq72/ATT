@@ -15,8 +15,11 @@
 	PMH: thông báo --> ATZ, SALE, Kế toán
 	ATZ: thông báo --> PMH, SALE, Kế toán
 
-7. Sau khi PMH nhận thông báo hàng về cảng từ hàng tàu, cập nhật lên hệ thống 
-	-> gửi hồ sơ gốc để ATZ làm thủ tục thông quan
+7. Có lịch hàng về cảng từ hãng tàu
+	- Nếu hàng FOB thì ATZ nhận thông tin từ hãng tàu và gửi thông báo tới 			-> PMH, Sale, Kế toán
+	- Nếu ko phải FOB thì PMH nhận thông báo hàng về từ hãng và gửi thông báo tới   -> Sale, ATZ, Kế toán
+	- PMH gửi hồ sơ gốc để ATZ làm thủ tục thông quan
+		 
 
 8. ATZ thông quan xong báo cho (GĐ các bộ phận, PMH, Sale, Kế toán)
 
