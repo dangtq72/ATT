@@ -52,7 +52,7 @@
 <div class="border mt-10">
     <div class="title_register" onclick="ToggleDetailDiv(this, event)">
         <span class="content_title content_title_register">THÔNG TIN HỢP ĐỒNG</span>
-        <a href="javascript:;" style="float:right; margin-right:20px">Thêm danh mục hàng</a>
+        <a href="javascript:;" style="float:right; margin-right:20px" onclick="DoAddContractDetail()">Thêm danh mục hàng</a>
     </div>
     <div class="col-container-register">
         <div class="content_register col">
@@ -281,15 +281,46 @@
         </div>
     </div>
 </div>
-<div class="border mt-10 detail-container" style="padding:20px">
+<div class="border mt-10 detail-container" style="padding:20px" id="divDetailContainer">
 
 </div>
 <script>
+    var indexDetail = 0;
     $(document).ready(function () {
-
+        
     })
+    function DoAddContractDetail() {
+        try {
+            $.ajax({
+                url: "/Import/Contract/ContractDetail_GetViewToInsert",
+                type: 'GET',
+                data: {indexDetail: indexDetail},
+                async: true, cache: false, traditional: false,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    var _flg = data['redirect'];
+                    if (_flg != undefined && _flg != "") {
+                        window.location = _flg;
+                    } else {
+                        $("#divDetailContainer").append(data);
+                    }
+                },
+                error: function () {
+                }
+                ,
+                complete: function () {
+                    CreateRollingWaitingIcon(false);
+                }
+            });
+        } catch (e) {
+            nvsError(null, "Lỗi thao tác !");
+            return false;
+        }
+    }
     function ToggleDetailDiv(elm, e) {
-        if (!$(e.target).is('i')) {
+        if (!$(e.target).is('a')) {
             $(elm).nextUntil('.title_register').toggle('fast');
             $(elm).toggleClass('active');
         } else {

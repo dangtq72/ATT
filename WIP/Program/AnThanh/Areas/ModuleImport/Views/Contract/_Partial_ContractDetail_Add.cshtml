@@ -1,10 +1,27 @@
 ﻿@using ObjInfo.Import
 @using ObjInfo.ModuleBaseData
-@{ 
+@using Newtonsoft.Json
+@{
     List<Product_Info> lstProduct = new List<Product_Info>();
-    if(ViewBag.ListProduct != null)
+    string _jsonProduct = "[]";
+    if (ViewBag.ListProduct != null)
     {
         lstProduct = ViewBag.ListProduct;
+        _jsonProduct = JsonConvert.SerializeObject(lstProduct);
     }
-    
+    int indexDetail = ViewBag.IndexDetail;
+}
+@try
+{
+    <div class="border mt-10" id="divContractDetail_@indexDetail">
+        
+    </div>
+
+    <script>
+        var arrService = JSON.parse('@Html.Raw(_jsonProduct.Replace("\\", "\\\\"))');
+    </script>
+}
+catch(Exception)
+{
+
 }

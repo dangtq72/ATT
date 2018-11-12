@@ -97,7 +97,14 @@ namespace AnThanh.Areas.ModuleImport.Controllers
         {
             var contractBl = new ContractBL();
             Contract contract = new Contract();
-            contract = contractBl.GetById(contractId);
+            try
+            {
+                contract = contractBl.GetById(contractId);
+            }
+            catch (Exception ex)
+            {
+                NaviCommon.Common.log.Error(ex.ToString());
+            }
             return View("~/Areas/ModuleImport/Views/Contract/Contract_Update.cshtml");
         }
 
@@ -116,6 +123,24 @@ namespace AnThanh.Areas.ModuleImport.Controllers
                 NaviCommon.Common.log.Error(ex.ToString());
             }
             return Json(new { success = _success });
+        }
+
+        [HttpGet]
+        public ActionResult ContractDetail_GetViewToInsert(int indexDetail)
+        {
+            var productBl = new ProductBL();
+            List<Product_Info> lstProduct = new List<Product_Info>();
+            try
+            {
+                lstProduct = ProductBL.Product_GetAll();
+                ViewBag.ListProduct = lstProduct;
+                ViewBag.IndexDetail = indexDetail;
+            }
+            catch (Exception ex)
+            {
+                NaviCommon.Common.log.Error(ex.ToString());
+            }
+            return PartialView("~/Areas/ModuleImport/Views/Contract/_Partial_ContractDetail_Add.cshtml");
         }
 
         [HttpGet]
