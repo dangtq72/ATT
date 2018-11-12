@@ -53,15 +53,15 @@ namespace AnThanh.Commons
                 {
                     foreach (AllCodeInfo item in _lst_al)
                     {
-                        if (c_hs_Allcode.ContainsKey(item.CdType) == false)
+                        if (c_hs_Allcode.ContainsKey(item.CdName + "|" + item.CdType) == false)
                         {
                             List<AllCodeInfo> _lst = new List<AllCodeInfo>();
                             _lst.Add(item);
-                            c_hs_Allcode[item.CdType] = _lst;
+                            c_hs_Allcode[item.CdName + "|" + item.CdType] = _lst;
                         }
                         else
                         {
-                            List<AllCodeInfo> _lst = (List<AllCodeInfo>)c_hs_Allcode[item.CdType];
+                            List<AllCodeInfo> _lst = (List<AllCodeInfo>)c_hs_Allcode[item.CdName + "|" + item.CdType];
                             _lst.Add(item);
                         }
                     }
