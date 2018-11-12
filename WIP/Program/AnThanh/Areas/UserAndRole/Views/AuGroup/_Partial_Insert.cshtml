@@ -5,7 +5,10 @@
 
 @{
 
-    List<AllCodeInfo> list = DataMemory.Get_AllCodeByCDTYPE("USER_TYPE");
+    //List<AllCodeInfo> list = DataMemory.Get_AllCodeByCDTYPE("USER_TYPE");
+
+    List<AllCodeInfo> list = DataMemory.AllCode_GetBy_CdTypeCdName("TYPE", "USER");
+
     ViewBag.Title = "Thêm mới";
 }
 
