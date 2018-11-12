@@ -15,3 +15,9 @@ D:\Working\ATT\WIP\Program\ObjInfo\obj\Debug\ObjInfo.csprojAssemblyReference.cac
 D:\Working\ATT\WIP\Program\ObjInfo\obj\Debug\ObjInfo.csproj.CoreCompileInputs.cache
 D:\Working\ATT\WIP\Program\ObjInfo\obj\Debug\ObjInfo.dll
 D:\Working\ATT\WIP\Program\ObjInfo\obj\Debug\ObjInfo.pdb
+D:\ATT\WIP\Program\ObjInfo\bin\Debug\ObjInfo.dll
+D:\ATT\WIP\Program\ObjInfo\bin\Debug\ObjInfo.pdb
+D:\ATT\WIP\Program\ObjInfo\obj\Debug\ObjInfo.csprojAssemblyReference.cache
+D:\ATT\WIP\Program\ObjInfo\obj\Debug\ObjInfo.csproj.CoreCompileInputs.cache
+D:\ATT\WIP\Program\ObjInfo\obj\Debug\ObjInfo.dll
+D:\ATT\WIP\Program\ObjInfo\obj\Debug\ObjInfo.pdb
