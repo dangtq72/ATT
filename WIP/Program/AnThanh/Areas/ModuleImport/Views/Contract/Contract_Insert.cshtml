@@ -21,7 +21,9 @@
 }
 
 <style>
-
+    .ms-drop{
+        width:100% !important;
+    }
     .title_register {
         cursor: pointer;
     }
@@ -287,12 +289,25 @@
 <script>
     var indexDetail = 0;
     $(document).ready(function () {
-        
+        $('#cboSupplier').multipleSelect({
+            width: '100%',
+            filter: true,
+            isdatastring: true,
+            single: true,
+            placeholder: "-- Chọn nhà cung cấp --",
+        });
+        $('#cboPaymentType').multipleSelect({
+            width: '100%',
+            filter: true,
+            isdatastring: true,
+            single: true,
+            placeholder: "-- Chọn đk thanh toán --",
+        });
     })
     function DoAddContractDetail() {
         try {
             $.ajax({
-                url: "/Import/Contract/ContractDetail_GetViewToInsert",
+                url: "/ModuleImport/Contract/ContractDetail_GetViewToInsert",
                 type: 'GET',
                 data: {indexDetail: indexDetail},
                 async: true, cache: false, traditional: false,

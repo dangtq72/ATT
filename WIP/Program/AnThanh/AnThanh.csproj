@@ -289,7 +289,6 @@
     <Content Include="Areas\ModuleBaseData\Views\Location\LocationDisplay.cshtml" />
     <Content Include="Areas\ModuleBaseData\Views\Location\_Partial_ListLocation.cshtml" />
     <Content Include="Areas\ModuleBaseData\Views\Location\_Partial_ImportFile.cshtml" />
-    <Content Include="Areas\ModuleImport\Views\web.config" />
     <Content Include="Areas\ModuleImport\Views\Contract\Contract_Display.cshtml" />
     <Content Include="Areas\ModuleImport\Views\Contract\Contract_Insert.cshtml" />
     <Content Include="Areas\ModuleImport\Views\Contract\Contract_Update.cshtml" />
@@ -299,7 +298,6 @@
     <Content Include="Areas\ModuleImport\Views\Contract\_Partial_Shipment_Insert.cshtml" />
     <Content Include="Areas\ModuleImport\Views\Contract\_Partial_Shipment_List.cshtml" />
     <Content Include="Areas\ModuleImport\Views\Contract\_Partial_Shipment_Update.cshtml" />
-    <Content Include="Areas\ModuleImport\Views\_ViewStart.cshtml" />
     <Content Include="Areas\ModuleImport\Views\Contract\_Partial_ContractDetail_Add.cshtml" />
     <Content Include="Areas\ModuleOrders\Views\web.config" />
     <Content Include="Areas\ModuleOrders\Views\Delivery\Delivery_Display.cshtml" />
