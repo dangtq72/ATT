@@ -27,6 +27,16 @@ namespace ObjInfo.ModuleOrders
         /// </summary>
         public decimal Status { get; set; }
         public string Status_Display { get; set; }
+        /// <summary>
+        /// khối lượng
+        /// </summary>
+        public string Amount { get; set; }
+        /// <summary>
+        /// kho đích
+        /// </summary>
+        public string WareHouse_Display_Name { get; set; }
+        public string WareHouse_ID { get; set; }
+        public string Notes { get; set; }
         public DateTime Delivery_Date { get; set; }
         public string Processor { get; set; }
         public string Createdby { get; set; }
