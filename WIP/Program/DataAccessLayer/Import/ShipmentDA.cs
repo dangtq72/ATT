@@ -112,6 +112,7 @@ namespace DataAccessLayer.Import
                 cmd.Parameters.Add("p_booking_type", OracleDbType.Decimal, ParameterDirection.Input);
                 cmd.Parameters.Add("p_request_change_order", OracleDbType.Decimal, ParameterDirection.Input);
                 cmd.Parameters.Add("p_eta_expected", OracleDbType.Date, ParameterDirection.Input);
+                cmd.Parameters.Add("p_form_sale_type", OracleDbType.Varchar2, ParameterDirection.Input);
                 cmd.Parameters.Add("p_result", OracleDbType.Decimal, ParameterDirection.Output);
 
                 foreach (var shipment in shipments)
@@ -144,6 +145,7 @@ namespace DataAccessLayer.Import
                     cmd.Parameters["p_booking_type"].Value = shipment.Booking_Type;
                     cmd.Parameters["p_request_change_order"].Value = shipment.Request_Change_Order;
                     cmd.Parameters["p_eta_expected"].Value = shipment.ETA_Expected;
+                    cmd.Parameters["p_form_sale_type"].Value = shipment.Form_Sale_Type;
                     cmd.ExecuteNonQuery();
                     _result = Convert.ToInt32(cmd.Parameters["p_result"].Value);
                     if (_result < 0)
@@ -198,6 +200,7 @@ namespace DataAccessLayer.Import
                 cmd.Parameters.Add("p_booking_type", OracleDbType.Decimal, ParameterDirection.Input);
                 cmd.Parameters.Add("p_request_change_order", OracleDbType.Decimal, ParameterDirection.Input);
                 cmd.Parameters.Add("p_eta_expected", OracleDbType.Date, ParameterDirection.Input);
+                cmd.Parameters.Add("p_form_sale_type", OracleDbType.Varchar2, ParameterDirection.Input);
                 cmd.Parameters.Add("p_result", OracleDbType.Decimal, ParameterDirection.Output);
 
                 foreach (var shipment in shipments)
@@ -231,6 +234,7 @@ namespace DataAccessLayer.Import
                     cmd.Parameters["p_booking_type"].Value = shipment.Booking_Type;
                     cmd.Parameters["p_request_change_order"].Value = shipment.Request_Change_Order;
                     cmd.Parameters["p_eta_expected"].Value = shipment.ETA_Expected;
+                    cmd.Parameters["p_form_sale_type"].Value = shipment.Form_Sale_Type;
                     cmd.ExecuteNonQuery();
                     _result = Convert.ToInt32(cmd.Parameters["p_result"].Value);
                     if (_result < 0)

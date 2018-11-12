@@ -109,7 +109,7 @@ namespace DataAccessLayer.Import
                     new OracleParameter("p_deleted", OracleDbType.Decimal, 0, ParameterDirection.Input),
                     new OracleParameter("p_contract_type", OracleDbType.Decimal, contract.Contract_Type, ParameterDirection.Input),
                     new OracleParameter("p_sign_contract_date", OracleDbType.Date,  contract.Sign_Contract_Date, ParameterDirection.Input),
-                    new OracleParameter("p_price_type", OracleDbType.Decimal, contract.Price_Type, ParameterDirection.Input),
+                    new OracleParameter("p_price_type", OracleDbType.Varchar2, contract.Price_Type, ParameterDirection.Input),
                     new OracleParameter("p_supplier_code", OracleDbType.Varchar2, contract.Supplier_Code, ParameterDirection.Input),
                     paramReturn);
                 return Convert.ToDecimal(paramReturn.Value.ToString());
@@ -142,7 +142,7 @@ namespace DataAccessLayer.Import
                     new OracleParameter("p_deleted", OracleDbType.Decimal, 0, ParameterDirection.Input),
                     new OracleParameter("p_contract_type", OracleDbType.Decimal, contract.Contract_Type, ParameterDirection.Input),
                     new OracleParameter("p_sign_contract_date", OracleDbType.Date, contract.Sign_Contract_Date, ParameterDirection.Input),
-                    new OracleParameter("p_price_type", OracleDbType.Decimal, contract.Price_Type, ParameterDirection.Input),
+                    new OracleParameter("p_price_type", OracleDbType.Varchar2, contract.Price_Type, ParameterDirection.Input),
                     new OracleParameter("p_supplier_code", OracleDbType.Varchar2, contract.Supplier_Code, ParameterDirection.Input),
                     paramReturn);
                 return Convert.ToDecimal(paramReturn.Value.ToString());

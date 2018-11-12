@@ -54,6 +54,7 @@ namespace ObjInfo.Import
         public decimal Booking_Type { get; set; }
         public decimal Request_Change_Order { get; set; }
         public DateTime ETA_Expected { get; set; }
+        public string Form_Sale_Type { get; set; }
         public int Deleted { get; set; }
     }
 }
