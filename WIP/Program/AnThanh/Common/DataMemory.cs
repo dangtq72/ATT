@@ -1,5 +1,7 @@
 ﻿using BusinessFacadeLayer.MemmoryBL;
+using BusinessFacadeLayer.ModuleBaseDataBL;
 using ObjInfo.Catalogue;
+using ObjInfo.ModuleBaseData;
 using ObjInfo.Nation;
 using System;
 using System.Collections;
@@ -129,6 +131,58 @@ namespace AnThanh.Commons
             }
            
         }
+        public static List<SupplierInfo> Get_All_Supplier()
+        {
+            List<SupplierInfo> list = new List<SupplierInfo>();
+            try
+            {
+                SupplierBL _BL = new SupplierBL();
+                list = _BL.GetAll();
+                return list;
+            }
+            catch (Exception ex)
+            {
 
+                NaviCommon.Common.log.Error(ex.ToString());
+                return new List<SupplierInfo>();
+            }
+
+        }
+        public static List<CarriersInfo> Get_All_Carriers()
+        {
+            List<CarriersInfo> list = new List<CarriersInfo>();
+            try
+            {
+                CarriersBL _BL = new CarriersBL();
+                list = _BL.GetAll();
+                return list;
+            }
+            catch (Exception ex)
+            {
+
+                NaviCommon.Common.log.Error(ex.ToString());
+                return new List<CarriersInfo>();
+            }
+
+        }
+
+        public static List<PortInfo> Get_All_Port()
+        {
+            List<PortInfo> list = new List<PortInfo>();
+            try
+            {
+
+                list = PortBL.Port_GetAll();
+                list = list.Where(x => x.Type == Convert.ToInt16(NaviCommon.ATT_Enum.Port_Type.CangXuat)).ToList();
+                return list;
+            }
+            catch (Exception ex)
+            {
+
+                NaviCommon.Common.log.Error(ex.ToString());
+                return new List<PortInfo>();
+            }
+
+        }
     }
 }
